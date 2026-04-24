@@ -83,9 +83,8 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .resend-left{font-size:14px;color:#000;margin-bottom:24px;line-height:20px;text-align:left}
 .resend-link{background:none;border:none;font-size:14px;font-weight:700;color:var(--charcoal);cursor:pointer;text-decoration:underline;padding:0}
 .pw-err{font-size:12px;color:#e53935;margin-top:4px;display:block;min-height:16px}
-.fab{position:fixed;bottom:24px;right:24px;z-index:50;width:60px;height:60px;border-radius:50%;background:var(--blue);box-shadow:0 8px 32px rgba(0,0,0,.09);border:1.5px solid var(--platinum);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
-.fab:hover{background:#c5d4f0}
-.fab img{width:28px;height:29px;object-fit:contain}
+.fab{position:fixed;bottom:24px;right:24px;z-index:50;width:60px;height:60px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:opacity .15s}
+.fab:hover{opacity:.85}
 
 /* ── PROFILE ── */
 #s-profile{min-height:100vh;background:var(--snow)}
@@ -102,7 +101,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .pstack{display:flex;flex-direction:column;gap:16px;width:100%;max-width:800px}
 .pcard{background:#fff;box-shadow:0 4px 6px rgba(0,0,0,.1),0 10px 15px rgba(0,0,0,.1);padding:20px 56px;position:relative}
 .ctitle{font-family:'Overpass',sans-serif;font-weight:700;font-size:20px;color:#000;margin-bottom:16px}
-.ebtn{position:absolute;top:16px;right:16px;width:24px;height:24px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:opacity .15s}
+.ebtn{position:absolute;top:16px;right:16px;width:32px;height:32px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:opacity .15s}
 .ebtn:hover{opacity:.75}
 .abtn{position:absolute;top:16px;right:16px;width:32px;height:32px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:opacity .15s}
 .abtn:hover{opacity:.75}
@@ -391,7 +390,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 
     </div>
   </div>
-  <button class="fab"><img src="https://www.figma.com/api/mcp/asset/1ecf6db4-08fc-49ae-9853-6c97eedcc33d" alt="Chat"/></button>
+  <button class="fab" onclick="toggleChatbot()"><svg width="60" height="60" viewBox="32 24 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="32" y="24" width="60" height="60" rx="30" fill="white"/><rect x="32.75" y="24.75" width="58.5" height="58.5" rx="29.25" stroke="#DEDEE0" stroke-width="1.5"/><path d="M62 39.75C69.8701 39.75 76.25 45.1226 76.25 51.75C76.25 54.5882 75.0791 57.1955 73.123 59.25H73.25L72.8857 59.4922C71.6632 60.7099 70.157 61.7163 68.4541 62.4463L59.2363 68.5928C58.0137 69.4076 56.4697 68.1606 57.0088 66.7939L58.3662 63.3545C52.2565 62.0015 47.75 57.3198 47.75 51.75C47.75 45.1226 54.1299 39.75 62 39.75Z" fill="#0050FC"/><circle cx="55.25" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="62" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="68.75" cy="51.75" r="1.875" fill="#DAE2F6"/></svg></button>
 </div>
 
 <!-- ════════════════ SIGN UP ════════════════ -->
@@ -515,7 +514,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 
     </div>
   </div>
-  <button class="fab"><img src="https://www.figma.com/api/mcp/asset/1ecf6db4-08fc-49ae-9853-6c97eedcc33d" alt="Chat"/></button>
+  <button class="fab" onclick="toggleChatbot()"><svg width="60" height="60" viewBox="32 24 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="32" y="24" width="60" height="60" rx="30" fill="white"/><rect x="32.75" y="24.75" width="58.5" height="58.5" rx="29.25" stroke="#DEDEE0" stroke-width="1.5"/><path d="M62 39.75C69.8701 39.75 76.25 45.1226 76.25 51.75C76.25 54.5882 75.0791 57.1955 73.123 59.25H73.25L72.8857 59.4922C71.6632 60.7099 70.157 61.7163 68.4541 62.4463L59.2363 68.5928C58.0137 69.4076 56.4697 68.1606 57.0088 66.7939L58.3662 63.3545C52.2565 62.0015 47.75 57.3198 47.75 51.75C47.75 45.1226 54.1299 39.75 62 39.75Z" fill="#0050FC"/><circle cx="55.25" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="62" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="68.75" cy="51.75" r="1.875" fill="#DAE2F6"/></svg></button>
 </div>
 
 <!-- ════════════════ PROFILE ════════════════ -->
@@ -546,41 +545,41 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
             </div>
             <div class="ifield">
               <img class="ic20" src="https://www.figma.com/api/mcp/asset/400255c9-7b7d-4b10-a73b-14803cb5598f" alt=""/>
-              <div><div class="ifl">Name</div><div class="ifv">Kevin Lin</div></div>
+              <div><div class="ifl">Name</div><div class="ifv" id="prof-name">Kevin Lin</div></div>
             </div>
             <div class="ifield">
               <img class="ic20" src="https://www.figma.com/api/mcp/asset/1bed9a6b-285a-492b-bf0f-831ddb702d91" alt=""/>
-              <div><div class="ifl">Gender</div><div class="ifv ns">Not set</div></div>
+              <div><div class="ifl">Gender</div><div class="ifv ns" id="prof-gender">Not set</div></div>
             </div>
           </div>
           <div class="div"></div>
           <div class="irow">
             <div class="ifield">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ic20"><path d="M1.75 4.875C1.75 4.29 2.22 3.82 2.81 3.82H17.23C17.82 3.82 18.29 4.29 18.29 4.875C18.29 5.46 17.82 5.93 17.23 5.93H2.81C2.22 5.93 1.75 5.46 1.75 4.875Z" fill="#ABB0B6"/><rect x="4.97" y="2" width="2.36" height="3.2" rx="1.18" fill="#ABB0B6"/><rect x="12.78" y="2" width="2.36" height="3.2" rx="1.18" fill="#ABB0B6"/><rect x="2.49" y="7.13" width="14.99" height="10.87" rx="1.37" stroke="#ABB0B6" stroke-width="2.14"/></svg>
-              <div><div class="ifl">Date of Birth</div><div class="ifv ns">Not set</div></div>
+              <div><div class="ifl">Date of Birth</div><div class="ifv ns" id="prof-dob">Not set</div></div>
             </div>
             <div class="ifield">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ic20"><circle cx="9.98" cy="10.04" r="8.21" stroke="#ABB0B6" stroke-width="2.14"/><path d="M1.77 10.09H18.19" stroke="#ABB0B6" stroke-width="2.14"/><path d="M11.15 1.59C12.22 3.57 13.36 6.51 13.36 9.61C13.36 12.97 12.01 16.35 10.88 18.48" stroke="#ABB0B6" stroke-width="2.14" fill="none"/><path d="M8.81 1.59C7.74 3.57 6.6 6.51 6.6 9.61C6.6 12.97 7.95 16.35 9.08 18.48" stroke="#ABB0B6" stroke-width="2.14" fill="none"/></svg>
-              <div><div class="ifl">Region</div><div class="ifv">Taiwan</div></div>
+              <div><div class="ifl">Region</div><div class="ifv" id="prof-region">Taiwan</div></div>
             </div>
             <div class="ifield">
               <img class="ic20" src="https://www.figma.com/api/mcp/asset/97a03afd-68cc-4808-9430-796143158ea4" alt=""/>
-              <div><div class="ifl">National ID</div><div class="ifv ns">Not set</div></div>
+              <div><div class="ifl">National ID</div><div class="ifv ns" id="prof-natid">Not set</div></div>
             </div>
           </div>
           <div class="div"></div>
           <div class="irow">
             <div class="ifield">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ic20"><path d="M8.25 14.5H12.25" stroke="#ABB0B6" stroke-width="1.5" stroke-linecap="round"/><rect x="3" y="4" width="14" height="15" rx="0.79" stroke="#ABB0B6" stroke-width="2.14"/><path d="M4 5L15 1.5V4" stroke="#ABB0B6" stroke-width="2.14" stroke-linejoin="round"/><path d="M9.83 7.38L9.21 7.21C9.1 7.2 9.05 7.24 9.01 7.32L9.4 9.97L7.94 9.74L7.83 9.4C7.76 9.25 7.64 9.13 7.49 9.07L6.96 8.91C6.85 8.92 6.79 8.97 6.75 9.1L6.89 10.71C6.9 10.81 6.94 10.92 7 11C7.07 11.08 7.15 11.14 7.25 11.17L12.21 12.58C12.38 12.63 12.56 12.63 12.73 12.57C12.9 12.52 13.06 12.42 13.17 12.27C13.27 12.16 13.25 12.02 13.24 11.87C13.22 11.68 13.14 11.5 13.03 11.34C12.91 11.19 12.76 11.07 12.59 11.01L11.15 10.47L10.16 7.7C10.09 7.56 9.97 7.44 9.83 7.38Z" fill="#ABB0B6"/></svg>
-              <div><div class="ifl">Passport ID</div><div class="ifv ns">Not set</div></div>
+              <div><div class="ifl">Passport ID</div><div class="ifv ns" id="prof-passid">Not set</div></div>
             </div>
             <div class="ifield">
               <img class="ic20" src="https://www.figma.com/api/mcp/asset/0e94af49-53fd-43ca-94c3-fc01f70f7cbe" alt=""/>
-              <div><div class="ifl">Dietary Preferences</div><div class="ifv ns">Not set</div></div>
+              <div><div class="ifl">Dietary Preferences</div><div class="ifv ns" id="prof-dietary">Not set</div></div>
             </div>
             <div class="ifield">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ic20"><rect width="16.29" height="10.29" rx="1.01" transform="matrix(0.5 -0.866 0.866 0.5 1.9 14.55)" stroke="#ABB0B6" stroke-width="2.14"/><path d="M9.06 13.47L4.73 10.97" stroke="#ABB0B6" stroke-width="1.71"/><path d="M10.88 10.23L6.55 7.73" stroke="#ABB0B6" stroke-width="1.71"/><path d="M12.69 6.99L8.36 4.49" stroke="#ABB0B6" stroke-width="1.71"/></svg>
-              <div><div class="ifl">Height / Weight</div><div class="ifv">164 cm / <span class="ns">Not set</span></div></div>
+              <div><div class="ifl">Height / Weight</div><div class="ifv" id="prof-hw">164 cm / <span class="ns">Not set</span></div></div>
             </div>
           </div>
         </div>
@@ -658,6 +657,12 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         </div>
       </div>
 
+      <div style="display:flex;justify-content:center;padding:4px 0 0">
+        <button class="cu">
+          <span class="ci"><svg width="11" height="9" viewBox="0 0 14 11" fill="white"><path d="M12.833 0H1.167C.522 0 0 .522 0 1.167v8.75C0 10.478.522 11 1.167 11h11.666C13.478 11 14 10.478 14 9.917V1.167C14 .522 13.478 0 12.833 0zm0 2.333L7 5.833 1.167 2.333V1.167L7 4.667l5.833-3.5v1.166z"/></svg></span>
+          Contact us
+        </button>
+      </div>
       <div class="arow">
         <button class="boutline w240">Export Profile</button>
         <button class="bblk" onclick="doLogout()">Log out</button>
@@ -757,7 +762,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
     </div>
   </div>
 
-  <button class="fab"><img src="https://www.figma.com/api/mcp/asset/f68b5f29-c950-4447-bc0f-49bd27363d2c" alt="Chat"/></button>
+  <button class="fab" onclick="toggleChatbot()"><svg width="60" height="60" viewBox="32 24 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="32" y="24" width="60" height="60" rx="30" fill="white"/><rect x="32.75" y="24.75" width="58.5" height="58.5" rx="29.25" stroke="#DEDEE0" stroke-width="1.5"/><path d="M62 39.75C69.8701 39.75 76.25 45.1226 76.25 51.75C76.25 54.5882 75.0791 57.1955 73.123 59.25H73.25L72.8857 59.4922C71.6632 60.7099 70.157 61.7163 68.4541 62.4463L59.2363 68.5928C58.0137 69.4076 56.4697 68.1606 57.0088 66.7939L58.3662 63.3545C52.2565 62.0015 47.75 57.3198 47.75 51.75C47.75 45.1226 54.1299 39.75 62 39.75Z" fill="#0050FC"/><circle cx="55.25" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="62" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="68.75" cy="51.75" r="1.875" fill="#DAE2F6"/></svg></button>
 </div>
 
 <!-- ════════════════ EDIT PROFILE MODAL ════════════════ -->
@@ -816,18 +821,18 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         <div class="edit-row">
           <div class="ifld">
             <label>First Name</label>
-            <input type="text" placeholder="First name"/>
+            <input id="edit-fname" type="text" placeholder="First name"/>
           </div>
           <div class="ifld">
             <label>Last Name</label>
-            <input type="text" placeholder="Last name"/>
+            <input id="edit-lname" type="text" placeholder="Last name"/>
           </div>
         </div>
         <!-- Gender -->
         <div class="edit-row">
           <div class="ifld">
             <label>Gender</label>
-            <select>
+            <select id="edit-gender">
               <option value="">Not set</option>
               <option>Male</option>
               <option>Female</option>
@@ -837,7 +842,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
           </div>
           <div class="ifld">
             <label>Date of Birth</label>
-            <input type="date"/>
+            <input id="edit-dob" type="date"/>
           </div>
         </div>
         <div class="edit-div"></div>
@@ -845,7 +850,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         <div class="edit-row">
           <div class="ifld">
             <label>Region</label>
-            <select>
+            <select id="edit-region">
               <option value="">Not set</option>
               <option>Taiwan</option>
               <option>United States</option>
@@ -856,14 +861,14 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
           </div>
           <div class="ifld">
             <label>National ID</label>
-            <input type="text" placeholder=""/>
+            <input id="edit-natid" type="text" placeholder=""/>
           </div>
         </div>
         <!-- Passport -->
         <div class="edit-row">
           <div class="ifld">
             <label>Passport ID</label>
-            <input type="text" placeholder=""/>
+            <input id="edit-passid" type="text" placeholder=""/>
           </div>
           <div class="ifld"></div>
         </div>
@@ -879,7 +884,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         <!-- Diet Preference text -->
         <div class="ifld">
           <label>Diet Preference</label>
-          <textarea placeholder="Describe your dietary preferences..."></textarea>
+          <textarea id="edit-dietnote" placeholder="Describe your dietary preferences..."></textarea>
         </div>
         <div class="edit-div"></div>
         <!-- Unit -->
@@ -893,18 +898,18 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         <!-- Height + Weight -->
         <div class="edit-row" style="padding-bottom:16px">
           <div class="ifld">
-            <label>Height (CM)</label>
-            <input type="number" placeholder=""/>
+            <label id="edit-height-label">Height (CM)</label>
+            <input id="edit-height" type="text" placeholder=""/>
           </div>
           <div class="ifld">
-            <label>Weight (KG)</label>
-            <input type="number" placeholder=""/>
+            <label id="edit-weight-label">Weight (KG)</label>
+            <input id="edit-weight" type="text" placeholder=""/>
           </div>
         </div>
       </div>
     </div>
     <div id="edit-modal-footer" class="modal-footer">
-      <button class="bpill" onclick="closeEditModal()">Save</button>
+      <button class="bpill" onclick="saveEditModal()">Save</button>
     </div>
     <!-- Edit Avatar Screen -->
     <div id="edit-av-screen" style="display:none;flex-direction:column;flex:1;overflow:hidden">
@@ -988,6 +993,41 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
       </div>
     </div>
 
+  </div>
+</div>
+
+<!-- ════════════════ CHATBOT DIALOG ════════════════ -->
+<div id="chatbot-dialog" style="display:none;position:fixed;bottom:96px;right:24px;z-index:300;width:400px;height:590px;background:#f2f2f5;border:1px solid #dedee0;border-radius:20px;overflow:hidden;flex-direction:column;box-shadow:0 4px 8px rgba(140,140,140,.1),0 15px 15px rgba(140,140,140,.09),0 33px 20px rgba(140,140,140,.05),0 59px 24px rgba(140,140,140,.01)">
+  <!-- Header -->
+  <div style="background:#fff;height:60px;flex-shrink:0;display:flex;align-items:center;padding:0 16px;gap:8px;border-bottom:1px solid #f2f2f5">
+    <div style="width:36px;height:36px;border-radius:50%;background:#fff;border:0.9px solid #dedee0;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden">
+      <img src="https://www.figma.com/api/mcp/asset/31c1b9fa-2443-4014-b122-c3d83f58b38b" style="width:17px;height:17px" alt=""/>
+    </div>
+    <span style="font-family:'Open Sans',sans-serif;font-weight:700;font-size:16px;color:#353f58;flex:1">GiantBot</span>
+    <button onclick="closeChatbot()" style="width:24px;height:24px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;flex-shrink:0">
+      <img src="https://www.figma.com/api/mcp/asset/bfac911d-8383-46a8-b172-e4455f31c8f0" style="width:14px;height:14px" alt="close"/>
+    </button>
+  </div>
+  <!-- Messages -->
+  <div id="chatbot-messages" style="flex:1;overflow-y:auto;padding:12px 0;display:flex;flex-direction:column;gap:8px">
+    <div style="display:flex;align-items:flex-start;gap:8px;padding:0 11px">
+      <div style="width:24px;height:24px;border-radius:50%;background:#fff;border:0.6px solid #dedee0;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden">
+        <img src="https://www.figma.com/api/mcp/asset/042ba413-8557-4fb6-9e34-78155e4d30e3" style="width:11px;height:12px" alt=""/>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:12px 16px;font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;line-height:20px">Welcome to Giant! 👋🏻</div>
+    </div>
+    <div style="display:flex;align-items:flex-start;padding:0 11px 0 43px">
+      <div style="background:#fff;border-radius:8px;padding:12px 16px;font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;line-height:20px;max-width:300px">I'm here to help you with any questions or issues you might have. Just type your question below, and let's get started!</div>
+    </div>
+  </div>
+  <!-- Input -->
+  <div style="padding:11px;flex-shrink:0">
+    <div style="background:#fff;border:1px solid #dedee0;border-radius:40px;height:50px;display:flex;align-items:center;padding:0 16px 0 20px;gap:8px">
+      <input id="chatbot-input" type="text" placeholder="Type a message..." style="flex:1;border:none;outline:none;font-family:'Open Sans',sans-serif;font-size:14px;color:#353f58;background:transparent" onkeydown="if(event.key==='Enter')sendChatMessage()"/>
+      <button onclick="sendChatMessage()" style="width:32px;height:32px;background:none;border:none;cursor:pointer;padding:0;flex-shrink:0">
+        <img src="https://www.figma.com/api/mcp/asset/28bb7016-8d0a-41f7-a6c1-2f223d30bf62" style="width:32px;height:32px" alt="send"/>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -1535,12 +1575,74 @@ function onModalBoxClick(e) {
 
 // ── Edit Modal ────────────────────────────────────────────────────
 function openEditModal() {
+  // Pre-fill fields from current profile
+  document.getElementById('edit-fname').value = document.getElementById('prof-name').textContent.split(' ')[0] || 'Kevin';
+  document.getElementById('edit-lname').value = document.getElementById('prof-name').textContent.split(' ').slice(1).join(' ') || 'Lin';
+  var g = document.getElementById('prof-gender').textContent.trim();
+  document.getElementById('edit-gender').value = g === 'Not set' ? '' : g;
+  var dob = document.getElementById('prof-dob').textContent.trim();
+  document.getElementById('edit-dob').value = dob === 'Not set' ? '' : dob;
+  var reg = document.getElementById('prof-region').textContent.trim();
+  document.getElementById('edit-region').value = reg === 'Not set' ? '' : reg;
+  document.getElementById('edit-natid').value = (function(){ var t = document.getElementById('prof-natid').textContent.trim(); return t === 'Not set' ? '' : t; })();
+  document.getElementById('edit-passid').value = (function(){ var t = document.getElementById('prof-passid').textContent.trim(); return t === 'Not set' ? '' : t; })();
+  // Parse height/weight from display
+  var hw = document.getElementById('prof-hw').textContent.replace(/Not set/g,'').split('/');
+  var hVal = hw[0] ? hw[0].replace(/[^\d.]/g,'').trim() : '';
+  var wVal = hw[1] ? hw[1].replace(/[^\d.]/g,'').trim() : '';
+  document.getElementById('edit-height').value = hVal;
+  document.getElementById('edit-weight').value = wVal;
+  setUnitTab('metric');
   document.getElementById('edit-modal').classList.remove('hidden');
   document.getElementById('edit-modal-head').style.display = '';
   document.getElementById('edit-modal-body').style.display = '';
   document.getElementById('edit-modal-footer').style.display = '';
   document.getElementById('edit-av-screen').style.display = 'none';
   document.getElementById('av-menu').style.display = 'none';
+}
+function saveEditModal() {
+  var fname = document.getElementById('edit-fname').value.trim();
+  var lname = document.getElementById('edit-lname').value.trim();
+  var gender = document.getElementById('edit-gender').value;
+  var dob = document.getElementById('edit-dob').value;
+  var region = document.getElementById('edit-region').value;
+  var natid = document.getElementById('edit-natid').value.trim();
+  var passid = document.getElementById('edit-passid').value.trim();
+  var height = document.getElementById('edit-height').value.trim();
+  var weight = document.getElementById('edit-weight').value.trim();
+  var unit = document.querySelector('.unit-pill.on').dataset.val;
+  function setField(id, val, cls) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = val || 'Not set';
+    el.className = val ? cls : cls + ' ns';
+  }
+  var nameEl = document.getElementById('prof-name');
+  if (nameEl) nameEl.textContent = (fname + ' ' + lname).trim() || 'Not set';
+  setField('prof-gender', gender, 'ifv');
+  setField('prof-dob', dob, 'ifv');
+  setField('prof-region', region, 'ifv');
+  setField('prof-natid', natid, 'ifv');
+  setField('prof-passid', passid, 'ifv');
+  var hUnit = unit === 'metric' ? 'cm' : 'in';
+  var wUnit = unit === 'metric' ? 'kg' : 'lb';
+  var hwEl = document.getElementById('prof-hw');
+  if (hwEl) {
+    var hTxt = height ? height + ' ' + hUnit : null;
+    var wTxt = weight ? weight + ' ' + wUnit : null;
+    if (hTxt && wTxt) hwEl.innerHTML = hTxt + ' / ' + wTxt;
+    else if (hTxt) hwEl.innerHTML = hTxt + ' / <span class="ns">Not set</span>';
+    else if (wTxt) hwEl.innerHTML = '<span class="ns">Not set</span> / ' + wTxt;
+    else hwEl.innerHTML = '<span class="ns">Not set</span>';
+  }
+  var dietPill = document.querySelector('.diet-pill.on');
+  var dietEl = document.getElementById('prof-dietary');
+  if (dietEl && dietPill) {
+    var dietNote = document.getElementById('edit-dietnote').value.trim();
+    dietEl.textContent = dietNote || dietPill.textContent;
+    dietEl.className = 'ifv';
+  }
+  closeEditModal();
 }
 function closeEditModal() {
   document.getElementById('edit-modal').classList.add('hidden');
@@ -1610,6 +1712,32 @@ function setUnitTab(val) {
   document.querySelectorAll('.unit-pill').forEach(function(b) {
     b.classList.toggle('on', b.dataset.val === val);
   });
+  var hl = document.getElementById('edit-height-label');
+  var wl = document.getElementById('edit-weight-label');
+  if (hl) hl.textContent = val === 'metric' ? 'Height (CM)' : 'Height (Inch)';
+  if (wl) wl.textContent = val === 'metric' ? 'Weight (KG)' : 'Weight (Pound)';
+}
+
+// ── Chatbot ───────────────────────────────────────────────────────
+function toggleChatbot() {
+  var dlg = document.getElementById('chatbot-dialog');
+  dlg.style.display = dlg.style.display === 'flex' ? 'none' : 'flex';
+  if (dlg.style.display === 'flex') setTimeout(function(){ document.getElementById('chatbot-input').focus(); }, 50);
+}
+function closeChatbot() {
+  document.getElementById('chatbot-dialog').style.display = 'none';
+}
+function sendChatMessage() {
+  var inp = document.getElementById('chatbot-input');
+  var msg = inp.value.trim();
+  if (!msg) return;
+  var msgs = document.getElementById('chatbot-messages');
+  var userDiv = document.createElement('div');
+  userDiv.style.cssText = 'display:flex;justify-content:flex-end;padding:4px 11px';
+  userDiv.innerHTML = '<div style="background:#0050FC;border-radius:8px;padding:10px 16px;font-family:\'Open Sans\',sans-serif;font-size:14px;color:#fff;line-height:20px;max-width:280px">' + msg.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>';
+  msgs.appendChild(userDiv);
+  inp.value = '';
+  msgs.scrollTop = msgs.scrollHeight;
 }
 
 // ── Edit Email Modal ──────────────────────────────────────────────
