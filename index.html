@@ -92,18 +92,20 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .ph{background:#fff;padding:16px 40px 0;box-shadow:0 1px 0 var(--pearl)}
 .ph img.logo{height:16px;width:auto;margin-bottom:20px;display:block}
 .tabs{display:flex}
-.tab{position:relative;width:140px;text-align:center;padding-bottom:12px;font-size:16px;background:none;border:none;cursor:pointer;transition:color .15s;font-family:'Open Sans',sans-serif}
+.tab{position:relative;width:140px;text-align:center;padding-bottom:12px;font-size:16px;background:none;border:none;cursor:pointer;transition:color .2s;font-family:'Open Sans',sans-serif}
 .tab.on{font-weight:700;color:#000}
 .tab:not(.on){font-weight:400;color:var(--slate)}
-.tab.on::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:#000}
+.tab:hover{color:#0050FC}
+.tab.on::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:#000;transition:background .2s}
+.tab:hover::after{background:#0050FC}
 .pcontent{display:flex;justify-content:center;padding:24px 16px 80px}
 .pstack{display:flex;flex-direction:column;gap:16px;width:100%;max-width:800px}
 .pcard{background:#fff;box-shadow:0 4px 6px rgba(0,0,0,.1),0 10px 15px rgba(0,0,0,.1);padding:20px 56px;position:relative}
-.ctitle{font-family:'Overpass',sans-serif;font-weight:700;font-size:16px;color:#000;margin-bottom:16px}
-.ebtn{position:absolute;top:16px;right:16px;width:32px;height:32px;background:var(--blue);border-radius:4px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
-.ebtn:hover{background:#c5d4f0}
-.abtn{position:absolute;top:16px;right:16px;width:32px;height:32px;background:var(--blue);border-radius:12px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
-.abtn:hover{background:#c5d4f0}
+.ctitle{font-family:'Overpass',sans-serif;font-weight:700;font-size:20px;color:#000;margin-bottom:16px}
+.ebtn{position:absolute;top:16px;right:16px;width:24px;height:24px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:opacity .15s}
+.ebtn:hover{opacity:.75}
+.abtn{position:absolute;top:16px;right:16px;width:32px;height:32px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:opacity .15s}
+.abtn:hover{opacity:.75}
 .avsec{display:flex;flex-direction:column;align-items:center;padding:20px 0;position:relative}
 .avcircle{width:100px;height:100px;background:var(--platinum);border-radius:50%;display:flex;align-items:center;justify-content:center}
 .avedit{position:absolute;top:20px;right:0;width:32px;height:32px;background:var(--blue);border-radius:4px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
@@ -120,7 +122,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .ci2{display:flex;align-items:flex-start;gap:12px}
 .ci2 .ic20{width:20px;height:20px;flex-shrink:0;margin-top:2px;display:block}
 .ci2c{flex:1;min-width:0}
-.ci2l{font-size:14px;font-weight:700;color:var(--charcoal)}
+.ci2l{font-size:16px;font-weight:700;color:var(--charcoal)}
 .ci2v{font-size:14px;color:var(--slate)}
 .ci2v.ns{color:var(--silver)}
 .chev{width:32px;height:32px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--slate);flex-shrink:0;transition:color .15s}
@@ -532,9 +534,9 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 
       <!-- Basic Info -->
       <div class="pcard">
-        <button class="ebtn" onclick="openEditModal()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12.625 17.625H17.625M17.7337 8.75774C18.0642 8.42738 18.2498 7.97928 18.2499 7.51202C18.2499 7.04476 18.0644 6.59662 17.734 6.26618C17.4037 5.93573 16.9556 5.75006 16.4883 5.75C16.021 5.74994 15.5729 5.9355 15.2425 6.26586L6.90121 14.609C6.7561 14.7537 6.64878 14.9318 6.58871 15.1277L5.76308 17.8477C5.74693 17.9018 5.74571 17.9592 5.75955 18.0139C5.7734 18.0686 5.80178 18.1185 5.84171 18.1584C5.88163 18.1982 5.9316 18.2265 5.98631 18.2403C6.04102 18.254 6.09843 18.2527 6.15246 18.2365L8.87308 17.4115C9.06882 17.352 9.24694 17.2453 9.39183 17.1009L17.7337 8.75774Z" stroke="#0050FC" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="ebtn" onclick="openEditModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="3" fill="#DAE2F6"/><path d="M12.625 17.625H17.625M17.7337 8.75774C18.0642 8.42738 18.2498 7.97928 18.2499 7.51202C18.2499 7.04476 18.0644 6.59662 17.734 6.26618C17.4037 5.93573 16.9556 5.75006 16.4883 5.75C16.021 5.74994 15.5729 5.9355 15.2425 6.26586L6.90121 14.609C6.7561 14.7537 6.64878 14.9318 6.58871 15.1277L5.76308 17.8477C5.74693 17.9018 5.74571 17.9592 5.75955 18.0139C5.7734 18.0686 5.80178 18.1185 5.84171 18.1584C5.88163 18.1982 5.9316 18.2265 5.98631 18.2403C6.04102 18.254 6.09843 18.2527 6.15246 18.2365L8.87308 17.4115C9.06882 17.352 9.24694 17.2453 9.39183 17.1009L17.7337 8.75774Z" stroke="#0050FC" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="avsec">
-          <div class="avcircle"><svg width="44" height="44" style="color:#58626e"><use href="#user"/></svg></div>
+          <div class="avcircle"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="50" fill="#DEDEE0"/><path fill-rule="evenodd" clip-rule="evenodd" d="M50.0002 37.1667C46.9626 37.1667 44.5002 39.6291 44.5002 42.6667C44.5002 45.7042 46.9626 48.1667 50.0002 48.1667C53.0377 48.1667 55.5002 45.7042 55.5002 42.6667C55.5002 39.6291 53.0377 37.1667 50.0002 37.1667ZM40.8335 42.6667C40.8335 37.6041 44.9376 33.5 50.0002 33.5C55.0628 33.5 59.1668 37.6041 59.1668 42.6667C59.1668 47.7293 55.0628 51.8333 50.0002 51.8333C44.9376 51.8333 40.8335 47.7293 40.8335 42.6667Z" fill="#222020" stroke="#222020" stroke-width="0.825"/><path fill-rule="evenodd" clip-rule="evenodd" d="M41.7334 53.666H58.2673L68.2673 67.416H41.7334L48.1498 63.7493H61.0668L56.4001 57.3327H43.6006L36.2501 67.416H31.6667L41.7334 53.666Z" fill="#222020" stroke="#222020" stroke-width="0.825"/></svg></div>
         </div>
         <div class="igrid">
           <div class="irow">
@@ -626,7 +628,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 
       <!-- Common Contacts -->
       <div class="pcard">
-        <button class="abtn"><svg width="14" height="14"><use href="#plus"/></svg></button>
+        <button class="abtn"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="12" fill="#DAE2F6"/><path d="M8.5 15.5L23.5 15.5" stroke="#0050FC" stroke-width="2.14" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 8.5L16.5 23.5" stroke="#0050FC" stroke-width="2.14" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <h2 class="ctitle">Common Contacts</h2>
         <div class="cgrid">
           <div class="cperson"><div class="cav"><svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-avatar"/></svg></div><div><div class="cpn">Alice Chen</div><div class="cpi">+886 912 345 678</div></div></div>
