@@ -57,8 +57,8 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .ck-img{width:24px;height:24px;flex-shrink:0;display:block}
 .ck-lbl{font-family:'Open Sans',sans-serif;font-size:12px;color:#000;cursor:pointer;line-height:16px}
 .brow{display:flex;align-items:center;justify-content:space-between}
-.btx{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#000;background:none;border:none;cursor:pointer;opacity:1;transition:opacity .15s;padding:0}
-.btx:hover{opacity:.6}
+.btx{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#000;background:none;border:none;cursor:pointer;transition:color .15s;padding:0}
+.btx:hover{color:#0050FC}
 .bpill{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#fff;background:#000;border:none;border-radius:24px;height:40px;padding:0 24px;cursor:pointer;transition:background .15s}
 .bpill:hover{background:#333}
 .bpill:disabled{background:#9b9b9b;color:#e8e8e8;cursor:not-allowed}
@@ -68,7 +68,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .bblk{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#fff;background:#000;border:none;border-radius:24px;height:40px;padding:0 24px;cursor:pointer;text-transform:uppercase;width:240px;transition:background .15s}
 .bblk:hover{background:#333}
 .btn-forgot{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:var(--charcoal);background:none;border:none;cursor:pointer;padding:0;display:block;margin-bottom:20px;transition:color .15s}
-.btn-forgot:hover{color:#000}
+.btn-forgot:hover{color:#0050FC}
 .or{display:flex;align-items:center;gap:16px;margin-bottom:24px}
 .or::before,.or::after{content:'';flex:1;height:1px;background:var(--platinum)}
 .or span{font-size:14px;color:var(--slate)}
@@ -76,7 +76,9 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .sb{flex:1;height:40px;border:1px solid var(--platinum);border-radius:24px;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s}
 .sb:hover{background:var(--pearl)}
 .sb img{height:15px;width:15px;object-fit:contain}
-.cu{display:flex;align-items:center;justify-content:center;gap:6px;font-size:14px;color:#ABB0B6;background:none;border:none;cursor:pointer;width:100%}
+.cu{display:flex;align-items:center;justify-content:center;gap:6px;font-size:14px;color:#ABB0B6;background:none;border:none;cursor:pointer;width:100%;transition:color .15s}
+.cu:hover{color:#0050FC}
+.cu:hover .ci{background:#0050FC}
 .ci{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:#ABB0B6;border-radius:50%;flex-shrink:0}
 .resend-left{font-size:14px;color:#000;margin-bottom:24px;line-height:20px;text-align:left}
 .resend-link{background:none;border:none;font-size:14px;font-weight:700;color:var(--charcoal);cursor:pointer;text-decoration:underline;padding:0}
@@ -97,7 +99,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .pcontent{display:flex;justify-content:center;padding:24px 16px 80px}
 .pstack{display:flex;flex-direction:column;gap:16px;width:100%;max-width:800px}
 .pcard{background:#fff;box-shadow:0 4px 6px rgba(0,0,0,.1),0 10px 15px rgba(0,0,0,.1);padding:20px 56px;position:relative}
-.ctitle{font-family:'Overpass',sans-serif;font-weight:700;font-size:20px;color:#000;margin-bottom:16px}
+.ctitle{font-family:'Overpass',sans-serif;font-weight:700;font-size:16px;color:#000;margin-bottom:16px}
 .ebtn{position:absolute;top:16px;right:16px;width:32px;height:32px;background:var(--blue);border-radius:4px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
 .ebtn:hover{background:#c5d4f0}
 .abtn{position:absolute;top:16px;right:16px;width:32px;height:32px;background:var(--blue);border-radius:12px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
@@ -188,6 +190,9 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .rcaptcha-logo-sub{font-family:Arial,sans-serif;font-size:7px;color:#666;text-align:center}
 .em-cur-email{height:40px;display:flex;align-items:center;padding:0 12px;border:1px solid var(--platinum);border-radius:4px;font-size:14px;color:var(--slate);background:#fafafa;font-family:'Open Sans',sans-serif}
 .em-email-row{display:flex;align-items:center;gap:8px;padding:4px 0 2px}
+@keyframes sk-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+.sk-box{background:linear-gradient(90deg,#ebebeb 25%,#d6d6d6 50%,#ebebeb 75%);background-size:800px 100%;animation:sk-shimmer 1.4s infinite;border-radius:4px}
+#skeleton-overlay{display:none;position:fixed;inset:0;z-index:100;background:#f7f6f7;flex-direction:column;transition:opacity .4s}
 </style>
 </head>
 <body>
@@ -591,8 +596,8 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
           <div class="div"></div>
           <div class="ci2">
             <img class="ic20" src="https://www.figma.com/api/mcp/asset/86c90277-c36e-4670-b879-e467a5be0582" alt=""/>
-            <div class="ci2c"><div class="ci2l">Phone Number</div><div class="ci2v ns">Not set</div></div>
-            <button class="chev"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
+            <div class="ci2c"><div class="ci2l">Phone Number</div><div class="ci2v ns" id="profile-phone-display">Not set</div></div>
+            <button class="chev" onclick="openEditPhoneModal()"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
           </div>
           <div class="div"></div>
           <div class="ci2" style="align-items:flex-start">
@@ -653,7 +658,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 
       <div class="arow">
         <button class="boutline w240">Export Profile</button>
-        <button class="bblk" onclick="toScreen('s-login')">Log out</button>
+        <button class="bblk" onclick="doLogout()">Log out</button>
       </div>
     </div>
   </div>
@@ -984,6 +989,140 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
   </div>
 </div>
 
+<!-- ════════════════ SKELETON OVERLAY ════════════════ -->
+<div id="skeleton-overlay">
+  <div style="background:#fff;padding:16px 40px 0;box-shadow:0 1px 0 #f2f2f5;flex-shrink:0">
+    <div class="sk-box" style="width:80px;height:16px;margin-bottom:20px"></div>
+    <div style="display:flex;gap:0">
+      <div class="sk-box" style="width:140px;height:40px;border-radius:0"></div>
+      <div class="sk-box" style="width:140px;height:40px;border-radius:0;opacity:.4"></div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:center;padding:24px 16px;gap:16px;overflow:auto">
+    <div style="background:#fff;box-shadow:0 4px 6px rgba(0,0,0,.08);padding:20px 56px;width:100%;max-width:800px;border-radius:2px">
+      <div style="display:flex;flex-direction:column;align-items:center;padding:20px 0">
+        <div class="sk-box" style="width:100px;height:100px;border-radius:50%"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+          <div class="sk-box" style="height:44px"></div>
+          <div class="sk-box" style="height:44px"></div>
+          <div class="sk-box" style="height:44px"></div>
+        </div>
+        <div class="sk-box" style="height:1px;border-radius:0"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+          <div class="sk-box" style="height:44px"></div>
+          <div class="sk-box" style="height:44px"></div>
+          <div class="sk-box" style="height:44px"></div>
+        </div>
+        <div class="sk-box" style="height:1px;border-radius:0"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+          <div class="sk-box" style="height:44px"></div>
+          <div class="sk-box" style="height:44px"></div>
+          <div class="sk-box" style="height:44px"></div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#fff;box-shadow:0 4px 6px rgba(0,0,0,.08);padding:20px 56px;width:100%;max-width:800px;border-radius:2px">
+      <div class="sk-box" style="width:100px;height:16px;margin-bottom:20px"></div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="sk-box" style="height:36px"></div>
+        <div class="sk-box" style="height:1px;border-radius:0"></div>
+        <div class="sk-box" style="height:36px"></div>
+        <div class="sk-box" style="height:1px;border-radius:0"></div>
+        <div class="sk-box" style="height:60px"></div>
+      </div>
+    </div>
+    <div style="background:#fff;box-shadow:0 4px 6px rgba(0,0,0,.08);padding:20px 56px;width:100%;max-width:800px;border-radius:2px">
+      <div class="sk-box" style="width:140px;height:16px;margin-bottom:20px"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="sk-box" style="height:44px"></div>
+        <div class="sk-box" style="height:44px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ EDIT PHONE MODAL ════════════════ -->
+<div id="phone-modal" class="modal-overlay hidden" onclick="closePhoneModal()">
+  <div class="modal-box" style="height:auto;min-height:520px" onclick="event.stopPropagation()">
+
+    <!-- Step 1: Enter New Phone -->
+    <div id="pm-step1" style="display:flex;flex-direction:column;flex:1">
+      <div class="modal-head">
+        <button class="modal-back" onclick="closePhoneModal()"><svg width="20" height="20"><use href="#chev-l"/></svg></button>
+        <span class="modal-title">Edit Phone Number</span>
+      </div>
+      <div class="modal-body">
+        <div class="edit-fields">
+          <div class="ifld">
+            <label>Current Phone Number</label>
+            <div class="em-cur-email" id="pm-cur-display">Not set</div>
+          </div>
+          <div class="ifld">
+            <label>New Phone Number</label>
+            <div class="inp-wrap" style="border:1px solid var(--platinum);border-radius:4px;height:40px;overflow:hidden">
+              <div style="display:flex;align-items:center;height:100%;background:#fff">
+                <div class="ccw" id="pm-ccw" style="height:100%">
+                  <button class="cc-in-btn" onclick="togglePmCC()" style="height:100%">
+                    <span id="pm-cc-val">+886</span>
+                    <svg width="11" height="11"><use href="#chev-d"/></svg>
+                  </button>
+                  <div class="ccd" id="pm-ccd"></div>
+                </div>
+                <div class="cc-sep"></div>
+              </div>
+              <input id="pm-phone-inp" class="inp" type="tel" placeholder="Phone number"
+                style="border:none;height:100%;flex:1"
+                oninput="onPmPhone(this.value)" onkeydown="if(event.key==='Enter')submitPmPhone()"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="bpill" id="btn-pm-next1" onclick="submitPmPhone()" disabled>Next</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Verify Code -->
+    <div id="pm-step2" style="display:none;flex-direction:column;flex:1">
+      <div class="modal-head" style="flex-direction:column;align-items:flex-start;gap:2px">
+        <div style="display:flex;align-items:center;gap:8px;width:100%">
+          <button class="modal-back" onclick="pmGoBack()"><svg width="20" height="20"><use href="#chev-l"/></svg></button>
+          <span class="modal-title">Edit Phone Number</span>
+        </div>
+        <p style="font-size:14px;color:#58626e;margin:0;padding-left:40px;line-height:20px;font-family:'Open Sans',sans-serif">We sent a verify code to your phone</p>
+      </div>
+      <div class="modal-body">
+        <div class="edit-fields">
+          <div class="em-email-row">
+            <div class="id-icon" id="pm-icon" style="flex-shrink:0"></div>
+            <span id="pm-display-phone" style="font-size:14px;font-weight:700;color:#222020;font-family:'Open Sans',sans-serif"></span>
+          </div>
+          <div class="ifld">
+            <input id="pm-code-inp" class="inp" type="text" placeholder="Verify code" oninput="onPmCode(this.value)" onkeydown="if(event.key==='Enter')submitPmVerify()"/>
+          </div>
+          <p id="pm-resend-text" style="font-size:14px;color:#222020;margin-top:4px;line-height:20px;font-family:'Open Sans',sans-serif"></p>
+          <div class="rcaptcha" style="margin-top:12px">
+            <label class="rcaptcha-check">
+              <input type="checkbox" id="pm-captcha-ck" onchange="togglePmCaptcha()"/>
+              <span>我不是機器人</span>
+            </label>
+            <div class="rcaptcha-logo">
+              <div class="rcaptcha-logo-text">reCAPTCHA</div>
+              <div class="rcaptcha-logo-sub">隱私 條款</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="bpill" id="btn-pm-next2" onclick="submitPmVerify()" disabled>Save</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script>
 // ── Assets ────────────────────────────────────────────────────────
 var IC_EMAIL_BG = 'https://www.figma.com/api/mcp/asset/8285c9b9-8d23-4ddf-a1de-1bfe49c14e86';
@@ -1003,8 +1142,10 @@ var COUNTRIES = [
 ];
 function buildDropdown(dropId, ns) {
   var dd = document.getElementById(dropId);
+  var fn = ns === 'pm' ? 'pickPmCC' : 'pickCC';
+  var arg2 = ns === 'pm' ? '' : (',\'' + ns + '\'');
   dd.innerHTML = COUNTRIES.map(function(c) {
-    return '<button class="cco" onclick="pickCC(\'' + c[2] + '\',\'' + ns + '\')">'
+    return '<button class="cco" onclick="' + fn + '(\'' + c[2] + '\'' + arg2 + ')">'
          + c[0] + ' ' + c[1] + ' (' + c[2] + ')</button>';
   }).join('');
 }
@@ -1164,6 +1305,7 @@ function doVerify() {
   if (!loginCode.trim()) return;
   clearInterval(loginTimer);
   toScreen('s-profile');
+  showSkeleton();
 }
 
 // ── LOGIN: forgot password — verify ───────────────────────────────
@@ -1368,6 +1510,7 @@ function validateSuProfile() {
 function doSignUp() {
   if (!suTerms) return;
   toScreen('s-profile');
+  showSkeleton();
 }
 
 // ── Profile tabs ──────────────────────────────────────────────────
@@ -1543,10 +1686,125 @@ function submitEmVerify() {
   closeEmailModal();
 }
 
+// ── Skeleton ──────────────────────────────────────────────────────
+function showSkeleton() {
+  var sk = document.getElementById('skeleton-overlay');
+  sk.style.opacity = '1';
+  sk.style.display = 'flex';
+  setTimeout(function() {
+    sk.style.opacity = '0';
+    setTimeout(function() { sk.style.display = 'none'; }, 400);
+  }, 3000);
+}
+
+// ── Logout ────────────────────────────────────────────────────────
+function doLogout() {
+  idVal = ''; pwVal = ''; curMode = 'unknown';
+  document.getElementById('id-inp').value = '';
+  document.getElementById('pw-inp').value = '';
+  document.getElementById('cc-in').classList.remove('on');
+  document.getElementById('id-inp').style.paddingLeft = '12px';
+  document.getElementById('btn-id').disabled = true;
+  toStep('st-id');
+  toScreen('s-login');
+}
+
+// ── Edit Phone Modal ──────────────────────────────────────────────
+var pmNewPhone = '', pmCC = '+886', pmCode = '', pmCaptcha = false;
+var pmTimer = null, pmSec = 60;
+
+function openEditPhoneModal() {
+  pmNewPhone = ''; pmCode = ''; pmCaptcha = false;
+  document.getElementById('pm-phone-inp').value = '';
+  document.getElementById('pm-code-inp').value = '';
+  document.getElementById('pm-captcha-ck').checked = false;
+  document.getElementById('btn-pm-next1').disabled = true;
+  document.getElementById('btn-pm-next2').disabled = true;
+  var cur = document.getElementById('profile-phone-display').textContent.trim();
+  document.getElementById('pm-cur-display').textContent = cur === 'Not set' ? 'Not set' : cur;
+  showPmStep(1);
+  document.getElementById('phone-modal').classList.remove('hidden');
+  setTimeout(function(){ document.getElementById('pm-phone-inp').focus(); }, 50);
+}
+function closePhoneModal() {
+  document.getElementById('phone-modal').classList.add('hidden');
+  clearInterval(pmTimer);
+}
+function showPmStep(n) {
+  document.getElementById('pm-step1').style.display = n === 1 ? 'flex' : 'none';
+  document.getElementById('pm-step2').style.display = n === 2 ? 'flex' : 'none';
+}
+function togglePmCC() {
+  document.getElementById('pm-ccd').classList.toggle('on');
+}
+function pickPmCC(code) {
+  pmCC = code;
+  document.getElementById('pm-cc-val').textContent = code;
+  document.getElementById('pm-ccd').classList.remove('on');
+  onPmPhone(document.getElementById('pm-phone-inp').value);
+}
+function onPmPhone(v) {
+  pmNewPhone = v;
+  document.getElementById('btn-pm-next1').disabled = !(v.trim().length >= 6 && /\d/.test(v));
+}
+function submitPmPhone() {
+  if (!pmNewPhone.trim()) return;
+  var full = pmCC + ' ' + pmNewPhone;
+  document.getElementById('pm-icon').innerHTML = iconHTML('phone');
+  document.getElementById('pm-display-phone').textContent = full;
+  pmCode = ''; pmCaptcha = false;
+  document.getElementById('pm-code-inp').value = '';
+  document.getElementById('pm-captcha-ck').checked = false;
+  document.getElementById('btn-pm-next2').disabled = true;
+  showPmStep(2);
+  startPmCountdown();
+  setTimeout(function(){ document.getElementById('pm-code-inp').focus(); }, 50);
+}
+function pmGoBack() { clearInterval(pmTimer); showPmStep(1); }
+function startPmCountdown() {
+  clearInterval(pmTimer); pmSec = 60;
+  updatePmResend();
+  pmTimer = setInterval(function() {
+    pmSec--;
+    if (pmSec <= 0) {
+      clearInterval(pmTimer);
+      document.getElementById('pm-resend-text').innerHTML =
+        '<button class="resend-link" onclick="startPmCountdown()">Resend verify code</button>';
+    } else {
+      updatePmResend();
+    }
+  }, 1000);
+}
+function updatePmResend() {
+  var el = document.getElementById('pm-resend-text');
+  if (el) el.textContent = 'Resend available in ' + pmSec + 's';
+}
+function onPmCode(v) {
+  pmCode = v;
+  validatePmStep2();
+}
+function togglePmCaptcha() {
+  pmCaptcha = document.getElementById('pm-captcha-ck').checked;
+  validatePmStep2();
+}
+function validatePmStep2() {
+  document.getElementById('btn-pm-next2').disabled = !pmCode.trim() || !pmCaptcha;
+}
+function submitPmVerify() {
+  if (!pmCode.trim() || !pmCaptcha) return;
+  clearInterval(pmTimer);
+  var full = pmCC + ' ' + pmNewPhone;
+  var disp = document.getElementById('profile-phone-display');
+  disp.textContent = full;
+  disp.classList.remove('ns');
+  closePhoneModal();
+}
+
 // ── Init ──────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', function() {
   buildDropdown('ccd', 'login');
   buildDropdown('su-ccd', 'su');
+  buildDropdown('pm-ccd', 'pm');
   document.getElementById('ck-terms-img').src = CK_INACTIVE;
   document.getElementById('ck-news-img').src = CK_ACTIVE;
 });
