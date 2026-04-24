@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Giant ID 3.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Overpass:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
+:root{
+  --black:#000;--charcoal:#222020;--slate:#58626e;--silver:#abb0b6;
+  --platinum:#dedee0;--pearl:#f2f2f5;--snow:#f7f6f7;--blue:#dae2f6;--white:#fff;
+  --primary-blue:#005EB8;
+}
+.screen{display:none}
+#s-login,#s-signup{min-height:100vh;position:relative;overflow:hidden}
+.l-bg{position:absolute;inset:0;z-index:0}
+.l-bg img{width:100%;height:100%;object-fit:cover}
+.l-bg::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.08)}
+.l-hero{position:relative;z-index:1;flex:1;display:flex;align-items:flex-start;padding-left:200px;padding-top:calc(50vh - 157px)}
+.l-hero h1{font-family:'Overpass',sans-serif;font-weight:700;font-size:40px;line-height:52px;color:#fff;width:440px;text-shadow:0 0 6px rgba(0,0,0,.25)}
+.l-right{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;padding:32px 64px 32px 0}
+.card{width:488px;background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.09);padding:44px 52px;min-height:497px}
+.step{display:none}.step.on{display:block}
+.brand{display:block;height:16px;margin:0 0 32px 0}
+.ttl{font-family:'Overpass',sans-serif;font-weight:700;font-size:20px;color:#000;margin-bottom:32px}
+.sub{font-size:14px;color:var(--slate);margin-bottom:12px;line-height:20px}
+.lbl{display:block;font-size:14px;font-weight:700;color:var(--charcoal);margin-bottom:4px}
+.fg{margin-bottom:24px}
+.inp{width:100%;height:40px;padding:0 12px;border:1px solid var(--platinum);border-radius:4px;background:#fff;font-family:'Open Sans',sans-serif;font-size:14px;color:var(--charcoal);outline:none;transition:border-color .15s}
+.inp:focus{border-color:#000}
+.inp-wrap{position:relative;display:flex;align-items:center}
+.cc-in{display:none;position:absolute;left:1px;top:1px;bottom:1px;align-items:center;z-index:2;border-radius:3px 0 0 3px;background:#fff}
+.cc-in.on{display:flex}
+.cc-in-btn{display:flex;align-items:center;gap:3px;padding:0 6px 0 11px;height:100%;background:none;border:none;font-family:'Open Sans',sans-serif;font-size:14px;color:var(--charcoal);cursor:pointer;white-space:nowrap}
+.cc-sep{width:1px;height:60%;background:var(--platinum);flex-shrink:0}
+.ccw{position:relative;display:flex;align-items:center;height:100%}
+.ccd{display:none;position:absolute;top:calc(100% + 6px);left:-12px;z-index:99;background:#fff;border:1px solid var(--platinum);border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,.12);min-width:260px;max-height:240px;overflow-y:auto}
+.ccd.on{display:block}
+.cco{display:block;width:100%;height:40px;line-height:40px;padding:0 16px;font-family:'Open Sans',sans-serif;font-size:12px;color:var(--charcoal);background:none;border:none;cursor:pointer;text-align:left;white-space:nowrap;letter-spacing:.24px}
+.cco:hover{background:var(--pearl)}
+.pw-wrap{position:relative}
+.pw-wrap .inp{padding-right:40px}
+.eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--slate);display:flex;align-items:center;padding:0;transition:color .15s}
+.eye:hover{color:#000}
+.id-row{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.id-icon{width:20px;height:20px;position:relative;flex-shrink:0}
+.id-name{font-size:14px;font-weight:700;color:var(--charcoal)}
+.step-ind{display:flex;align-items:center;gap:6px;margin-bottom:24px}
+.step-num{width:20px;height:20px;border-radius:50%;background:var(--primary-blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Open Sans',sans-serif;font-weight:600;font-size:12px;color:#fff;line-height:1}
+.step-desc{font-size:14px;color:var(--slate)}
+.name-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.ck-row{display:flex;align-items:center;gap:8px;margin-bottom:16px;cursor:pointer;user-select:none}
+.ck-img{width:24px;height:24px;flex-shrink:0;display:block}
+.ck-lbl{font-family:'Open Sans',sans-serif;font-size:12px;color:#000;cursor:pointer;line-height:16px}
+.brow{display:flex;align-items:center;justify-content:space-between}
+.btx{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#000;background:none;border:none;cursor:pointer;opacity:1;transition:opacity .15s;padding:0}
+.btx:hover{opacity:.6}
+.bpill{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#fff;background:#000;border:none;border-radius:24px;height:40px;padding:0 24px;cursor:pointer;transition:background .15s}
+.bpill:hover{background:#333}
+.bpill:disabled{background:#9b9b9b;color:#e8e8e8;cursor:not-allowed}
+.boutline{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#000;background:transparent;border:2px solid #000;border-radius:24px;height:40px;padding:0 24px;cursor:pointer;text-transform:uppercase;transition:background .15s}
+.boutline:hover{background:rgba(0,0,0,.05)}
+.boutline.w240{width:240px}
+.bblk{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#fff;background:#000;border:none;border-radius:24px;height:40px;padding:0 24px;cursor:pointer;text-transform:uppercase;width:240px;transition:background .15s}
+.bblk:hover{background:#333}
+.btn-forgot{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:var(--charcoal);background:none;border:none;cursor:pointer;padding:0;display:block;margin-bottom:20px;transition:color .15s}
+.btn-forgot:hover{color:#000}
+.or{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.or::before,.or::after{content:'';flex:1;height:1px;background:var(--platinum)}
+.or span{font-size:14px;color:var(--slate)}
+.soc{display:flex;gap:12px;margin-bottom:24px}
+.sb{flex:1;height:40px;border:1px solid var(--platinum);border-radius:24px;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s}
+.sb:hover{background:var(--pearl)}
+.sb img{height:15px;width:15px;object-fit:contain}
+.cu{display:flex;align-items:center;justify-content:center;gap:6px;font-size:14px;color:#ABB0B6;background:none;border:none;cursor:pointer;width:100%}
+.ci{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:#ABB0B6;border-radius:50%;flex-shrink:0}
+.resend-left{font-size:14px;color:#000;margin-bottom:24px;line-height:20px;text-align:left}
+.resend-link{background:none;border:none;font-size:14px;font-weight:700;color:var(--charcoal);cursor:pointer;text-decoration:underline;padding:0}
+.pw-err{font-size:12px;color:#e53935;margin-top:4px;display:block;min-height:16px}
+.fab{position:fixed;bottom:24px;right:24px;z-index:50;width:60px;height:60px;border-radius:50%;background:var(--blue);box-shadow:0 8px 32px rgba(0,0,0,.09);border:1.5px solid var(--platinum);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.fab:hover{background:#c5d4f0}
+.fab img{width:28px;height:29px;object-fit:contain}
+
+/* ── PROFILE ── */
+#s-profile{min-height:100vh;background:var(--snow)}
+.ph{background:#fff;padding:16px 40px 0;box-shadow:0 1px 0 var(--pearl)}
+.ph img.logo{height:16px;width:auto;margin-bottom:20px;display:block}
+.tabs{display:flex}
+.tab{position:relative;width:140px;text-align:center;padding-bottom:12px;font-size:16px;background:none;border:none;cursor:pointer;transition:color .15s;font-family:'Open Sans',sans-serif}
+.tab.on{font-weight:700;color:#000}
+.tab:not(.on){font-weight:400;color:var(--slate)}
+.tab.on::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:#000}
+.pcontent{display:flex;justify-content:center;padding:24px 16px 80px}
+.pstack{display:flex;flex-direction:column;gap:16px;width:100%;max-width:800px}
+.pcard{background:#fff;box-shadow:0 4px 6px rgba(0,0,0,.1),0 10px 15px rgba(0,0,0,.1);padding:20px 56px;position:relative}
+.ctitle{font-family:'Overpass',sans-serif;font-weight:700;font-size:20px;color:#000;margin-bottom:16px}
+.ebtn{position:absolute;top:16px;right:16px;width:32px;height:32px;background:var(--blue);border-radius:4px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.ebtn:hover{background:#c5d4f0}
+.abtn{position:absolute;top:16px;right:16px;width:32px;height:32px;background:var(--blue);border-radius:12px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.abtn:hover{background:#c5d4f0}
+.avsec{display:flex;flex-direction:column;align-items:center;padding:20px 0;position:relative}
+.avcircle{width:100px;height:100px;background:var(--platinum);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.avedit{position:absolute;top:20px;right:0;width:32px;height:32px;background:var(--blue);border-radius:4px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.avedit:hover{background:#c5d4f0}
+.igrid{display:flex;flex-direction:column;gap:16px}
+.irow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.ifield{display:flex;align-items:flex-start;gap:12px}
+.ifield .ic20{width:20px;height:20px;flex-shrink:0;margin-top:2px;display:block}
+.ifl{font-size:16px;font-weight:700;color:var(--charcoal);line-height:1.3}
+.ifv{font-size:14px;color:var(--slate);line-height:20px}
+.ifv.ns{color:var(--silver)}
+.div{height:1px;background:var(--pearl);width:100%}
+.clist{display:flex;flex-direction:column;gap:16px}
+.ci2{display:flex;align-items:flex-start;gap:12px}
+.ci2 .ic20{width:20px;height:20px;flex-shrink:0;margin-top:2px;display:block}
+.ci2c{flex:1;min-width:0}
+.ci2l{font-size:14px;font-weight:700;color:var(--charcoal)}
+.ci2v{font-size:14px;color:var(--slate)}
+.ci2v.ns{color:var(--silver)}
+.chev{width:32px;height:32px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--slate);flex-shrink:0;transition:color .15s}
+.chev:hover{color:#000}
+.addr-sub{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+.asl{font-size:12px;font-weight:700;color:var(--charcoal);margin-bottom:2px}
+.asv{font-size:14px;color:var(--slate)}
+.badge{display:inline-block;border:1px solid #d9d9d9;padding:2px 6px;font-family:'Overpass',sans-serif;font-weight:800;font-size:12px;color:var(--slate);text-transform:uppercase;margin-bottom:6px}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cperson{display:flex;align-items:center;gap:12px}
+.cav{width:24px;height:24px;background:var(--platinum);border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+.cav img{width:14px;height:auto}
+.cpn{font-size:14px;font-weight:700;color:var(--charcoal)}
+.cpi{font-size:14px;color:var(--slate)}
+.slist{display:flex;flex-direction:column;gap:16px}
+.si{display:flex;align-items:center;gap:12px}
+.si .ic20{width:20px;height:20px;flex-shrink:0;display:block}
+.sil{flex:1;font-size:14px;font-weight:700;color:var(--charcoal)}
+.arow{display:flex;align-items:center;justify-content:space-between;padding:8px 0 80px}
+
+/* ── EDIT MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding-top:60px}
+.modal-overlay.hidden{display:none}
+.modal-box{background:#fff;border-radius:4px;width:800px;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 10px 15px rgba(0,0,0,.1),0 4px 6px rgba(0,0,0,.1);overflow:hidden}
+.modal-head{display:flex;align-items:center;gap:8px;padding:24px 16px;flex-shrink:0}
+.modal-back{width:32px;height:32px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--charcoal)}
+.modal-back:hover{color:#000}
+.modal-title{font-family:'Overpass',sans-serif;font-weight:700;font-size:20px;color:#000}
+.modal-body{flex:1;overflow-y:auto;padding:12px 56px 8px}
+.modal-footer{border-top:1px solid var(--pearl);padding:12px 56px;display:flex;justify-content:flex-end;flex-shrink:0}
+.edit-av-sec{display:flex;flex-direction:column;align-items:center;padding:12px 0;position:relative}
+.edit-av-wrap{position:relative;width:125px;height:124px}
+.edit-av-circle{width:100px;height:100px;background:var(--platinum);border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 10px 15px rgba(0,0,0,.1)}
+.edit-av-cam{position:absolute;bottom:-2px;right:-2.5px;width:32px;height:32px;display:block}
+.edit-fields{display:flex;flex-direction:column;gap:14px}
+.edit-row{display:flex;gap:14px}
+.edit-row .ifld{flex:1}
+.ifld{display:flex;flex-direction:column;gap:4px}
+.ifld label{font-size:14px;font-weight:700;color:#000;font-family:'Open Sans',sans-serif}
+.ifld input,.ifld select{width:100%;height:40px;padding:0 12px;border:1px solid var(--platinum);border-radius:4px;font-family:'Open Sans',sans-serif;font-size:14px;color:var(--charcoal);outline:none;transition:border-color .15s;background:#fff}
+.ifld input:focus,.ifld select:focus{border-color:#000}
+.ifld textarea{width:100%;height:80px;padding:8px 12px;border:1px solid var(--platinum);border-radius:4px;font-family:'Open Sans',sans-serif;font-size:14px;color:var(--charcoal);outline:none;resize:none;background:#fff}
+.ifld textarea:focus{border-color:#000}
+.edit-div{height:1px;background:var(--pearl);width:100%}
+.tab-pills{display:flex;gap:8px}
+.tab-pill{height:40px;padding:0 16px;border:2px solid var(--slate);border-radius:100px;background:#fff;font-family:'Open Sans',sans-serif;font-size:14px;font-weight:700;color:var(--slate);cursor:pointer;transition:all .15s}
+.tab-pill.on{background:#000;border-color:var(--slate);color:#fff}
+
+/* ── LOGIN & SECURITY ── */
+.tog-wrap{display:flex;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0}
+.tog{position:relative;width:36px;height:14px;border-radius:99px;background:var(--platinum);cursor:pointer;transition:background .2s}
+.tog.on{background:var(--primary-blue)}
+.tog-knob{position:absolute;top:-1.75px;left:0;width:17.5px;height:17.5px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.1);transition:left .2s}
+.tog.on .tog-knob{left:calc(100% - 17.5px)}
+.warn-box{background:rgba(224,180,0,.1);border:1px solid #e0b400;padding:8px 12px;display:flex;gap:4px;align-items:flex-start;border-radius:2px}
+.warn-text{font-family:'Open Sans',sans-serif;font-size:14px;color:var(--slate);line-height:20px}
+.soc-link-btn{width:36px;height:36px;border-radius:12px;border:none;display:flex;align-items:center;justify-content:center;background:none;flex-shrink:0;cursor:pointer;transition:opacity .15s;padding:0}
+.soc-link-btn:hover{opacity:.8}
+.del-btn{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#c83317;background:transparent;border:2px solid #c83317;border-radius:24px;height:40px;padding:0 24px;cursor:pointer;text-transform:uppercase;transition:background .15s}
+.del-btn:hover{background:rgba(200,51,23,.05)}
+.rcaptcha{display:flex;align-items:center;border:1px solid #d9d9d9;border-radius:3px;background:#f9f9f9;width:240px;height:54px;overflow:hidden;box-shadow:0 0 4px rgba(0,0,0,.08)}
+.rcaptcha-check{flex:1;display:flex;align-items:center;gap:10px;padding:0 14px;cursor:pointer;user-select:none}
+.rcaptcha-check input[type=checkbox]{width:18px;height:18px;cursor:pointer;flex-shrink:0;accent-color:#4285f4}
+.rcaptcha-check span{font-family:'Open Sans',sans-serif;font-size:13px;color:#000;white-space:nowrap}
+.rcaptcha-logo{width:60px;height:54px;background:#ebebeb;border-left:1px solid #d9d9d9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex-shrink:0;padding:6px}
+.rcaptcha-logo-text{font-family:Arial,sans-serif;font-size:9px;font-weight:700;color:#4285f4;letter-spacing:.5px;text-align:center}
+.rcaptcha-logo-sub{font-family:Arial,sans-serif;font-size:7px;color:#666;text-align:center}
+.em-cur-email{height:40px;display:flex;align-items:center;padding:0 12px;border:1px solid var(--platinum);border-radius:4px;font-size:14px;color:var(--slate);background:#fafafa;font-family:'Open Sans',sans-serif}
+.em-email-row{display:flex;align-items:center;gap:8px;padding:4px 0 2px}
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<symbol id="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></symbol>
+<symbol id="chev-d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></symbol>
+<symbol id="chev-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></symbol>
+<symbol id="chev-l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></symbol>
+<symbol id="user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+<symbol id="pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+<symbol id="cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+<symbol id="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+<symbol id="book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+<symbol id="scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="M2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></symbol>
+<symbol id="warn" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L1 14.5h14L8 1.5z" stroke="#e0b400" stroke-width="1.5" stroke-linejoin="round"/><line x1="8" y1="6" x2="8" y2="10" stroke="#e0b400" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="12.5" r="0.75" fill="#e0b400"/></symbol>
+<symbol id="icon-doc" viewBox="0 0 20 20" fill="none">
+  <defs><clipPath id="doc-cp"><rect width="20" height="20" fill="white"/></clipPath><mask id="doc-mask" fill="white"><rect x="3" y="2.5" width="14" height="15" rx="0.6875"/></mask></defs>
+  <g clip-path="url(#doc-cp)"><rect x="3" y="2.5" width="14" height="15" rx="0.6875" stroke="#ABB0B6" stroke-width="4.28" mask="url(#doc-mask)"/><line x1="6.5" y1="6.799" x2="13.5" y2="6.799" stroke="#ABB0B6" stroke-width="1.8"/><line x1="6.5" y1="9.862" x2="13.5" y2="9.862" stroke="#ABB0B6" stroke-width="1.8"/><line x1="6.5" y1="12.924" x2="13.5" y2="12.924" stroke="#ABB0B6" stroke-width="1.8"/></g>
+</symbol>
+<symbol id="icon-dob" viewBox="0 0 20 20" fill="none">
+  <defs><clipPath id="dob-cp"><rect width="20" height="20" fill="white"/></clipPath><mask id="dob-mask" fill="white"><rect x="2.48584" y="7.12891" width="14.9899" height="10.8695" rx="1.37363"/></mask></defs>
+  <g clip-path="url(#dob-cp)"><path d="M1.75 4.87476C1.75 4.29132 2.22296 3.81836 2.8064 3.81836H17.2341C17.8176 3.81836 18.2905 4.29132 18.2905 4.87476C18.2905 5.45819 17.8176 5.93115 17.2341 5.93115H2.8064C2.22296 5.93115 1.75 5.45819 1.75 4.87476Z" fill="#ABB0B6"/><rect x="4.96729" y="2" width="2.36293" height="3.19874" rx="1.18147" fill="#ABB0B6"/><rect x="12.7817" y="2" width="2.36293" height="3.19874" rx="1.18147" fill="#ABB0B6"/><rect x="2.48584" y="7.12891" width="14.9899" height="10.8695" rx="1.37363" stroke="#ABB0B6" stroke-width="4.28571" mask="url(#dob-mask)"/></g>
+</symbol>
+<symbol id="icon-region" viewBox="0 0 20 20" fill="none">
+  <defs><clipPath id="region-cp"><rect width="20" height="20" fill="white"/></clipPath></defs>
+  <g clip-path="url(#region-cp)"><circle cx="9.98012" cy="10.0358" r="8.21436" stroke="#ABB0B6" stroke-width="2.14286"/><path d="M1.76978 10.0898L18.191 10.0898" stroke="#ABB0B6" stroke-width="2.14286"/><path d="M11.1527 1.59375C12.2162 3.5688 13.3572 6.51438 13.3572 9.61023C13.3572 12.9725 12.0114 16.3545 10.8806 18.477" stroke="#ABB0B6" stroke-width="2.14286"/><path d="M8.8075 1.59375C7.744 3.5688 6.603 6.51438 6.603 9.61023C6.603 12.9725 7.94884 16.3545 9.07959 18.477" stroke="#ABB0B6" stroke-width="2.14286"/></g>
+</symbol>
+<symbol id="icon-passport" viewBox="0 0 20 20" fill="none">
+  <defs><clipPath id="pass-cp"><rect width="20" height="20" fill="white"/></clipPath><mask id="pass-mask" fill="white"><rect x="3" y="4" width="14" height="15" rx="0.785714"/></mask></defs>
+  <g clip-path="url(#pass-cp)"><path d="M8.25 14.5L12.25 14.5" stroke="#ABB0B6" stroke-width="1.5" stroke-linecap="round"/><rect x="3" y="4" width="14" height="15" rx="0.785714" stroke="#ABB0B6" stroke-width="4.28" mask="url(#pass-mask)"/><path d="M4 5L15 1.5V4" stroke="#ABB0B6" stroke-width="2.14" stroke-linejoin="round"/><path d="M9.82804 7.3821L9.20777 7.2054C9.18124 7.19781 9.15335 7.19708 9.12664 7.20394C9.09994 7.21081 9.07529 7.22469 9.05494 7.24433C9.03459 7.26397 9.0192 7.28873 9.01018 7.31634C9.00116 7.34395 8.9988 7.37353 9.00331 7.40236L9.40173 9.96848L9.40156 9.97002L9.40078 9.97132L9.39956 9.97214L9.39812 9.97232L7.93573 9.73555L7.93409 9.73473L7.93311 9.7331L7.82842 9.40413C7.80243 9.32244 7.75788 9.24884 7.69874 9.18987C7.6396 9.1309 7.5677 9.08838 7.4894 9.06608L6.95643 8.91417C6.93092 8.90691 6.90414 8.90632 6.87837 8.91244C6.8526 8.91856 6.82859 8.9312 6.80839 8.9493C6.7882 8.9674 6.7724 8.99042 6.76235 9.01641C6.7523 9.04239 6.74829 9.07057 6.75066 9.09856L6.88653 10.7078C6.89554 10.8147 6.93518 10.9161 7.0001 10.9982C7.06502 11.0803 7.15208 11.1393 7.2495 11.167L12.2113 12.5811C12.3827 12.6301 12.5636 12.6273 12.7336 12.573C12.9037 12.5187 13.0561 12.4151 13.1739 12.2737C13.2723 12.1553 13.253 12.0164 13.2369 11.8735C13.2151 11.6792 13.1425 11.4953 13.0275 11.3426C12.9125 11.1899 12.7596 11.0745 12.5861 11.0095L11.1477 10.4707L11.1463 10.4699L11.1454 10.4686L10.1608 7.7027C10.1332 7.62501 10.0886 7.55543 10.0308 7.49969C9.9729 7.44395 9.90341 7.40364 9.82804 7.3821Z" fill="#ABB0B6"/></g>
+</symbol>
+<symbol id="icon-hw" viewBox="0 0 20 20" fill="none">
+  <defs><clipPath id="hw-cp"><rect width="20" height="20" fill="white"/></clipPath><mask id="hw-mask" fill="white"><rect width="16.2914" height="10.2857" rx="1.00784" transform="matrix(0.5 -0.866025 0.866024 0.500003 1.90186 14.5527)"/></mask></defs>
+  <g clip-path="url(#hw-cp)"><rect width="16.2914" height="10.2857" rx="1.00784" transform="matrix(0.5 -0.866025 0.866024 0.500003 1.90186 14.5527)" stroke="#ABB0B6" stroke-width="4.28571" mask="url(#hw-mask)"/><path d="M9.0601 13.4707L4.72998 10.9707" stroke="#ABB0B6" stroke-width="1.71429"/><path d="M10.8755 10.2305L6.54541 7.73047" stroke="#ABB0B6" stroke-width="1.71429"/><path d="M12.6949 6.9922L8.36475 4.49219" stroke="#ABB0B6" stroke-width="1.71429"/></g>
+</symbol>
+<symbol id="icon-connect" viewBox="0 0 36 36">
+  <rect x="1" y="1" width="34" height="34" rx="11" fill="white" stroke="#0050FC" stroke-width="2"/>
+  <path d="M19.844 23.8253L19.7232 24.0228C18.4301 26.0218 15.782 26.6763 13.6969 25.4724C11.6118 24.2686 10.8546 21.6481 11.9392 19.5287L12.0498 19.3253L13.3003 17.1594L15.1533 18.2292L13.9028 20.3951C13.2511 21.5239 13.638 22.9677 14.7667 23.6194C15.8955 24.2711 17.3393 23.8843 17.991 22.7555L19.2415 20.5896L21.0945 21.6594L19.844 23.8253ZM22.1969 10.75C24.3492 11.9926 25.0867 14.7448 23.844 16.8971L22.5945 19.0613L20.7415 17.9915L21.991 15.8273C22.6427 14.6985 22.2559 13.2547 21.1271 12.603C19.9983 11.9513 18.5545 12.3382 17.9028 13.4669L16.6533 15.6312L14.8003 14.5613L16.0498 12.3971C17.2924 10.2448 20.0446 9.50736 22.1969 10.75Z" fill="#0050FC"/>
+  <rect x="18.6323" y="15.0293" width="2" height="6" transform="rotate(30 18.6323 15.0293)" fill="#0050FC"/>
+</symbol>
+<symbol id="icon-avatar" viewBox="0 0 24 24" fill="none">
+  <rect width="24" height="24" rx="12" fill="#DEDEE0"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9998 7.33333C10.8953 7.33333 9.99984 8.22876 9.99984 9.33333C9.99984 10.4379 10.8953 11.3333 11.9998 11.3333C13.1044 11.3333 13.9998 10.4379 13.9998 9.33333C13.9998 8.22876 13.1044 7.33333 11.9998 7.33333ZM8.6665 9.33333C8.6665 7.49238 10.1589 6 11.9998 6C13.8408 6 15.3332 7.49238 15.3332 9.33333C15.3332 11.1743 13.8408 12.6667 11.9998 12.6667C10.1589 12.6667 8.6665 11.1743 8.6665 9.33333Z" fill="#222020" stroke="#222020" stroke-width="0.3"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M8.99386 13.334H15.0062L18.6425 18.334H8.99386L11.3271 17.0007H16.0242L14.3272 14.6673H9.67283L6.99992 18.334H5.33325L8.99386 13.334Z" fill="#222020" stroke="#222020" stroke-width="0.3"/>
+</symbol>
+</defs>
+</svg>
+
+<!-- ════════════════ LOGIN ════════════════ -->
+<div id="s-login" class="screen" style="display:flex">
+  <div class="l-bg"><img src="https://www.figma.com/api/mcp/asset/14ae0b55-5cbb-4abf-9ebd-4f1474d52d9e" alt=""/></div>
+  <div class="l-hero"><h1>Enjoy Giant<br>Cycling World</h1></div>
+  <div class="l-right">
+    <div class="card">
+
+      <!-- identifier -->
+      <div id="st-id" class="step on">
+        <img src="https://www.figma.com/api/mcp/asset/acc2c20f-10cf-4e22-b5e6-d00500c823fe" alt="Giant" class="brand"/>
+        <h2 class="ttl">Login</h2>
+        <div class="fg">
+          <label class="lbl">Email or Phone number</label>
+          <div class="inp-wrap">
+            <div class="cc-in" id="cc-in">
+              <div class="ccw" id="ccw">
+                <button class="cc-in-btn" onclick="toggleCC('login')">
+                  <span id="cc-val">+1</span>
+                  <svg width="11" height="11"><use href="#chev-d"/></svg>
+                </button>
+                <div class="ccd" id="ccd"></div>
+              </div>
+              <div class="cc-sep"></div>
+            </div>
+            <input id="id-inp" class="inp" type="text" placeholder="Email or phone number"
+              oninput="onId(this.value)" onkeydown="if(event.key==='Enter')toPassword()"/>
+          </div>
+        </div>
+        <div class="brow" style="margin-bottom:28px">
+          <button class="btx" onclick="goSignUp()">Sign up</button>
+          <button class="bpill" id="btn-id" onclick="toPassword()" disabled>Next</button>
+        </div>
+        <div class="or"><span>OR</span></div>
+        <div class="soc">
+          <button class="sb" title="Apple"><img src="https://www.figma.com/api/mcp/asset/08703bcb-3e11-4235-aa61-e780e8d1b50a" alt="Apple"/></button>
+          <button class="sb" title="Facebook"><img src="https://www.figma.com/api/mcp/asset/0b33408c-69dd-4e7d-ac46-b96dcdd82f57" alt="Facebook"/></button>
+          <button class="sb" title="Google"><img src="https://www.figma.com/api/mcp/asset/95eb3f84-80aa-4df4-aefe-9dae3efc7eaf" alt="Google"/></button>
+          <button class="sb" title="Line"><img src="https://www.figma.com/api/mcp/asset/e74ad71c-2b81-4b0d-90d6-90ff020d7da5" alt="Line"/></button>
+        </div>
+        <button class="cu">
+          <span class="ci">
+            <svg width="11" height="9" viewBox="0 0 14 11" fill="white"><path d="M12.833 0H1.167C.522 0 0 .522 0 1.167v8.75C0 10.478.522 11 1.167 11h11.666C13.478 11 14 10.478 14 9.917V1.167C14 .522 13.478 0 12.833 0zm0 2.333L7 5.833 1.167 2.333V1.167L7 4.667l5.833-3.5v1.166z"/></svg>
+          </span>
+          Contact us
+        </button>
+      </div>
+
+      <!-- password -->
+      <div id="st-pw" class="step">
+        <img src="https://www.figma.com/api/mcp/asset/acc2c20f-10cf-4e22-b5e6-d00500c823fe" alt="Giant" class="brand"/>
+        <h2 class="ttl" style="margin-bottom:16px">Login</h2>
+        <div class="id-row">
+          <div class="id-icon" id="pw-icon"></div>
+          <span class="id-name" id="pw-disp"></span>
+        </div>
+        <div class="fg">
+          <label class="lbl">Password</label>
+          <div class="pw-wrap">
+            <input id="pw-inp" class="inp" type="password" placeholder="Enter your password"
+              oninput="onPw(this.value)" onkeydown="if(event.key==='Enter')toVerify()"/>
+            <button class="eye" onclick="toggleEye('pw-inp','eye-svg')">
+              <svg width="16" height="16" id="eye-svg"><use href="#eye"/></svg>
+            </button>
+          </div>
+        </div>
+        <button class="btn-forgot" onclick="toForgot()">Forgot password</button>
+        <div class="brow">
+          <button class="btx" onclick="toStep('st-id')">Back</button>
+          <button class="bpill" id="btn-pw" onclick="toVerify()" disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- verify (login) -->
+      <div id="st-verify" class="step">
+        <img src="https://www.figma.com/api/mcp/asset/acc2c20f-10cf-4e22-b5e6-d00500c823fe" alt="Giant" class="brand"/>
+        <h2 class="ttl" style="margin-bottom:8px">Verify your identity</h2>
+        <p class="sub">We sent a code to</p>
+        <div class="id-row">
+          <div class="id-icon" id="vt-icon"></div>
+          <span class="id-name" id="vt-name"></span>
+        </div>
+        <div class="fg">
+          <label class="lbl">Verify Code</label>
+          <input id="login-code" class="inp" type="text" placeholder="Enter verify code"
+            oninput="onLoginCode(this.value)" onkeydown="if(event.key==='Enter')doVerify()"/>
+        </div>
+        <p class="resend-left" id="login-resend"></p>
+        <div class="brow">
+          <button class="btx" onclick="toStep('st-pw')">Back</button>
+          <button class="bpill" id="btn-verify" onclick="doVerify()" disabled>Verify</button>
+        </div>
+      </div>
+
+      <!-- forgot: verify code -->
+      <div id="st-forgot" class="step">
+        <img src="https://www.figma.com/api/mcp/asset/acc2c20f-10cf-4e22-b5e6-d00500c823fe" alt="Giant" class="brand"/>
+        <h2 class="ttl" style="margin-bottom:16px">Forgot password</h2>
+        <div class="id-row">
+          <div class="id-icon" id="fg-icon"></div>
+          <span class="id-name" id="fg-disp"></span>
+        </div>
+        <div class="fg">
+          <label class="lbl">Verify Code</label>
+          <input id="fg-code" class="inp" type="text" placeholder="Enter verify code"
+            oninput="onFgCode(this.value)" onkeydown="if(event.key==='Enter')doFgNext()"/>
+        </div>
+        <p class="resend-left" id="fg-resend"></p>
+        <div class="brow">
+          <button class="btx" onclick="toStep('st-pw')">Back</button>
+          <button class="bpill" id="btn-fg-next" onclick="doFgNext()" disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- forgot: reset password -->
+      <div id="st-fg-reset" class="step">
+        <img src="https://www.figma.com/api/mcp/asset/acc2c20f-10cf-4e22-b5e6-d00500c823fe" alt="Giant" class="brand"/>
+        <h2 class="ttl" style="margin-bottom:16px">Reset password</h2>
+        <div class="id-row">
+          <div class="id-icon" id="fg-reset-icon"></div>
+          <span class="id-name" id="fg-reset-disp"></span>
+        </div>
+        <div class="fg">
+          <label class="lbl">New Password</label>
+          <div class="pw-wrap">
+            <input id="fg-pw1" class="inp" type="password" placeholder="Create new password" oninput="onFgPw1(this.value)"/>
+            <button class="eye" onclick="toggleEye('fg-pw1','fg-eye1-svg')"><svg width="16" height="16" id="fg-eye1-svg"><use href="#eye"/></svg></button>
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:4px">
+          <label class="lbl">Confirm Password</label>
+          <div class="pw-wrap">
+            <input id="fg-pw2" class="inp" type="password" placeholder="Re-enter new password" oninput="onFgPw2(this.value)"/>
+            <button class="eye" onclick="toggleEye('fg-pw2','fg-eye2-svg')"><svg width="16" height="16" id="fg-eye2-svg"><use href="#eye"/></svg></button>
+          </div>
+        </div>
+        <span class="pw-err" id="fg-pw-err" style="margin-bottom:20px"></span>
+        <div class="brow">
+          <button class="btx" onclick="toStep('st-forgot')">Back</button>
+          <button class="bpill" id="btn-fg-confirm" onclick="doFgReset()" disabled>Confirm</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <button class="fab"><img src="https://www.figma.com/api/mcp/asset/1ecf6db4-08fc-49ae-9853-6c97eedcc33d" alt="Chat"/></button>
+</div>
+
+<!-- ════════════════ SIGN UP ════════════════ -->
+<div id="s-signup" class="screen">
+  <div class="l-bg"><img src="https://www.figma.com/api/mcp/asset/14ae0b55-5cbb-4abf-9ebd-4f1474d52d9e" alt=""/></div>
+  <div class="l-hero"><h1>Enjoy Giant<br>Cycling World</h1></div>
+  <div class="l-right">
+    <div class="card">
+
+      <!-- SU step 1: smart identifier -->
+      <div id="st-su-info" class="step on">
+        <img src="https://www.figma.com/api/mcp/asset/acc2c20f-10cf-4e22-b5e6-d00500c823fe" alt="Giant" class="brand"/>
+        <h2 class="ttl" style="margin-bottom:16px">Sign up</h2>
+        <div class="step-ind"><div class="step-num">1</div><span class="step-desc">Fill in email or phone number</span></div>
+        <div class="fg">
+          <label class="lbl">Email or Phone number</label>
+          <div class="inp-wrap">
+            <div class="cc-in" id="su-cc-in">
+              <div class="ccw" id="su-ccw">
+                <button class="cc-in-btn" onclick="toggleCC('su')">
+                  <span id="su-cc-val">+1</span>
+                  <svg width="11" height="11"><use href="#chev-d"/></svg>
+                </button>
+                <div class="ccd" id="su-ccd"></div>
+              </div>
+              <div class="cc-sep"></div>
+            </div>
+            <input id="su-id-inp" class="inp" type="text" placeholder="Email or phone number"
+              oninput="onSuId(this.value)" onkeydown="if(event.key==='Enter')toSuVerify()"/>
+          </div>
+        </div>
+        <div class="brow">
+          <button class="btx" onclick="toScreen('s-login')">Back</button>
+          <button class="bpill" id="btn-su-next" onclick="toSuVerify()" disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- SU step 2: verify code -->
+      <div id="st-su-verify" class="step">
+        <img src="https://www.figma.com/api/mcp/asset/acc2c20f-10cf-4e22-b5e6-d00500c823fe" alt="Giant" class="brand"/>
+        <h2 class="ttl" style="margin-bottom:16px">Sign up</h2>
+        <div class="step-ind"><div class="step-num">2</div><span class="step-desc">Verify email or phone</span></div>
+        <div class="id-row">
+          <div class="id-icon" id="su-vt-icon"></div>
+          <span class="id-name" id="su-vt-name"></span>
+        </div>
+        <div class="fg">
+          <label class="lbl">Verify Code</label>
+          <input id="su-code" class="inp" type="text" placeholder="Enter verify code"
+            oninput="onSuCode(this.value)" onkeydown="if(event.key==='Enter')doSuVerify()"/>
+        </div>
+        <p class="resend-left" id="su-resend"></p>
+        <div class="brow">
+          <button class="btx" onclick="toSuStep('st-su-info')">Back</button>
+          <button class="bpill" id="btn-su-verify" onclick="doSuVerify()" disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- SU step 3: setup password -->
+      <div id="st-su-pw" class="step">
+        <img src="https://www.figma.com/api/mcp/asset/acc2c20f-10cf-4e22-b5e6-d00500c823fe" alt="Giant" class="brand"/>
+        <h2 class="ttl" style="margin-bottom:16px">Sign up</h2>
+        <div class="step-ind"><div class="step-num">3</div><span class="step-desc">Setup password</span></div>
+        <div class="id-row">
+          <div class="id-icon" id="su-pw-icon"></div>
+          <span class="id-name" id="su-pw-disp"></span>
+        </div>
+        <div class="fg">
+          <label class="lbl">Password</label>
+          <div class="pw-wrap">
+            <input id="su-pw1" class="inp" type="password" placeholder="Create your password" oninput="onSuPw1(this.value)"/>
+            <button class="eye" onclick="toggleEye('su-pw1','su-eye1-svg')"><svg width="16" height="16" id="su-eye1-svg"><use href="#eye"/></svg></button>
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:4px">
+          <label class="lbl">Confirm Password</label>
+          <div class="pw-wrap">
+            <input id="su-pw2" class="inp" type="password" placeholder="Re-enter your password" oninput="onSuPw2(this.value)"/>
+            <button class="eye" onclick="toggleEye('su-pw2','su-eye2-svg')"><svg width="16" height="16" id="su-eye2-svg"><use href="#eye"/></svg></button>
+          </div>
+        </div>
+        <span class="pw-err" id="su-pw-err" style="margin-bottom:20px"></span>
+        <div class="brow">
+          <button class="btx" onclick="toSuStep('st-su-verify')">Back</button>
+          <button class="bpill" id="btn-su-pw" onclick="doSuPw()" disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- SU step 4: personal info -->
+      <div id="st-su-profile" class="step">
+        <img src="https://www.figma.com/api/mcp/asset/acc2c20f-10cf-4e22-b5e6-d00500c823fe" alt="Giant" class="brand"/>
+        <h2 class="ttl" style="margin-bottom:16px">Sign up</h2>
+        <div class="step-ind"><div class="step-num">4</div><span class="step-desc">Personal information</span></div>
+        <div class="name-row">
+          <div>
+            <label class="lbl">First Name</label>
+            <input id="su-fname" class="inp" type="text" placeholder="First name" oninput="onSuName()"/>
+          </div>
+          <div>
+            <label class="lbl">Last Name</label>
+            <input id="su-lname" class="inp" type="text" placeholder="Last name" oninput="onSuName()"/>
+          </div>
+        </div>
+        <div class="fg">
+          <label class="lbl">Referral Code <span style="font-weight:400;color:var(--slate)">(Optional)</span></label>
+          <input id="su-referral" class="inp" type="text" placeholder=""/>
+        </div>
+        <div class="ck-row" onclick="toggleCk('terms')">
+          <img id="ck-terms-img" class="ck-img" src="" alt=""/>
+          <span class="ck-lbl">Accept the Terms Conditions &amp; Privacy Policy</span>
+        </div>
+        <div class="ck-row" onclick="toggleCk('news')" style="margin-bottom:24px">
+          <img id="ck-news-img" class="ck-img" src="" alt=""/>
+          <span class="ck-lbl">Subscribe to cycling and event updates</span>
+        </div>
+        <div class="brow">
+          <button class="btx" onclick="toSuStep('st-su-pw')">Back</button>
+          <button class="bpill" id="btn-su-signup" onclick="doSignUp()" disabled>Sign up</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <button class="fab"><img src="https://www.figma.com/api/mcp/asset/1ecf6db4-08fc-49ae-9853-6c97eedcc33d" alt="Chat"/></button>
+</div>
+
+<!-- ════════════════ PROFILE ════════════════ -->
+<div id="s-profile" class="screen">
+  <div class="ph">
+    <img src="https://www.figma.com/api/mcp/asset/ce236c30-9ff9-4272-8e3b-33e30a70a1f2" alt="Giant" class="logo"/>
+    <div class="tabs">
+      <button class="tab on" data-tab="profile" onclick="switchTab(this)">Profile</button>
+      <button class="tab" data-tab="ls" onclick="switchTab(this)">Login &amp; Security</button>
+    </div>
+  </div>
+
+  <!-- Profile content -->
+  <div id="profile-cards" class="pcontent">
+    <div class="pstack">
+
+      <!-- Basic Info -->
+      <div class="pcard">
+        <button class="ebtn" onclick="openEditModal()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12.625 17.625H17.625M17.7337 8.75774C18.0642 8.42738 18.2498 7.97928 18.2499 7.51202C18.2499 7.04476 18.0644 6.59662 17.734 6.26618C17.4037 5.93573 16.9556 5.75006 16.4883 5.75C16.021 5.74994 15.5729 5.9355 15.2425 6.26586L6.90121 14.609C6.7561 14.7537 6.64878 14.9318 6.58871 15.1277L5.76308 17.8477C5.74693 17.9018 5.74571 17.9592 5.75955 18.0139C5.7734 18.0686 5.80178 18.1185 5.84171 18.1584C5.88163 18.1982 5.9316 18.2265 5.98631 18.2403C6.04102 18.254 6.09843 18.2527 6.15246 18.2365L8.87308 17.4115C9.06882 17.352 9.24694 17.2453 9.39183 17.1009L17.7337 8.75774Z" stroke="#0050FC" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="avsec">
+          <div class="avcircle"><svg width="44" height="44" style="color:#58626e"><use href="#user"/></svg></div>
+        </div>
+        <div class="igrid">
+          <div class="irow">
+            <div class="ifield">
+              <img class="ic20" src="https://www.figma.com/api/mcp/asset/fe15b5be-2ac2-40e7-97d2-29c1fd178671" alt=""/>
+              <div><div class="ifl">Giant ID</div><div class="ifv">9d8e-907d-601f-1epq</div></div>
+            </div>
+            <div class="ifield">
+              <img class="ic20" src="https://www.figma.com/api/mcp/asset/400255c9-7b7d-4b10-a73b-14803cb5598f" alt=""/>
+              <div><div class="ifl">Name</div><div class="ifv">Kevin Lin</div></div>
+            </div>
+            <div class="ifield">
+              <img class="ic20" src="https://www.figma.com/api/mcp/asset/1bed9a6b-285a-492b-bf0f-831ddb702d91" alt=""/>
+              <div><div class="ifl">Gender</div><div class="ifv ns">Not set</div></div>
+            </div>
+          </div>
+          <div class="div"></div>
+          <div class="irow">
+            <div class="ifield">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ic20"><path d="M1.75 4.875C1.75 4.29 2.22 3.82 2.81 3.82H17.23C17.82 3.82 18.29 4.29 18.29 4.875C18.29 5.46 17.82 5.93 17.23 5.93H2.81C2.22 5.93 1.75 5.46 1.75 4.875Z" fill="#ABB0B6"/><rect x="4.97" y="2" width="2.36" height="3.2" rx="1.18" fill="#ABB0B6"/><rect x="12.78" y="2" width="2.36" height="3.2" rx="1.18" fill="#ABB0B6"/><rect x="2.49" y="7.13" width="14.99" height="10.87" rx="1.37" stroke="#ABB0B6" stroke-width="2.14"/></svg>
+              <div><div class="ifl">Date of Birth</div><div class="ifv ns">Not set</div></div>
+            </div>
+            <div class="ifield">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ic20"><circle cx="9.98" cy="10.04" r="8.21" stroke="#ABB0B6" stroke-width="2.14"/><path d="M1.77 10.09H18.19" stroke="#ABB0B6" stroke-width="2.14"/><path d="M11.15 1.59C12.22 3.57 13.36 6.51 13.36 9.61C13.36 12.97 12.01 16.35 10.88 18.48" stroke="#ABB0B6" stroke-width="2.14" fill="none"/><path d="M8.81 1.59C7.74 3.57 6.6 6.51 6.6 9.61C6.6 12.97 7.95 16.35 9.08 18.48" stroke="#ABB0B6" stroke-width="2.14" fill="none"/></svg>
+              <div><div class="ifl">Region</div><div class="ifv">Taiwan</div></div>
+            </div>
+            <div class="ifield">
+              <img class="ic20" src="https://www.figma.com/api/mcp/asset/97a03afd-68cc-4808-9430-796143158ea4" alt=""/>
+              <div><div class="ifl">National ID</div><div class="ifv ns">Not set</div></div>
+            </div>
+          </div>
+          <div class="div"></div>
+          <div class="irow">
+            <div class="ifield">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ic20"><path d="M8.25 14.5H12.25" stroke="#ABB0B6" stroke-width="1.5" stroke-linecap="round"/><rect x="3" y="4" width="14" height="15" rx="0.79" stroke="#ABB0B6" stroke-width="2.14"/><path d="M4 5L15 1.5V4" stroke="#ABB0B6" stroke-width="2.14" stroke-linejoin="round"/><path d="M9.83 7.38L9.21 7.21C9.1 7.2 9.05 7.24 9.01 7.32L9.4 9.97L7.94 9.74L7.83 9.4C7.76 9.25 7.64 9.13 7.49 9.07L6.96 8.91C6.85 8.92 6.79 8.97 6.75 9.1L6.89 10.71C6.9 10.81 6.94 10.92 7 11C7.07 11.08 7.15 11.14 7.25 11.17L12.21 12.58C12.38 12.63 12.56 12.63 12.73 12.57C12.9 12.52 13.06 12.42 13.17 12.27C13.27 12.16 13.25 12.02 13.24 11.87C13.22 11.68 13.14 11.5 13.03 11.34C12.91 11.19 12.76 11.07 12.59 11.01L11.15 10.47L10.16 7.7C10.09 7.56 9.97 7.44 9.83 7.38Z" fill="#ABB0B6"/></svg>
+              <div><div class="ifl">Passport ID</div><div class="ifv ns">Not set</div></div>
+            </div>
+            <div class="ifield">
+              <img class="ic20" src="https://www.figma.com/api/mcp/asset/0e94af49-53fd-43ca-94c3-fc01f70f7cbe" alt=""/>
+              <div><div class="ifl">Dietary Preferences</div><div class="ifv ns">Not set</div></div>
+            </div>
+            <div class="ifield">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ic20"><rect width="16.29" height="10.29" rx="1.01" transform="matrix(0.5 -0.866 0.866 0.5 1.9 14.55)" stroke="#ABB0B6" stroke-width="2.14"/><path d="M9.06 13.47L4.73 10.97" stroke="#ABB0B6" stroke-width="1.71"/><path d="M10.88 10.23L6.55 7.73" stroke="#ABB0B6" stroke-width="1.71"/><path d="M12.69 6.99L8.36 4.49" stroke="#ABB0B6" stroke-width="1.71"/></svg>
+              <div><div class="ifl">Height / Weight</div><div class="ifv">164 cm / <span class="ns">Not set</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="pcard">
+        <h2 class="ctitle">Contact</h2>
+        <div class="clist">
+          <div class="ci2">
+            <img class="ic20" src="https://www.figma.com/api/mcp/asset/51e7eff1-5b03-4212-9377-9cfe71ba55a2" alt=""/>
+            <div class="ci2c"><div class="ci2l">Email</div><div class="ci2v" id="profile-email-display">Giant.TPE@gmail.com</div></div>
+            <button class="chev" onclick="openEditEmailModal()"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
+          </div>
+          <div class="div"></div>
+          <div class="ci2">
+            <img class="ic20" src="https://www.figma.com/api/mcp/asset/86c90277-c36e-4670-b879-e467a5be0582" alt=""/>
+            <div class="ci2c"><div class="ci2l">Phone Number</div><div class="ci2v ns">Not set</div></div>
+            <button class="chev"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
+          </div>
+          <div class="div"></div>
+          <div class="ci2" style="align-items:flex-start">
+            <img class="ic20" src="https://www.figma.com/api/mcp/asset/179b7166-f14d-4c66-9bf9-16712b3d4e0a" alt="" style="margin-top:2px"/>
+            <div class="ci2c">
+              <div class="ci2l">Address</div>
+              <div class="addr-sub">
+                <div><div class="asl">Contact</div><div class="asv">5F, No. 680, Daan Rd., Daan Dist</div></div>
+                <div class="div"></div>
+                <div><div class="asl">Home</div><div class="asv">Same as contact</div></div>
+                <div class="div"></div>
+                <div><div class="asl">Billing</div><div class="asv">Same as contact</div></div>
+                <div class="div"></div>
+                <div>
+                  <div class="asl">Shipping</div>
+                  <div class="badge">Default</div>
+                  <div class="asv">5F, No. 680, Daan Rd., Daan Dist, Taipei</div>
+                  <div class="asv" style="margin-top:4px">7F, No. 23, Zhongxiao Rd., Xinyi Dist, New Taipei City</div>
+                </div>
+              </div>
+            </div>
+            <button class="chev"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Common Contacts -->
+      <div class="pcard">
+        <button class="abtn"><svg width="14" height="14"><use href="#plus"/></svg></button>
+        <h2 class="ctitle">Common Contacts</h2>
+        <div class="cgrid">
+          <div class="cperson"><div class="cav"><svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-avatar"/></svg></div><div><div class="cpn">Alice Chen</div><div class="cpi">+886 912 345 678</div></div></div>
+          <div class="cperson"><div class="cav"><svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-avatar"/></svg></div><div><div class="cpn">Bob Lee</div><div class="cpi">Giant@gmail.com</div></div></div>
+        </div>
+        <div class="div" style="margin:16px 0"></div>
+        <div class="cgrid">
+          <div class="cperson"><div class="cav"><svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-avatar"/></svg></div><div><div class="cpn">Charlie Wu</div><div class="cpi">+1 745 678 901</div></div></div>
+          <div class="cperson"><div class="cav"><svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-avatar"/></svg></div><div><div class="cpn">David Kim</div><div class="cpi">BCT.TPE@gmail.com</div></div></div>
+        </div>
+      </div>
+
+      <!-- Service Terms -->
+      <div class="pcard">
+        <div class="slist">
+          <div class="si">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ic20"><rect x="3" y="2.5" width="14" height="15" rx="0.69" stroke="#ABB0B6" stroke-width="2.14"/><line x1="6.5" y1="6.8" x2="13.5" y2="6.8" stroke="#ABB0B6" stroke-width="1.8"/><line x1="6.5" y1="9.86" x2="13.5" y2="9.86" stroke="#ABB0B6" stroke-width="1.8"/><line x1="6.5" y1="12.92" x2="13.5" y2="12.92" stroke="#ABB0B6" stroke-width="1.8"/></svg>
+            <span class="sil">Service Term</span>
+            <button class="chev"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
+          </div>
+          <div class="div"></div>
+          <div class="si">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ic20"><rect x="3" y="2.5" width="14" height="15" rx="0.69" stroke="#ABB0B6" stroke-width="2.14"/><line x1="6.5" y1="6.8" x2="13.5" y2="6.8" stroke="#ABB0B6" stroke-width="1.8"/><line x1="6.5" y1="9.86" x2="13.5" y2="9.86" stroke="#ABB0B6" stroke-width="1.8"/><line x1="6.5" y1="12.92" x2="13.5" y2="12.92" stroke="#ABB0B6" stroke-width="1.8"/></svg>
+            <span class="sil">Privacy Policy</span>
+            <button class="chev"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="arow">
+        <button class="boutline w240">Export Profile</button>
+        <button class="bblk" onclick="toScreen('s-login')">Log out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login & Security content -->
+  <div id="ls-cards" class="pcontent" style="display:none">
+    <div class="pstack">
+
+      <!-- Social Login -->
+      <div class="pcard" style="padding:16px 56px">
+        <h2 class="ctitle">Social Login</h2>
+        <div class="clist">
+          <!-- Apple (connected) -->
+          <div class="ci2" style="align-items:center">
+            <img class="ic20" src="https://www.figma.com/api/mcp/asset/64616cec-ad6a-4bf8-bd79-08c1a4398a9b" alt="Apple"/>
+            <div class="ci2c"><div class="ci2l">Apple</div><div class="ci2v">Giant.TPE@gmail.com</div></div>
+            <button class="soc-link-btn">
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><use href="#icon-connect"/></svg>
+            </button>
+          </div>
+          <div class="div"></div>
+          <!-- Facebook (not connected) -->
+          <div class="ci2" style="align-items:center">
+            <img class="ic20" src="https://www.figma.com/api/mcp/asset/c72592a2-2d83-4fd4-976f-b43a169bd4f0" alt="Facebook"/>
+            <div class="ci2c"><div class="ci2l">Facebook</div><div class="ci2v ns">Not set</div></div>
+            <button class="soc-link-btn">
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><use href="#icon-connect"/></svg>
+            </button>
+          </div>
+          <div class="div"></div>
+          <!-- Google (not connected) -->
+          <div class="ci2" style="align-items:center">
+            <img class="ic20" src="https://www.figma.com/api/mcp/asset/95eb3f84-80aa-4df4-aefe-9dae3efc7eaf" alt="Google"/>
+            <div class="ci2c"><div class="ci2l">Google</div><div class="ci2v ns">Not set</div></div>
+            <button class="soc-link-btn">
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><use href="#icon-connect"/></svg>
+            </button>
+          </div>
+          <div class="div"></div>
+          <!-- LINE (not connected) -->
+          <div class="ci2" style="align-items:center">
+            <img class="ic20" src="https://www.figma.com/api/mcp/asset/dc78ba4d-5f21-4841-8a23-5078e07c91ec" alt="LINE"/>
+            <div class="ci2c"><div class="ci2l">LINE</div><div class="ci2v ns">Not set</div></div>
+            <button class="soc-link-btn">
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><use href="#icon-connect"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Share Personal Info -->
+      <div class="pcard" style="padding:16px 56px">
+        <div class="ci2" style="align-items:center">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ic20"><rect x="3" y="2.5" width="14" height="15" rx="0.69" stroke="#ABB0B6" stroke-width="2.14"/><line x1="6.5" y1="6.8" x2="13.5" y2="6.8" stroke="#ABB0B6" stroke-width="1.8"/><line x1="6.5" y1="9.86" x2="13.5" y2="9.86" stroke="#ABB0B6" stroke-width="1.8"/><line x1="6.5" y1="12.92" x2="13.5" y2="12.92" stroke="#ABB0B6" stroke-width="1.8"/></svg>
+          <div class="ci2c">
+            <div class="ci2l">Share Personal Info</div>
+            <div class="ci2v">Provide personal information to participate in marketing activities.</div>
+          </div>
+          <div class="tog-wrap">
+            <div class="tog" onclick="this.classList.toggle('on')">
+              <div class="tog-knob"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2-Step Verification -->
+      <div class="pcard" style="padding:16px 56px;display:flex;flex-direction:column;gap:12px">
+        <div class="ci2" style="align-items:center">
+          <img class="ic20" src="https://www.figma.com/api/mcp/asset/02a561ce-aedb-4450-843c-761fe34be5eb" alt=""/>
+          <div class="ci2l">2-Step Verification</div>
+        </div>
+        <div class="warn-box">
+          <svg width="16" height="16" style="flex-shrink:0;margin-top:2px"><use href="#warn"/></svg>
+          <span class="warn-text">Please go to Profile to set your phone number and email address to enable this feature. Once enabled, each login will require an extra verification step to enhance account security.</span>
+        </div>
+      </div>
+
+      <!-- Change Password -->
+      <div class="pcard" style="padding:16px 56px;display:flex;flex-direction:column;gap:12px">
+        <div class="ci2" style="align-items:center">
+          <img class="ic20" src="https://www.figma.com/api/mcp/asset/63032964-1031-4171-a8ae-80903f7b91ce" alt=""/>
+          <div class="ci2l">Change Password</div>
+        </div>
+        <div class="warn-box">
+          <svg width="16" height="16" style="flex-shrink:0;margin-top:2px"><use href="#warn"/></svg>
+          <span class="warn-text">Phone or email not set. Please update <u>Profile</u> to use password login for Giant ID.</span>
+        </div>
+      </div>
+
+      <div style="padding:8px 0 80px">
+        <button class="del-btn">Delete Account</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="fab"><img src="https://www.figma.com/api/mcp/asset/f68b5f29-c950-4447-bc0f-49bd27363d2c" alt="Chat"/></button>
+</div>
+
+<!-- ════════════════ EDIT PROFILE MODAL ════════════════ -->
+<div id="edit-modal" class="modal-overlay hidden" onclick="closeEditModal()">
+  <div class="modal-box" onclick="onModalBoxClick(event)">
+    <div id="edit-modal-head" class="modal-head">
+      <button class="modal-back" onclick="closeEditModal()"><svg width="20" height="20"><use href="#chev-l"/></svg></button>
+      <span class="modal-title">Edit Profile</span>
+    </div>
+    <div id="edit-modal-body" class="modal-body">
+      <!-- Avatar -->
+      <div class="edit-av-sec">
+        <div class="edit-av-wrap" style="position:relative">
+          <button id="av-btn" type="button" onclick="toggleAvMenu()" style="background:none;border:none;padding:0;cursor:pointer;display:block;width:125px;height:124px">
+            <svg width="125" height="124" viewBox="0 0 125 124" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#ea-shadow)">
+                <rect x="12" y="2" width="100" height="100" rx="50" fill="white" shape-rendering="crispEdges"/>
+                <rect x="13" y="3" width="98" height="98" rx="49" stroke="white" stroke-width="2" shape-rendering="crispEdges"/>
+                <rect x="12" y="2" width="100" height="100" rx="50" fill="#DEDEE0"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M61.9997 39.1667C58.9621 39.1667 56.4997 41.6291 56.4997 44.6667C56.4997 47.7042 58.9621 50.1667 61.9997 50.1667C65.0372 50.1667 67.4997 47.7042 67.4997 44.6667C67.4997 41.6291 65.0372 39.1667 61.9997 39.1667ZM52.833 44.6667C52.833 39.6041 56.9371 35.5 61.9997 35.5C67.0623 35.5 71.1663 39.6041 71.1663 44.6667C71.1663 49.7293 67.0623 53.8333 61.9997 53.8333C56.9371 53.8333 52.833 49.7293 52.833 44.6667Z" fill="#222020" stroke="#222020" stroke-width="0.825"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M53.7332 55.666H70.267L80.267 69.416H53.7332L60.1496 65.7493H73.0665L68.3999 59.3327H55.6003L48.2498 69.416H43.6665L53.7332 55.666Z" fill="#222020" stroke="#222020" stroke-width="0.825"/>
+                <circle cx="96.5" cy="86" r="16" fill="#0050FC"/>
+                <path d="M94.1016 78.0703H98.8984C99.2469 78.0703 99.5517 78.2913 99.6602 78.6182L100.067 79.8379L100.311 80.5703H104C104.788 80.5703 105.43 81.212 105.43 82V92C105.43 92.788 104.788 93.4297 104 93.4297H89C88.212 93.4297 87.5703 92.788 87.5703 92V82C87.5703 81.212 88.212 80.5703 89 80.5703H92.6895L92.9326 79.8379L93.3398 78.6182C93.4483 78.2913 93.7531 78.0703 94.1016 78.0703Z" fill="#DAE2F6" stroke="#DAE2F6" stroke-width="2.14"/>
+                <circle cx="96.5" cy="87" r="3.5" fill="#0050FC"/>
+              </g>
+              <defs>
+                <filter id="ea-shadow" x="0" y="0" width="124.5" height="124" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                  <feMorphology radius="4" operator="erode" in="SourceAlpha" result="effect1_dropShadow"/>
+                  <feOffset dy="4"/>
+                  <feGaussianBlur stdDeviation="3"/>
+                  <feComposite in2="hardAlpha" operator="out"/>
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                  <feMorphology radius="3" operator="erode" in="SourceAlpha" result="effect2_dropShadow"/>
+                  <feOffset dy="10"/>
+                  <feGaussianBlur stdDeviation="7.5"/>
+                  <feComposite in2="hardAlpha" operator="out"/>
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+                  <feBlend mode="normal" in2="effect1_dropShadow" result="effect2_dropShadow"/>
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow" result="shape"/>
+                </filter>
+              </defs>
+            </svg>
+          </button>
+          <div id="av-menu" style="display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:#fff;border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,.15);overflow:hidden;white-space:nowrap;z-index:10;min-width:120px">
+            <button type="button" onclick="openAvScreen()" style="display:block;width:100%;padding:10px 20px;font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;background:none;border:none;cursor:pointer;text-align:left">Edit</button>
+          </div>
+        </div>
+      </div>
+      <!-- Fields -->
+      <div class="edit-fields">
+        <!-- Name row -->
+        <div class="edit-row">
+          <div class="ifld">
+            <label>First Name</label>
+            <input type="text" placeholder="First name"/>
+          </div>
+          <div class="ifld">
+            <label>Last Name</label>
+            <input type="text" placeholder="Last name"/>
+          </div>
+        </div>
+        <!-- Gender -->
+        <div class="edit-row">
+          <div class="ifld">
+            <label>Gender</label>
+            <select>
+              <option value="">Not set</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Non-binary</option>
+              <option>Prefer not to say</option>
+            </select>
+          </div>
+          <div class="ifld">
+            <label>Date of Birth</label>
+            <input type="date"/>
+          </div>
+        </div>
+        <div class="edit-div"></div>
+        <!-- Region + National ID -->
+        <div class="edit-row">
+          <div class="ifld">
+            <label>Region</label>
+            <select>
+              <option value="">Not set</option>
+              <option>Taiwan</option>
+              <option>United States</option>
+              <option>Japan</option>
+              <option>China</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="ifld">
+            <label>National ID</label>
+            <input type="text" placeholder=""/>
+          </div>
+        </div>
+        <!-- Passport -->
+        <div class="edit-row">
+          <div class="ifld">
+            <label>Passport ID</label>
+            <input type="text" placeholder=""/>
+          </div>
+          <div class="ifld"></div>
+        </div>
+        <div class="edit-div"></div>
+        <!-- Dietary Preferences -->
+        <div class="ifld">
+          <label>Dietary Preferences</label>
+          <div class="tab-pills" style="margin-top:4px">
+            <button class="tab-pill on diet-pill" data-val="default" onclick="setDietTab('default')">Default</button>
+            <button class="tab-pill diet-pill" data-val="vegetarian" onclick="setDietTab('vegetarian')">Vegetarian</button>
+          </div>
+        </div>
+        <!-- Diet Preference text -->
+        <div class="ifld">
+          <label>Diet Preference</label>
+          <textarea placeholder="Describe your dietary preferences..."></textarea>
+        </div>
+        <div class="edit-div"></div>
+        <!-- Unit -->
+        <div class="ifld">
+          <label>Unit</label>
+          <div class="tab-pills" style="margin-top:4px">
+            <button class="tab-pill on unit-pill" data-val="metric" onclick="setUnitTab('metric')">Metric</button>
+            <button class="tab-pill unit-pill" data-val="imperial" onclick="setUnitTab('imperial')">Imperial</button>
+          </div>
+        </div>
+        <!-- Height + Weight -->
+        <div class="edit-row" style="padding-bottom:16px">
+          <div class="ifld">
+            <label>Height (CM)</label>
+            <input type="number" placeholder=""/>
+          </div>
+          <div class="ifld">
+            <label>Weight (KG)</label>
+            <input type="number" placeholder=""/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="edit-modal-footer" class="modal-footer">
+      <button class="bpill" onclick="closeEditModal()">Save</button>
+    </div>
+    <!-- Edit Avatar Screen -->
+    <div id="edit-av-screen" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+      <div style="display:flex;align-items:center;gap:8px;padding:24px 16px;flex-shrink:0">
+        <button type="button" onclick="closeAvScreen()" style="width:32px;height:32px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#222020">
+          <svg width="20" height="20"><use href="#chev-l"/></svg>
+        </button>
+        <span style="font-family:'Overpass',sans-serif;font-weight:700;font-size:20px;color:#000">Edit Profile Photo</span>
+      </div>
+      <div id="crop-area" style="position:relative;flex:1;overflow:hidden;min-height:300px;background:#555">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,#888 0%,#444 100%)"></div>
+        <div id="crop-box" style="position:absolute;width:220px;height:220px;border:3px solid #fff;box-shadow:0 0 0 2000px rgba(0,0,0,0.5);cursor:grab;box-sizing:border-box"></div>
+      </div>
+      <div style="padding:12px 56px;border-top:1px solid #f2f2f5;display:flex;justify-content:flex-end;flex-shrink:0">
+        <button type="button" class="bpill" onclick="closeAvScreen()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ EDIT EMAIL MODAL ════════════════ -->
+<div id="email-modal" class="modal-overlay hidden" onclick="closeEmailModal()">
+  <div class="modal-box" style="height:auto;min-height:520px" onclick="event.stopPropagation()">
+
+    <!-- Step 1: Enter New Email -->
+    <div id="em-step1" style="display:flex;flex-direction:column;flex:1">
+      <div class="modal-head">
+        <button class="modal-back" onclick="closeEmailModal()"><svg width="20" height="20"><use href="#chev-l"/></svg></button>
+        <span class="modal-title">Edit Email</span>
+      </div>
+      <div class="modal-body">
+        <div class="edit-fields">
+          <div class="ifld">
+            <label>Current Email</label>
+            <div class="em-cur-email">Giant.TPE@gmail.com</div>
+          </div>
+          <div class="ifld">
+            <label>New Email</label>
+            <input id="em-email-inp" class="inp" type="email" placeholder="Enter new email address" oninput="onEmEmail(this.value)" onkeydown="if(event.key==='Enter')submitEmEmail()"/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="bpill" id="btn-em-next1" onclick="submitEmEmail()" disabled>Next</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Verify Code -->
+    <div id="em-step2" style="display:none;flex-direction:column;flex:1">
+      <div class="modal-head" style="flex-direction:column;align-items:flex-start;gap:2px">
+        <div style="display:flex;align-items:center;gap:8px;width:100%">
+          <button class="modal-back" onclick="emGoBack()"><svg width="20" height="20"><use href="#chev-l"/></svg></button>
+          <span class="modal-title">Edit Email</span>
+        </div>
+        <p style="font-size:14px;color:#58626e;margin:0;padding-left:40px;line-height:20px;font-family:'Open Sans',sans-serif">Check your inbox for a verification email</p>
+      </div>
+      <div class="modal-body">
+        <div class="edit-fields">
+          <div class="em-email-row">
+            <div class="id-icon" id="em-icon" style="flex-shrink:0"></div>
+            <span id="em-display-email" style="font-size:14px;font-weight:700;color:#222020;font-family:'Open Sans',sans-serif"></span>
+          </div>
+          <div class="ifld">
+            <input id="em-code-inp" class="inp" type="text" placeholder="Verify code" oninput="onEmCode(this.value)" onkeydown="if(event.key==='Enter')submitEmVerify()"/>
+          </div>
+          <p id="em-resend-text" style="font-size:14px;color:#222020;margin-top:4px;line-height:20px;font-family:'Open Sans',sans-serif"></p>
+          <div class="rcaptcha" style="margin-top:12px">
+            <label class="rcaptcha-check">
+              <input type="checkbox" id="em-captcha-ck" onchange="toggleEmCaptcha()"/>
+              <span>我不是機器人</span>
+            </label>
+            <div class="rcaptcha-logo">
+              <div class="rcaptcha-logo-text">reCAPTCHA</div>
+              <div class="rcaptcha-logo-sub">隱私 條款</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="bpill" id="btn-em-next2" onclick="submitEmVerify()" disabled>Next</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── Assets ────────────────────────────────────────────────────────
+var IC_EMAIL_BG = 'https://www.figma.com/api/mcp/asset/8285c9b9-8d23-4ddf-a1de-1bfe49c14e86';
+var IC_EMAIL_FG = 'https://www.figma.com/api/mcp/asset/41fbc735-39ab-4fba-a23e-d568e865fb2b';
+var IC_PHONE_BG = 'https://www.figma.com/api/mcp/asset/dc6d622c-78b6-4d2c-889c-da3776f164ae';
+var IC_PHONE_FG = 'https://www.figma.com/api/mcp/asset/50f8d5e2-8ff7-4307-9f07-8714228c88e9';
+var CK_ACTIVE   = 'https://www.figma.com/api/mcp/asset/39fca3f3-acef-4664-a19c-02a8f278a4ef';
+var CK_INACTIVE = 'https://www.figma.com/api/mcp/asset/8f1802ab-41aa-4ec9-a845-7823b87c076c';
+
+// ── Country list ──────────────────────────────────────────────────
+var COUNTRIES = [
+  ['🇺🇸','United States','+1'],['🇨🇦','Canada','+1'],['🇹🇼','Taiwan','+886'],
+  ['🇨🇳','China','+86'],['🇬🇧','United Kingdom','+44'],['🇯🇵','Japan','+81'],
+  ['🇰🇷','South Korea','+82'],['🇸🇬','Singapore','+65'],['🇲🇾','Malaysia','+60'],
+  ['🇹🇭','Thailand','+66'],['🇮🇩','Indonesia','+62'],['🇦🇺','Australia','+61'],
+  ['🇩🇪','Germany','+49'],['🇫🇷','France','+33'],['🇪🇬','Egypt','+20']
+];
+function buildDropdown(dropId, ns) {
+  var dd = document.getElementById(dropId);
+  dd.innerHTML = COUNTRIES.map(function(c) {
+    return '<button class="cco" onclick="pickCC(\'' + c[2] + '\',\'' + ns + '\')">'
+         + c[0] + ' ' + c[1] + ' (' + c[2] + ')</button>';
+  }).join('');
+}
+
+// ── Login state ───────────────────────────────────────────────────
+var CC = '+1', idVal = '', pwVal = '', fgCodeVal = '', curMode = 'unknown';
+var loginCode = '', loginTimer = null, loginSec = 60;
+var fgTimer = null, fgSec = 60;
+var fgPw1 = '', fgPw2 = '';
+
+// ── Sign-up state ─────────────────────────────────────────────────
+var suCC = '+1', suIdVal = '', suMode = 'unknown', suCode = '';
+var suTimer = null, suSec = 60;
+var suPw1 = '', suPw2 = '';
+var suTerms = false, suNewsletter = true;
+
+// ── Navigation ────────────────────────────────────────────────────
+function toScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s){ s.style.display = 'none'; });
+  var el = document.getElementById(id);
+  el.style.display = (id === 's-login' || id === 's-signup') ? 'flex' : 'block';
+}
+function toStep(id) {
+  document.querySelectorAll('#s-login .step').forEach(function(s){ s.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+}
+function toSuStep(id) {
+  document.querySelectorAll('#s-signup .step').forEach(function(s){ s.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+}
+
+// ── Icon HTML ─────────────────────────────────────────────────────
+function iconHTML(mode) {
+  if (mode === 'email') {
+    return '<img style="position:absolute;inset:0;width:100%;height:100%" src="' + IC_EMAIL_BG + '" alt=""/>'
+         + '<img style="position:absolute;top:31.25%;left:25%;width:50%;height:37.5%" src="' + IC_EMAIL_FG + '" alt=""/>';
+  }
+  if (mode === 'phone') {
+    return '<img style="position:absolute;inset:0;width:100%;height:100%" src="' + IC_PHONE_BG + '" alt=""/>'
+         + '<img style="position:absolute;top:22.5%;left:32.28%;width:35.44%;height:55%" src="' + IC_PHONE_FG + '" alt=""/>';
+  }
+  return '';
+}
+
+// ── Mode detection ────────────────────────────────────────────────
+function detectMode(v) {
+  if (!v) return 'unknown';
+  if (/[@.]/.test(v)) return 'email';
+  if (/^[\d\s+\-()]+$/.test(v) && /\d/.test(v)) return 'phone';
+  return 'unknown';
+}
+
+// ── CC selector ───────────────────────────────────────────────────
+function toggleCC(ns) {
+  document.getElementById(ns === 'login' ? 'ccd' : 'su-ccd').classList.toggle('on');
+}
+function pickCC(code, ns) {
+  if (ns === 'login') {
+    CC = code;
+    document.getElementById('cc-val').textContent = code;
+    document.getElementById('ccd').classList.remove('on');
+    setTimeout(function() {
+      document.getElementById('id-inp').style.paddingLeft =
+        (document.getElementById('ccw').offsetWidth + 12) + 'px';
+    }, 0);
+  } else {
+    suCC = code;
+    document.getElementById('su-cc-val').textContent = code;
+    document.getElementById('su-ccd').classList.remove('on');
+    setTimeout(function() {
+      document.getElementById('su-id-inp').style.paddingLeft =
+        (document.getElementById('su-ccw').offsetWidth + 12) + 'px';
+    }, 0);
+  }
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('ccw').contains(e.target))
+    document.getElementById('ccd').classList.remove('on');
+  if (!document.getElementById('su-ccw').contains(e.target))
+    document.getElementById('su-ccd').classList.remove('on');
+  var avBtn = document.getElementById('av-btn');
+  var avMenu = document.getElementById('av-menu');
+  if (avBtn && avMenu && !avBtn.contains(e.target) && !avMenu.contains(e.target))
+    avMenu.style.display = 'none';
+});
+
+// ── Eye toggle ────────────────────────────────────────────────────
+function toggleEye(inputId, svgId) {
+  var inp = document.getElementById(inputId);
+  var isText = inp.type === 'text';
+  inp.type = isText ? 'password' : 'text';
+  document.getElementById(svgId).querySelector('use')
+    .setAttribute('href', isText ? '#eye' : '#eye-off');
+}
+
+// ── LOGIN: identifier ─────────────────────────────────────────────
+function onId(v) {
+  idVal = v; curMode = detectMode(v);
+  var ccIn = document.getElementById('cc-in');
+  var inp = document.getElementById('id-inp');
+  if (curMode === 'phone') {
+    ccIn.classList.add('on');
+    setTimeout(function(){ inp.style.paddingLeft = (document.getElementById('ccw').offsetWidth + 12) + 'px'; }, 0);
+  } else {
+    ccIn.classList.remove('on');
+    inp.style.paddingLeft = '12px';
+  }
+  document.getElementById('btn-id').disabled = !v.trim();
+}
+function toPassword() {
+  if (!idVal.trim()) return;
+  document.getElementById('pw-icon').innerHTML = iconHTML(curMode);
+  document.getElementById('pw-disp').textContent = curMode === 'phone' ? CC + ' ' + idVal : idVal;
+  toStep('st-pw');
+  setTimeout(function(){ document.getElementById('pw-inp').focus(); }, 50);
+}
+
+// ── LOGIN: password ───────────────────────────────────────────────
+function onPw(v) {
+  pwVal = v;
+  document.getElementById('btn-pw').disabled = !v;
+}
+
+// ── LOGIN: verify ─────────────────────────────────────────────────
+function toVerify() {
+  if (!pwVal) return;
+  var target = curMode === 'phone' ? CC + ' ' + idVal : idVal;
+  document.getElementById('vt-icon').innerHTML = iconHTML(curMode);
+  document.getElementById('vt-name').textContent = target;
+  document.getElementById('login-code').value = '';
+  loginCode = '';
+  document.getElementById('btn-verify').disabled = true;
+  startLoginCountdown();
+  toStep('st-verify');
+  setTimeout(function(){ document.getElementById('login-code').focus(); }, 50);
+}
+function startLoginCountdown() {
+  clearInterval(loginTimer); loginSec = 60;
+  document.getElementById('login-resend').innerHTML =
+    'Resend verify code after <span id="login-resend-cd">60</span> sec...';
+  loginTimer = setInterval(function() {
+    loginSec--;
+    var el = document.getElementById('login-resend-cd');
+    if (el) el.textContent = loginSec;
+    if (loginSec <= 0) {
+      clearInterval(loginTimer);
+      document.getElementById('login-resend').innerHTML =
+        '<button class="resend-link" onclick="startLoginCountdown()">Resend verify code</button>';
+    }
+  }, 1000);
+}
+function onLoginCode(v) {
+  loginCode = v;
+  document.getElementById('btn-verify').disabled = !v.trim();
+}
+function doVerify() {
+  if (!loginCode.trim()) return;
+  clearInterval(loginTimer);
+  toScreen('s-profile');
+}
+
+// ── LOGIN: forgot password — verify ───────────────────────────────
+function toForgot() {
+  document.getElementById('fg-icon').innerHTML = iconHTML(curMode);
+  document.getElementById('fg-disp').textContent = curMode === 'phone' ? CC + ' ' + idVal : idVal;
+  document.getElementById('fg-code').value = '';
+  fgCodeVal = '';
+  document.getElementById('btn-fg-next').disabled = true;
+  startFgCountdown();
+  toStep('st-forgot');
+  setTimeout(function(){ document.getElementById('fg-code').focus(); }, 50);
+}
+function startFgCountdown() {
+  clearInterval(fgTimer); fgSec = 60;
+  document.getElementById('fg-resend').innerHTML =
+    'Resend verify code after <span id="fg-resend-cd">60</span> sec...';
+  fgTimer = setInterval(function() {
+    fgSec--;
+    var el = document.getElementById('fg-resend-cd');
+    if (el) el.textContent = fgSec;
+    if (fgSec <= 0) {
+      clearInterval(fgTimer);
+      document.getElementById('fg-resend').innerHTML =
+        '<button class="resend-link" onclick="startFgCountdown()">Resend verify code</button>';
+    }
+  }, 1000);
+}
+function onFgCode(v) {
+  fgCodeVal = v;
+  document.getElementById('btn-fg-next').disabled = !v.trim();
+}
+function doFgNext() {
+  if (!fgCodeVal.trim()) return;
+  clearInterval(fgTimer);
+  toFgReset();
+}
+
+// ── LOGIN: forgot password — reset ────────────────────────────────
+function toFgReset() {
+  fgPw1 = ''; fgPw2 = '';
+  document.getElementById('fg-pw1').value = '';
+  document.getElementById('fg-pw2').value = '';
+  document.getElementById('fg-pw-err').textContent = '';
+  document.getElementById('btn-fg-confirm').disabled = true;
+  document.getElementById('fg-reset-icon').innerHTML = iconHTML(curMode);
+  document.getElementById('fg-reset-disp').textContent = curMode === 'phone' ? CC + ' ' + idVal : idVal;
+  toStep('st-fg-reset');
+  setTimeout(function(){ document.getElementById('fg-pw1').focus(); }, 50);
+}
+function pwMeetsRule(v) {
+  return /[a-z]/.test(v) && /[0-9]/.test(v);
+}
+function onFgPw1(v) { fgPw1 = v; validateFgPw(); }
+function onFgPw2(v) { fgPw2 = v; validateFgPw(); }
+function validateFgPw() {
+  var err = document.getElementById('fg-pw-err');
+  if (fgPw1 && !pwMeetsRule(fgPw1)) {
+    err.textContent = 'Password must contain at least 1 lowercase letter and 1 number';
+  } else if (fgPw2 && fgPw1 !== fgPw2) {
+    err.textContent = 'Passwords do not match';
+  } else {
+    err.textContent = '';
+  }
+  document.getElementById('btn-fg-confirm').disabled = !fgPw1 || !pwMeetsRule(fgPw1) || !fgPw2 || fgPw1 !== fgPw2;
+}
+function doFgReset() {
+  if (!fgPw1 || fgPw1 !== fgPw2) return;
+  toStep('st-id');
+  toScreen('s-login');
+}
+
+// ── SIGN UP: identifier ───────────────────────────────────────────
+function goSignUp() {
+  suIdVal = ''; suMode = 'unknown'; suCC = '+1'; suCode = '';
+  suPw1 = ''; suPw2 = '';
+  suTerms = false; suNewsletter = true;
+  document.getElementById('su-id-inp').value = '';
+  document.getElementById('su-cc-in').classList.remove('on');
+  document.getElementById('su-id-inp').style.paddingLeft = '12px';
+  document.getElementById('su-cc-val').textContent = '+1';
+  document.getElementById('btn-su-next').disabled = true;
+  document.getElementById('su-pw1').value = '';
+  document.getElementById('su-pw2').value = '';
+  document.getElementById('su-pw-err').textContent = '';
+  document.getElementById('btn-su-pw').disabled = true;
+  document.getElementById('su-fname').value = '';
+  document.getElementById('su-lname').value = '';
+  document.getElementById('su-referral').value = '';
+  document.getElementById('ck-terms-img').src = CK_INACTIVE;
+  document.getElementById('ck-news-img').src = CK_ACTIVE;
+  document.getElementById('btn-su-signup').disabled = true;
+  toSuStep('st-su-info');
+  toScreen('s-signup');
+}
+function onSuId(v) {
+  suIdVal = v; suMode = detectMode(v);
+  var ccIn = document.getElementById('su-cc-in');
+  var inp = document.getElementById('su-id-inp');
+  if (suMode === 'phone') {
+    ccIn.classList.add('on');
+    setTimeout(function(){ inp.style.paddingLeft = (document.getElementById('su-ccw').offsetWidth + 12) + 'px'; }, 0);
+  } else {
+    ccIn.classList.remove('on');
+    inp.style.paddingLeft = '12px';
+  }
+  document.getElementById('btn-su-next').disabled = !v.trim();
+}
+
+// ── SIGN UP: verify ───────────────────────────────────────────────
+function toSuVerify() {
+  if (!suIdVal.trim()) return;
+  var disp = suMode === 'phone' ? suCC + ' ' + suIdVal : suIdVal;
+  document.getElementById('su-vt-icon').innerHTML = iconHTML(suMode);
+  document.getElementById('su-vt-name').textContent = disp;
+  document.getElementById('su-code').value = '';
+  suCode = '';
+  document.getElementById('btn-su-verify').disabled = true;
+  startSuCountdown();
+  toSuStep('st-su-verify');
+  setTimeout(function(){ document.getElementById('su-code').focus(); }, 50);
+}
+function startSuCountdown() {
+  clearInterval(suTimer); suSec = 60;
+  document.getElementById('su-resend').innerHTML =
+    'Resend verify code after <span id="su-resend-cd">60</span> sec...';
+  suTimer = setInterval(function() {
+    suSec--;
+    var el = document.getElementById('su-resend-cd');
+    if (el) el.textContent = suSec;
+    if (suSec <= 0) {
+      clearInterval(suTimer);
+      document.getElementById('su-resend').innerHTML =
+        '<button class="resend-link" onclick="startSuCountdown()">Resend verify code</button>';
+    }
+  }, 1000);
+}
+function onSuCode(v) {
+  suCode = v;
+  document.getElementById('btn-su-verify').disabled = !v.trim();
+}
+function doSuVerify() {
+  if (!suCode.trim()) return;
+  clearInterval(suTimer);
+  // Go to password setup
+  suPw1 = ''; suPw2 = '';
+  document.getElementById('su-pw1').value = '';
+  document.getElementById('su-pw2').value = '';
+  document.getElementById('su-pw-err').textContent = '';
+  document.getElementById('btn-su-pw').disabled = true;
+  var disp = suMode === 'phone' ? suCC + ' ' + suIdVal : suIdVal;
+  document.getElementById('su-pw-icon').innerHTML = iconHTML(suMode);
+  document.getElementById('su-pw-disp').textContent = disp;
+  toSuStep('st-su-pw');
+  setTimeout(function(){ document.getElementById('su-pw1').focus(); }, 50);
+}
+
+// ── SIGN UP: password ─────────────────────────────────────────────
+function onSuPw1(v) { suPw1 = v; validateSuPw(); }
+function onSuPw2(v) { suPw2 = v; validateSuPw(); }
+function validateSuPw() {
+  var err = document.getElementById('su-pw-err');
+  if (suPw1 && !pwMeetsRule(suPw1)) {
+    err.textContent = 'Password must contain at least 1 lowercase letter and 1 number';
+  } else if (suPw2 && suPw1 !== suPw2) {
+    err.textContent = 'Passwords do not match';
+  } else {
+    err.textContent = '';
+  }
+  document.getElementById('btn-su-pw').disabled = !suPw1 || !pwMeetsRule(suPw1) || !suPw2 || suPw1 !== suPw2;
+}
+function doSuPw() {
+  if (!suPw1 || suPw1 !== suPw2) return;
+  suTerms = false; suNewsletter = true;
+  document.getElementById('su-fname').value = '';
+  document.getElementById('su-lname').value = '';
+  document.getElementById('su-referral').value = '';
+  document.getElementById('ck-terms-img').src = CK_INACTIVE;
+  document.getElementById('ck-news-img').src = CK_ACTIVE;
+  document.getElementById('btn-su-signup').disabled = true;
+  toSuStep('st-su-profile');
+  setTimeout(function(){ document.getElementById('su-fname').focus(); }, 50);
+}
+
+// ── SIGN UP: personal info ────────────────────────────────────────
+function onSuName() { validateSuProfile(); }
+function toggleCk(which) {
+  if (which === 'terms') {
+    suTerms = !suTerms;
+    document.getElementById('ck-terms-img').src = suTerms ? CK_ACTIVE : CK_INACTIVE;
+  } else {
+    suNewsletter = !suNewsletter;
+    document.getElementById('ck-news-img').src = suNewsletter ? CK_ACTIVE : CK_INACTIVE;
+  }
+  validateSuProfile();
+}
+function validateSuProfile() {
+  var fname = document.getElementById('su-fname').value.trim();
+  var lname = document.getElementById('su-lname').value.trim();
+  document.getElementById('btn-su-signup').disabled = !fname || !lname || !suTerms;
+}
+function doSignUp() {
+  if (!suTerms) return;
+  toScreen('s-profile');
+}
+
+// ── Profile tabs ──────────────────────────────────────────────────
+function switchTab(btn) {
+  document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  var isLS = btn.dataset.tab === 'ls';
+  document.getElementById('profile-cards').style.display = isLS ? 'none' : 'flex';
+  document.getElementById('ls-cards').style.display = isLS ? 'flex' : 'none';
+}
+
+// ── Modal box click handler (closes av-menu when clicking elsewhere) ─────
+function onModalBoxClick(e) {
+  e.stopPropagation();
+  var avBtn = document.getElementById('av-btn');
+  var avMenu = document.getElementById('av-menu');
+  if (avMenu && avBtn && !avBtn.contains(e.target) && !avMenu.contains(e.target))
+    avMenu.style.display = 'none';
+}
+
+// ── Edit Modal ────────────────────────────────────────────────────
+function openEditModal() {
+  document.getElementById('edit-modal').classList.remove('hidden');
+  document.getElementById('edit-modal-head').style.display = '';
+  document.getElementById('edit-modal-body').style.display = '';
+  document.getElementById('edit-modal-footer').style.display = '';
+  document.getElementById('edit-av-screen').style.display = 'none';
+  document.getElementById('av-menu').style.display = 'none';
+}
+function closeEditModal() {
+  document.getElementById('edit-modal').classList.add('hidden');
+}
+function toggleAvMenu() {
+  var menu = document.getElementById('av-menu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+function openAvScreen() {
+  document.getElementById('av-menu').style.display = 'none';
+  document.getElementById('edit-modal-head').style.display = 'none';
+  document.getElementById('edit-modal-body').style.display = 'none';
+  document.getElementById('edit-modal-footer').style.display = 'none';
+  var screen = document.getElementById('edit-av-screen');
+  screen.style.display = 'flex';
+  setTimeout(function() {
+    var area = document.getElementById('crop-area');
+    var box = document.getElementById('crop-box');
+    box.style.left = Math.round((area.offsetWidth - 220) / 2) + 'px';
+    box.style.top = Math.round((area.offsetHeight - 220) / 2) + 'px';
+  }, 0);
+}
+function closeAvScreen() {
+  document.getElementById('edit-av-screen').style.display = 'none';
+  document.getElementById('edit-modal-head').style.display = '';
+  document.getElementById('edit-modal-body').style.display = '';
+  document.getElementById('edit-modal-footer').style.display = '';
+}
+
+// ── Crop drag ─────────────────────────────────────────────────────
+var cropDrag = null;
+document.addEventListener('mousedown', function(e) {
+  var box = document.getElementById('crop-box');
+  if (box && box.contains(e.target)) {
+    var rect = box.getBoundingClientRect();
+    cropDrag = { ox: e.clientX - rect.left, oy: e.clientY - rect.top };
+    box.style.cursor = 'grabbing';
+    e.preventDefault();
+  }
+});
+document.addEventListener('mousemove', function(e) {
+  if (!cropDrag) return;
+  var box = document.getElementById('crop-box');
+  var area = document.getElementById('crop-area');
+  if (!box || !area) return;
+  var aRect = area.getBoundingClientRect();
+  var newLeft = e.clientX - aRect.left - cropDrag.ox;
+  var newTop = e.clientY - aRect.top - cropDrag.oy;
+  newLeft = Math.max(0, Math.min(newLeft, aRect.width - 220));
+  newTop = Math.max(0, Math.min(newTop, aRect.height - 220));
+  box.style.left = newLeft + 'px';
+  box.style.top = newTop + 'px';
+});
+document.addEventListener('mouseup', function() {
+  if (cropDrag) {
+    cropDrag = null;
+    var box = document.getElementById('crop-box');
+    if (box) box.style.cursor = 'grab';
+  }
+});
+function setDietTab(val) {
+  document.querySelectorAll('.diet-pill').forEach(function(b) {
+    b.classList.toggle('on', b.dataset.val === val);
+  });
+}
+function setUnitTab(val) {
+  document.querySelectorAll('.unit-pill').forEach(function(b) {
+    b.classList.toggle('on', b.dataset.val === val);
+  });
+}
+
+// ── Edit Email Modal ──────────────────────────────────────────────
+var emNewEmail = '', emCode = '', emCaptcha = false;
+var emTimer = null, emSec = 60;
+
+function openEditEmailModal() {
+  emNewEmail = ''; emCode = ''; emCaptcha = false;
+  document.getElementById('em-email-inp').value = '';
+  document.getElementById('em-code-inp').value = '';
+  document.getElementById('em-captcha-ck').checked = false;
+  document.getElementById('btn-em-next1').disabled = true;
+  document.getElementById('btn-em-next2').disabled = true;
+  showEmStep(1);
+  document.getElementById('email-modal').classList.remove('hidden');
+  setTimeout(function(){ document.getElementById('em-email-inp').focus(); }, 50);
+}
+function closeEmailModal() {
+  document.getElementById('email-modal').classList.add('hidden');
+  clearInterval(emTimer);
+}
+function showEmStep(n) {
+  document.getElementById('em-step1').style.display = n === 1 ? 'flex' : 'none';
+  document.getElementById('em-step2').style.display = n === 2 ? 'flex' : 'none';
+}
+function onEmEmail(v) {
+  emNewEmail = v;
+  document.getElementById('btn-em-next1').disabled = !(/[@.]/.test(v) && v.trim().length > 3);
+}
+function submitEmEmail() {
+  if (!emNewEmail) return;
+  document.getElementById('em-icon').innerHTML = iconHTML('email');
+  document.getElementById('em-display-email').textContent = emNewEmail;
+  emCode = ''; emCaptcha = false;
+  document.getElementById('em-code-inp').value = '';
+  document.getElementById('em-captcha-ck').checked = false;
+  document.getElementById('btn-em-next2').disabled = true;
+  showEmStep(2);
+  startEmCountdown();
+  setTimeout(function(){ document.getElementById('em-code-inp').focus(); }, 50);
+}
+function emGoBack() { clearInterval(emTimer); showEmStep(1); }
+function startEmCountdown() {
+  clearInterval(emTimer); emSec = 60;
+  updateEmResend();
+  emTimer = setInterval(function() {
+    emSec--;
+    if (emSec <= 0) {
+      clearInterval(emTimer);
+      document.getElementById('em-resend-text').innerHTML =
+        '<button class="resend-link" onclick="startEmCountdown()">Resend verify code</button>';
+    } else {
+      updateEmResend();
+    }
+  }, 1000);
+}
+function updateEmResend() {
+  var el = document.getElementById('em-resend-text');
+  if (el) el.textContent = 'Resend available in ' + emSec + 's';
+}
+function onEmCode(v) {
+  emCode = v;
+  validateEmStep2();
+}
+function toggleEmCaptcha() {
+  emCaptcha = document.getElementById('em-captcha-ck').checked;
+  validateEmStep2();
+}
+function validateEmStep2() {
+  document.getElementById('btn-em-next2').disabled = !emCode.trim() || !emCaptcha;
+}
+function submitEmVerify() {
+  if (!emCode.trim() || !emCaptcha) return;
+  clearInterval(emTimer);
+  document.getElementById('profile-email-display').textContent = emNewEmail;
+  closeEmailModal();
+}
+
+// ── Init ──────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function() {
+  buildDropdown('ccd', 'login');
+  buildDropdown('su-ccd', 'su');
+  document.getElementById('ck-terms-img').src = CK_INACTIVE;
+  document.getElementById('ck-news-img').src = CK_ACTIVE;
+});
+</script>
+</body>
+</html>
