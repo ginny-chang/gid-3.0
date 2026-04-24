@@ -82,14 +82,22 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .ci{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:#ABB0B6;border-radius:50%;flex-shrink:0}
 .resend-left{font-size:14px;color:#000;margin-bottom:24px;line-height:20px;text-align:left}
 .resend-link{background:none;border:none;font-size:14px;font-weight:700;color:var(--charcoal);cursor:pointer;text-decoration:underline;padding:0}
+.resend-link:disabled{opacity:.45;cursor:default;text-decoration:none}
 .pw-err{font-size:12px;color:#e53935;margin-top:4px;display:block;min-height:16px}
 .fab{position:fixed;bottom:24px;right:24px;z-index:50;width:60px;height:60px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:opacity .15s}
 .fab:hover{opacity:.85}
 
 /* ── PROFILE ── */
 #s-profile{min-height:100vh;background:var(--snow)}
-.ph{background:#fff;padding:16px 40px 0;box-shadow:0 1px 0 var(--pearl)}
-.ph img.logo{height:16px;width:auto;margin-bottom:20px;display:block}
+.ph{background:#fff;padding:20px 40px 0;box-shadow:0 1px 0 var(--pearl);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;min-height:160px}
+.ph img.logo{position:absolute;left:40px;top:22px;height:16px;width:auto;display:block}
+.ph-user{display:flex;align-items:center;gap:16px;margin-bottom:20px;margin-top:44px}
+.ph-avatar{width:56px;height:56px;border-radius:50%;background:var(--primary-blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ph-avatar svg{display:block}
+.ph-info{display:flex;flex-direction:column;gap:2px}
+.ph-name{font-family:'Overpass',sans-serif;font-weight:700;font-size:20px;color:var(--charcoal);line-height:1.2}
+.ph-gid{font-family:'Open Sans',sans-serif;font-size:13px;color:var(--slate);letter-spacing:.02em}
+.ph-gid span{font-weight:600;color:var(--primary-blue)}
 .tabs{display:flex}
 .tab{position:relative;width:140px;text-align:center;padding-bottom:12px;font-size:16px;background:none;border:none;cursor:pointer;transition:color .2s;font-family:'Open Sans',sans-serif}
 .tab.on{font-weight:700;color:#000}
@@ -141,6 +149,10 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .si .ic20{width:20px;height:20px;flex-shrink:0;display:block}
 .sil{flex:1;font-size:14px;font-weight:700;color:var(--charcoal)}
 .arow{display:flex;align-items:center;justify-content:space-between;padding:8px 0 80px}
+.prof-banner{height:200px;position:relative;overflow:hidden}
+.prof-banner img{width:100%;height:100%;object-fit:cover}
+.prof-banner::after{content:'';background:rgba(0,0,0,0.35);position:absolute;inset:0}
+.prof-banner-text{z-index:1;position:absolute;bottom:24px;left:40px;font-family:'Overpass',sans-serif;font-weight:700;font-size:28px;line-height:1.2;color:#fff}
 
 /* ── EDIT MODAL ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding-top:60px}
@@ -285,7 +297,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
           <button class="sb" title="Google"><img src="https://www.figma.com/api/mcp/asset/95eb3f84-80aa-4df4-aefe-9dae3efc7eaf" alt="Google"/></button>
           <button class="sb" title="Line"><img src="https://www.figma.com/api/mcp/asset/e74ad71c-2b81-4b0d-90d6-90ff020d7da5" alt="Line"/></button>
         </div>
-        <button class="cu">
+        <button class="cu" onclick="openContactModal()">
           <span class="ci">
             <svg width="11" height="9" viewBox="0 0 14 11" fill="white"><path d="M12.833 0H1.167C.522 0 0 .522 0 1.167v8.75C0 10.478.522 11 1.167 11h11.666C13.478 11 14 10.478 14 9.917V1.167C14 .522 13.478 0 12.833 0zm0 2.333L7 5.833 1.167 2.333V1.167L7 4.667l5.833-3.5v1.166z"/></svg>
           </span>
@@ -521,10 +533,27 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 <div id="s-profile" class="screen">
   <div class="ph">
     <img src="https://www.figma.com/api/mcp/asset/ce236c30-9ff9-4272-8e3b-33e30a70a1f2" alt="Giant" class="logo"/>
+    <div class="ph-user">
+      <div class="ph-avatar">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="12" r="6" fill="#dae2f6"/>
+          <path d="M4 28c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#dae2f6" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="ph-info">
+        <div class="ph-name">Kevin Lin</div>
+        <div class="ph-gid">Giant ID: <span>9d8e-907d-601f-1epq</span></div>
+      </div>
+    </div>
     <div class="tabs">
       <button class="tab on" data-tab="profile" onclick="switchTab(this)">Profile</button>
       <button class="tab" data-tab="ls" onclick="switchTab(this)">Login &amp; Security</button>
     </div>
+  </div>
+
+  <div class="prof-banner">
+    <img src="https://www.figma.com/api/mcp/asset/14ae0b55-5cbb-4abf-9ebd-4f1474d52d9e" alt="Giant Cycling"/>
+    <div class="prof-banner-text">Enjoy Giant<br>Cycling World</div>
   </div>
 
   <!-- Profile content -->
@@ -658,7 +687,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
       </div>
 
       <div style="display:flex;justify-content:center;padding:4px 0 0">
-        <button class="cu">
+        <button class="cu" onclick="openContactModal()">
           <span class="ci"><svg width="11" height="9" viewBox="0 0 14 11" fill="white"><path d="M12.833 0H1.167C.522 0 0 .522 0 1.167v8.75C0 10.478.522 11 1.167 11h11.666C13.478 11 14 10.478 14 9.917V1.167C14 .522 13.478 0 12.833 0zm0 2.333L7 5.833 1.167 2.333V1.167L7 4.667l5.833-3.5v1.166z"/></svg></span>
           Contact us
         </button>
@@ -944,7 +973,13 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         <div class="edit-fields">
           <div class="ifld">
             <label>Current Email</label>
-            <div class="em-cur-email">Giant.TPE@gmail.com</div>
+            <div class="em-cur-email" style="gap:8px">
+              <div style="position:relative;width:20px;height:20px;flex-shrink:0">
+                <img src="https://www.figma.com/api/mcp/asset/c1abe0f8-3763-46f0-9a95-d23e173c9784" style="position:absolute;inset:0;width:100%;height:100%" alt=""/>
+                <img src="https://www.figma.com/api/mcp/asset/7a46d9e7-bb3b-4ec8-b6b8-5d0573a4b38e" style="position:absolute;top:31.25%;left:25%;width:50%;height:37.5%" alt=""/>
+              </div>
+              <span id="em-cur-text" style="font-size:14px;font-weight:700;color:#000;font-family:'Open Sans',sans-serif">Giant.TPE@gmail.com</span>
+            </div>
           </div>
           <div class="ifld">
             <label>New Email</label>
@@ -994,6 +1029,54 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
     </div>
 
   </div>
+</div>
+
+<!-- ════════════════ CONTACT US MODAL ════════════════ -->
+<div id="contact-modal" class="modal-overlay hidden" onclick="closeContactModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <button class="modal-back" onclick="closeContactModal()"><svg width="20" height="20"><use href="#chev-l"/></svg></button>
+      <span class="modal-title">Contact Us</span>
+    </div>
+    <div class="modal-body">
+      <div class="edit-fields">
+        <div class="edit-row">
+          <div class="ifld">
+            <label>Name</label>
+            <input id="cu-name" type="text" placeholder=""/>
+          </div>
+          <div class="ifld">
+            <label>Email</label>
+            <input id="cu-email" type="email" placeholder=""/>
+          </div>
+        </div>
+        <div class="ifld">
+          <label>Issue</label>
+          <select id="cu-issue">
+            <option value="">Not set</option>
+            <option>Account Issue</option>
+            <option>Login Problem</option>
+            <option>Payment Issue</option>
+            <option>Product Issue</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="ifld">
+          <label>Description</label>
+          <textarea id="cu-desc" placeholder="Describe your issue..."></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="bpill" onclick="submitContactUs()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ TOAST ════════════════ -->
+<div id="success-toast" style="display:none;position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:500;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:14px 20px;align-items:center;gap:10px;font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;white-space:nowrap;transition:opacity .3s">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0"><circle cx="10" cy="10" r="10" fill="#22C55E"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <span id="toast-text">Your email had been updated</span>
 </div>
 
 <!-- ════════════════ CHATBOT DIALOG ════════════════ -->
@@ -1099,7 +1182,10 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         <div class="edit-fields">
           <div class="ifld">
             <label>Current Phone Number</label>
-            <div class="em-cur-email" id="pm-cur-display">Not set</div>
+            <div class="em-cur-email" style="gap:8px">
+              <img src="https://www.figma.com/api/mcp/asset/86c90277-c36e-4670-b879-e467a5be0582" style="width:20px;height:20px;flex-shrink:0" alt=""/>
+              <span id="pm-cur-text" style="font-size:14px;font-weight:700;color:#000;font-family:'Open Sans',sans-serif">Not set</span>
+            </div>
           </div>
           <div class="ifld">
             <label>New Phone Number</label>
@@ -1327,15 +1413,15 @@ function toVerify() {
 function startLoginCountdown() {
   clearInterval(loginTimer); loginSec = 60;
   document.getElementById('login-resend').innerHTML =
-    'Resend verify code after <span id="login-resend-cd">60</span> sec...';
+    '<button class="resend-link" id="login-resend-btn" onclick="startLoginCountdown()" disabled>Resend (60s)</button>';
   loginTimer = setInterval(function() {
     loginSec--;
-    var el = document.getElementById('login-resend-cd');
-    if (el) el.textContent = loginSec;
+    var btn = document.getElementById('login-resend-btn');
     if (loginSec <= 0) {
       clearInterval(loginTimer);
-      document.getElementById('login-resend').innerHTML =
-        '<button class="resend-link" onclick="startLoginCountdown()">Resend verify code</button>';
+      if (btn) { btn.textContent = 'Resend'; btn.disabled = false; }
+    } else {
+      if (btn) btn.textContent = 'Resend (' + loginSec + 's)';
     }
   }, 1000);
 }
@@ -1364,15 +1450,15 @@ function toForgot() {
 function startFgCountdown() {
   clearInterval(fgTimer); fgSec = 60;
   document.getElementById('fg-resend').innerHTML =
-    'Resend verify code after <span id="fg-resend-cd">60</span> sec...';
+    '<button class="resend-link" id="fg-resend-btn" onclick="startFgCountdown()" disabled>Resend (60s)</button>';
   fgTimer = setInterval(function() {
     fgSec--;
-    var el = document.getElementById('fg-resend-cd');
-    if (el) el.textContent = fgSec;
+    var btn = document.getElementById('fg-resend-btn');
     if (fgSec <= 0) {
       clearInterval(fgTimer);
-      document.getElementById('fg-resend').innerHTML =
-        '<button class="resend-link" onclick="startFgCountdown()">Resend verify code</button>';
+      if (btn) { btn.textContent = 'Resend'; btn.disabled = false; }
+    } else {
+      if (btn) btn.textContent = 'Resend (' + fgSec + 's)';
     }
   }, 1000);
 }
@@ -1473,15 +1559,15 @@ function toSuVerify() {
 function startSuCountdown() {
   clearInterval(suTimer); suSec = 60;
   document.getElementById('su-resend').innerHTML =
-    'Resend verify code after <span id="su-resend-cd">60</span> sec...';
+    '<button class="resend-link" id="su-resend-btn" onclick="startSuCountdown()" disabled>Resend (60s)</button>';
   suTimer = setInterval(function() {
     suSec--;
-    var el = document.getElementById('su-resend-cd');
-    if (el) el.textContent = suSec;
+    var btn = document.getElementById('su-resend-btn');
     if (suSec <= 0) {
       clearInterval(suTimer);
-      document.getElementById('su-resend').innerHTML =
-        '<button class="resend-link" onclick="startSuCountdown()">Resend verify code</button>';
+      if (btn) { btn.textContent = 'Resend'; btn.disabled = false; }
+    } else {
+      if (btn) btn.textContent = 'Resend (' + suSec + 's)';
     }
   }, 1000);
 }
@@ -1751,6 +1837,8 @@ function openEditEmailModal() {
   document.getElementById('em-captcha-ck').checked = false;
   document.getElementById('btn-em-next1').disabled = true;
   document.getElementById('btn-em-next2').disabled = true;
+  var curEl = document.getElementById('em-cur-text');
+  if (curEl) curEl.textContent = document.getElementById('profile-email-display').textContent.trim();
   showEmStep(1);
   document.getElementById('email-modal').classList.remove('hidden');
   setTimeout(function(){ document.getElementById('em-email-inp').focus(); }, 50);
@@ -1782,21 +1870,18 @@ function submitEmEmail() {
 function emGoBack() { clearInterval(emTimer); showEmStep(1); }
 function startEmCountdown() {
   clearInterval(emTimer); emSec = 60;
-  updateEmResend();
+  document.getElementById('em-resend-text').innerHTML =
+    '<button class="resend-link" id="em-resend-btn" onclick="startEmCountdown()" disabled>Resend (60s)</button>';
   emTimer = setInterval(function() {
     emSec--;
+    var btn = document.getElementById('em-resend-btn');
     if (emSec <= 0) {
       clearInterval(emTimer);
-      document.getElementById('em-resend-text').innerHTML =
-        '<button class="resend-link" onclick="startEmCountdown()">Resend verify code</button>';
+      if (btn) { btn.textContent = 'Resend'; btn.disabled = false; }
     } else {
-      updateEmResend();
+      if (btn) btn.textContent = 'Resend (' + emSec + 's)';
     }
   }, 1000);
-}
-function updateEmResend() {
-  var el = document.getElementById('em-resend-text');
-  if (el) el.textContent = 'Resend available in ' + emSec + 's';
 }
 function onEmCode(v) {
   emCode = v;
@@ -1814,6 +1899,7 @@ function submitEmVerify() {
   clearInterval(emTimer);
   document.getElementById('profile-email-display').textContent = emNewEmail;
   closeEmailModal();
+  showToast('Your email had been updated');
 }
 
 // ── Skeleton ──────────────────────────────────────────────────────
@@ -1851,7 +1937,8 @@ function openEditPhoneModal() {
   document.getElementById('btn-pm-next1').disabled = true;
   document.getElementById('btn-pm-next2').disabled = true;
   var cur = document.getElementById('profile-phone-display').textContent.trim();
-  document.getElementById('pm-cur-display').textContent = cur === 'Not set' ? 'Not set' : cur;
+  var curEl = document.getElementById('pm-cur-text');
+  if (curEl) curEl.textContent = cur === 'Not set' ? 'Not set' : cur;
   showPmStep(1);
   document.getElementById('phone-modal').classList.remove('hidden');
   setTimeout(function(){ document.getElementById('pm-phone-inp').focus(); }, 50);
@@ -1893,21 +1980,18 @@ function submitPmPhone() {
 function pmGoBack() { clearInterval(pmTimer); showPmStep(1); }
 function startPmCountdown() {
   clearInterval(pmTimer); pmSec = 60;
-  updatePmResend();
+  document.getElementById('pm-resend-text').innerHTML =
+    '<button class="resend-link" id="pm-resend-btn" onclick="startPmCountdown()" disabled>Resend (60s)</button>';
   pmTimer = setInterval(function() {
     pmSec--;
+    var btn = document.getElementById('pm-resend-btn');
     if (pmSec <= 0) {
       clearInterval(pmTimer);
-      document.getElementById('pm-resend-text').innerHTML =
-        '<button class="resend-link" onclick="startPmCountdown()">Resend verify code</button>';
+      if (btn) { btn.textContent = 'Resend'; btn.disabled = false; }
     } else {
-      updatePmResend();
+      if (btn) btn.textContent = 'Resend (' + pmSec + 's)';
     }
   }, 1000);
-}
-function updatePmResend() {
-  var el = document.getElementById('pm-resend-text');
-  if (el) el.textContent = 'Resend available in ' + pmSec + 's';
 }
 function onPmCode(v) {
   pmCode = v;
@@ -1928,6 +2012,39 @@ function submitPmVerify() {
   disp.textContent = full;
   disp.classList.remove('ns');
   closePhoneModal();
+  showToast('Your phone number had been updated');
+}
+
+// ── Toast ─────────────────────────────────────────────────────────
+var toastTimer = null;
+function showToast(msg) {
+  var el = document.getElementById('success-toast');
+  document.getElementById('toast-text').textContent = msg;
+  clearTimeout(toastTimer);
+  el.style.display = 'flex';
+  el.style.opacity = '1';
+  toastTimer = setTimeout(function() {
+    el.style.opacity = '0';
+    setTimeout(function() { el.style.display = 'none'; }, 300);
+  }, 3000);
+}
+
+// ── Contact Modal ─────────────────────────────────────────────────
+function openContactModal() {
+  var nameEl = document.getElementById('prof-name');
+  var emailEl = document.getElementById('profile-email-display');
+  document.getElementById('cu-name').value = nameEl ? nameEl.textContent.trim() : '';
+  document.getElementById('cu-email').value = emailEl ? emailEl.textContent.trim() : '';
+  document.getElementById('cu-issue').value = '';
+  document.getElementById('cu-desc').value = '';
+  document.getElementById('contact-modal').classList.remove('hidden');
+}
+function closeContactModal() {
+  document.getElementById('contact-modal').classList.add('hidden');
+}
+function submitContactUs() {
+  closeContactModal();
+  showToast('Your message has been sent');
 }
 
 // ── Init ──────────────────────────────────────────────────────────
