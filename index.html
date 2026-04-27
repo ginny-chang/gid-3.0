@@ -22,7 +22,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .l-bg::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.08)}
 .l-hero{position:relative;z-index:1;flex:1;display:flex;align-items:flex-start;padding-left:200px;padding-top:calc(50vh - 157px)}
 .l-hero h1{font-family:'Overpass',sans-serif;font-weight:700;font-size:40px;line-height:52px;color:#fff;width:440px;text-shadow:0 0 6px rgba(0,0,0,.25)}
-.l-right{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;padding:32px 64px 32px 0}
+.l-right{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;padding:32px 0 32px 0;margin-right:254px}
 .card{width:488px;background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.09);padding:44px 52px;min-height:497px}
 .step{display:none}.step.on{display:block}
 .brand{display:block;height:16px;margin:0 0 32px 0}
@@ -118,7 +118,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .avedit{position:absolute;top:20px;right:0;width:32px;height:32px;background:var(--blue);border-radius:4px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
 .avedit:hover{background:#c5d4f0}
 .igrid{display:flex;flex-direction:column;gap:16px}
-.irow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.irow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .ifield{display:flex;align-items:flex-start;gap:12px}
 .ifield .ic20{width:20px;height:20px;flex-shrink:0;margin-top:2px;display:block}
 .ifl{font-size:16px;font-weight:700;color:var(--charcoal);line-height:1.3}
@@ -163,6 +163,22 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .modal-back:hover{color:#000}
 .modal-title{font-family:'Overpass',sans-serif;font-weight:700;font-size:20px;color:#000}
 .modal-body{flex:1;overflow-y:auto;padding:12px 56px 8px}
+.modal-body.pad40{padding-top:40px;padding-bottom:40px}
+.modal-close-btn{width:32px;height:32px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--charcoal);margin-left:auto;flex-shrink:0}
+.modal-close-btn:hover{color:#000}
+.da-num{width:20px;height:20px;border-radius:50%;background:#0050FC;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Open Sans',sans-serif;font-size:12px;font-weight:600;color:#fff}
+.da-item{display:flex;gap:12px;align-items:flex-start}
+.da-item p{font-family:'Open Sans',sans-serif;font-size:14px;color:#58626e;line-height:20px;margin:0;flex:1}
+.da-check-row{display:flex;gap:8px;align-items:center;padding-top:8px}
+.da-check-row label{font-family:'Open Sans',sans-serif;font-size:12px;color:#000;line-height:16px;cursor:pointer}
+.del-confirm-box{background:#fff;border-radius:16px;width:312px;padding:32px 16px;display:flex;flex-direction:column;align-items:center;gap:32px;box-shadow:0 10px 15px rgba(0,0,0,.1)}
+.del-confirm-box h3{font-family:'Overpass',sans-serif;font-weight:700;font-size:20px;color:#000;text-align:center;margin:0;line-height:24px;width:248px}
+.del-confirm-btns{display:flex;gap:16px;width:280px}
+.del-confirm-btns .bpill{flex:1}
+.del-confirm-btns .boutline{flex:1;height:40px;border-radius:20px;border:2px solid #000;background:none;font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;cursor:pointer}
+.del-confirm-btns .boutline:hover{background:#f5f5f5}
+.btn-del-red{background:#c83317;color:#fff;border:none;border-radius:24px;padding:12px 16px;font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;cursor:pointer;min-width:120px;height:40px}
+.btn-del-red:disabled{opacity:.4;cursor:default}
 .modal-footer{border-top:1px solid var(--pearl);padding:12px 56px;display:flex;justify-content:flex-end;flex-shrink:0}
 .edit-av-sec{display:flex;flex-direction:column;align-items:center;padding:12px 0;position:relative}
 .edit-av-wrap{position:relative;width:125px;height:124px}
@@ -551,27 +567,18 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
     </div>
   </div>
 
-  <div class="prof-banner">
-    <img src="https://www.figma.com/api/mcp/asset/14ae0b55-5cbb-4abf-9ebd-4f1474d52d9e" alt="Giant Cycling"/>
-    <div class="prof-banner-text">Enjoy Giant<br>Cycling World</div>
-  </div>
-
   <!-- Profile content -->
   <div id="profile-cards" class="pcontent">
     <div class="pstack">
 
       <!-- Basic Info -->
       <div class="pcard">
-        <button class="ebtn" onclick="openEditModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="3" fill="#DAE2F6"/><path d="M12.625 17.625H17.625M17.7337 8.75774C18.0642 8.42738 18.2498 7.97928 18.2499 7.51202C18.2499 7.04476 18.0644 6.59662 17.734 6.26618C17.4037 5.93573 16.9556 5.75006 16.4883 5.75C16.021 5.74994 15.5729 5.9355 15.2425 6.26586L6.90121 14.609C6.7561 14.7537 6.64878 14.9318 6.58871 15.1277L5.76308 17.8477C5.74693 17.9018 5.74571 17.9592 5.75955 18.0139C5.7734 18.0686 5.80178 18.1185 5.84171 18.1584C5.88163 18.1982 5.9316 18.2265 5.98631 18.2403C6.04102 18.254 6.09843 18.2527 6.15246 18.2365L8.87308 17.4115C9.06882 17.352 9.24694 17.2453 9.39183 17.1009L17.7337 8.75774Z" stroke="#0050FC" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="ebtn" onclick="openEditModal()"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="4" fill="#DAE2F6"/><path d="M23.4994 22.666C23.9596 22.666 24.3332 23.0389 24.3334 23.499C24.3334 23.9593 23.9597 24.333 23.4994 24.333H16.8334C16.3732 24.333 15.9994 23.9593 15.9994 23.499C15.9996 23.0389 16.3733 22.666 16.8334 22.666H23.4994ZM21.9838 7.66602C22.6068 7.66609 23.2045 7.9139 23.6449 8.35449C24.0854 8.79508 24.3325 9.39263 24.3324 10.0156C24.3323 10.6385 24.0855 11.2363 23.6449 11.6768L12.5219 22.8008C12.3288 22.9932 12.0913 23.1355 11.8305 23.2148L8.20256 24.3145C8.13072 24.336 8.05461 24.3376 7.98186 24.3193C7.90897 24.301 7.84171 24.264 7.7885 24.2109C7.73527 24.1578 7.69758 24.0905 7.67912 24.0176C7.66074 23.9447 7.6625 23.8679 7.68401 23.7959L8.78459 20.1699C8.86469 19.9087 9.0081 19.6705 9.20159 19.4775L20.3227 8.35352C20.7632 7.91311 21.3609 7.66603 21.9838 7.66602Z" fill="#0050FC"/></svg></button>
         <div class="avsec">
           <div class="avcircle"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="50" fill="#DEDEE0"/><path fill-rule="evenodd" clip-rule="evenodd" d="M50.0002 37.1667C46.9626 37.1667 44.5002 39.6291 44.5002 42.6667C44.5002 45.7042 46.9626 48.1667 50.0002 48.1667C53.0377 48.1667 55.5002 45.7042 55.5002 42.6667C55.5002 39.6291 53.0377 37.1667 50.0002 37.1667ZM40.8335 42.6667C40.8335 37.6041 44.9376 33.5 50.0002 33.5C55.0628 33.5 59.1668 37.6041 59.1668 42.6667C59.1668 47.7293 55.0628 51.8333 50.0002 51.8333C44.9376 51.8333 40.8335 47.7293 40.8335 42.6667Z" fill="#222020" stroke="#222020" stroke-width="0.825"/><path fill-rule="evenodd" clip-rule="evenodd" d="M41.7334 53.666H58.2673L68.2673 67.416H41.7334L48.1498 63.7493H61.0668L56.4001 57.3327H43.6006L36.2501 67.416H31.6667L41.7334 53.666Z" fill="#222020" stroke="#222020" stroke-width="0.825"/></svg></div>
         </div>
         <div class="igrid">
           <div class="irow">
-            <div class="ifield">
-              <img class="ic20" src="https://www.figma.com/api/mcp/asset/fe15b5be-2ac2-40e7-97d2-29c1fd178671" alt=""/>
-              <div><div class="ifl">Giant ID</div><div class="ifv">9d8e-907d-601f-1epq</div></div>
-            </div>
             <div class="ifield">
               <img class="ic20" src="https://www.figma.com/api/mcp/asset/400255c9-7b7d-4b10-a73b-14803cb5598f" alt=""/>
               <div><div class="ifl">Name</div><div class="ifv" id="prof-name">Kevin Lin</div></div>
@@ -656,7 +663,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 
       <!-- Common Contacts -->
       <div class="pcard">
-        <button class="abtn"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="12" fill="#DAE2F6"/><path d="M8.5 15.5L23.5 15.5" stroke="#0050FC" stroke-width="2.14" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 8.5L16.5 23.5" stroke="#0050FC" stroke-width="2.14" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="abtn"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="4" fill="#DAE2F6"/><path d="M8.1875 15.4785L23.8125 15.4785" stroke="#0050FC" stroke-width="2.22917" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.521 8.1875L16.521 23.8125" stroke="#0050FC" stroke-width="2.22917" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <h2 class="ctitle">Common Contacts</h2>
         <div class="cgrid">
           <div class="cperson"><div class="cav"><svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-avatar"/></svg></div><div><div class="cpn">Alice Chen</div><div class="cpi">+886 912 345 678</div></div></div>
@@ -686,15 +693,15 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         </div>
       </div>
 
-      <div style="display:flex;justify-content:center;padding:4px 0 0">
+      <div class="arow">
+        <button class="boutline w240">Export Profile</button>
+        <button class="bblk" onclick="doLogout()">Log out</button>
+      </div>
+      <div style="display:flex;justify-content:center;padding:8px 0 0">
         <button class="cu" onclick="openContactModal()">
           <span class="ci"><svg width="11" height="9" viewBox="0 0 14 11" fill="white"><path d="M12.833 0H1.167C.522 0 0 .522 0 1.167v8.75C0 10.478.522 11 1.167 11h11.666C13.478 11 14 10.478 14 9.917V1.167C14 .522 13.478 0 12.833 0zm0 2.333L7 5.833 1.167 2.333V1.167L7 4.667l5.833-3.5v1.166z"/></svg></span>
           Contact us
         </button>
-      </div>
-      <div class="arow">
-        <button class="boutline w240">Export Profile</button>
-        <button class="bblk" onclick="doLogout()">Log out</button>
       </div>
     </div>
   </div>
@@ -712,7 +719,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
             <img class="ic20" src="https://www.figma.com/api/mcp/asset/64616cec-ad6a-4bf8-bd79-08c1a4398a9b" alt="Apple"/>
             <div class="ci2c"><div class="ci2l">Apple</div><div class="ci2v">Giant.TPE@gmail.com</div></div>
             <button class="soc-link-btn">
-              <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><use href="#icon-connect"/></svg>
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="34" height="34" rx="11" fill="white"/><rect x="1" y="1" width="34" height="34" rx="11" stroke="#E0B400" stroke-width="2"/><path d="M19.844 23.8253L19.7232 24.0228C18.4301 26.0218 15.782 26.6763 13.6969 25.4724C11.6118 24.2686 10.8546 21.6481 11.9392 19.5287L12.0498 19.3253L13.3003 17.1594L15.1533 18.2292L13.9028 20.3951C13.2511 21.5239 13.638 22.9677 14.7667 23.6194C15.8955 24.2711 17.3393 23.8843 17.991 22.7555L19.2415 20.5896L21.0945 21.6594L19.844 23.8253ZM22.1969 10.75C24.3492 11.9926 25.0867 14.7448 23.844 16.8971L22.5945 19.0613L20.7415 17.9915L21.991 15.8273C22.6427 14.6985 22.2559 13.2547 21.1271 12.603C19.9983 11.9513 18.5545 12.3382 17.9028 13.4669L16.6533 15.6312L14.8003 14.5613L16.0498 12.3971C17.2924 10.2448 20.0446 9.50736 22.1969 10.75Z" fill="#E0B400"/><path d="M10.3354 15L24.4998 23.5" stroke="#E0B400" stroke-width="2.14" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>
           <div class="div"></div>
@@ -786,12 +793,56 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
       </div>
 
       <div style="padding:8px 0 80px">
-        <button class="del-btn">Delete Account</button>
+        <button class="del-btn" onclick="openDeleteConfirm()">Delete Account</button>
       </div>
     </div>
   </div>
 
   <button class="fab" onclick="toggleChatbot()"><svg width="60" height="60" viewBox="32 24 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="32" y="24" width="60" height="60" rx="30" fill="white"/><rect x="32.75" y="24.75" width="58.5" height="58.5" rx="29.25" stroke="#DEDEE0" stroke-width="1.5"/><path d="M62 39.75C69.8701 39.75 76.25 45.1226 76.25 51.75C76.25 54.5882 75.0791 57.1955 73.123 59.25H73.25L72.8857 59.4922C71.6632 60.7099 70.157 61.7163 68.4541 62.4463L59.2363 68.5928C58.0137 69.4076 56.4697 68.1606 57.0088 66.7939L58.3662 63.3545C52.2565 62.0015 47.75 57.3198 47.75 51.75C47.75 45.1226 54.1299 39.75 62 39.75Z" fill="#0050FC"/><circle cx="55.25" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="62" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="68.75" cy="51.75" r="1.875" fill="#DAE2F6"/></svg></button>
+</div>
+
+<!-- ════════════════ DELETE ACCOUNT CONFIRM ════════════════ -->
+<div id="del-confirm-modal" class="modal-overlay hidden" onclick="closeDeleteConfirm()">
+  <div class="del-confirm-box" onclick="event.stopPropagation()">
+    <h3>If you delete account, you cannot use the service from Giant ID. Are you sure that you want to delete account?</h3>
+    <div class="del-confirm-btns">
+      <button class="bpill" onclick="openDeleteAccount()">Yes</button>
+      <button class="boutline" onclick="closeDeleteConfirm()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ DELETE ACCOUNT DETAIL ════════════════ -->
+<div id="del-account-modal" class="modal-overlay hidden" onclick="closeDeleteAccount()">
+  <div class="modal-box" style="height:auto;min-height:520px" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <button class="modal-back" onclick="closeDeleteAccount()"><svg width="20" height="20"><use href="#chev-l"/></svg></button>
+      <span class="modal-title">Delete Account</span>
+    </div>
+    <div class="modal-body" style="padding:24px 56px 16px">
+      <div class="edit-fields">
+        <div class="da-item">
+          <div class="da-num">1</div>
+          <p>All services that are still logged in will be automatically logged out, and you will no longer be able to log in to Giant services with this account.</p>
+        </div>
+        <div class="da-item">
+          <div class="da-num">2</div>
+          <p>All data under this account will be deleted and cannot be recovered.</p>
+        </div>
+        <div class="da-item">
+          <div class="da-num">3</div>
+          <p>The phone number, email address, third-party accounts, and frame numbers linked to this account will all be unlinked.</p>
+        </div>
+        <div class="da-check-row">
+          <input type="checkbox" id="da-check" onchange="toggleDeleteCheck()" style="width:16px;height:16px;cursor:pointer;flex-shrink:0"/>
+          <label for="da-check">Yes, I want to permanently delete my Giant ID account and all data.</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-del-red" id="btn-del-confirm" onclick="confirmDeleteAccount()" disabled>Delete</button>
+    </div>
+  </div>
 </div>
 
 <!-- ════════════════ EDIT PROFILE MODAL ════════════════ -->
@@ -965,24 +1016,21 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 
     <!-- Step 1: Enter New Email -->
     <div id="em-step1" style="display:flex;flex-direction:column;flex:1">
-      <div class="modal-head">
-        <button class="modal-back" onclick="closeEmailModal()"><svg width="20" height="20"><use href="#chev-l"/></svg></button>
-        <span class="modal-title">Edit Email</span>
+      <div class="modal-head" style="flex-direction:column;align-items:flex-start;gap:2px">
+        <div style="display:flex;align-items:center;gap:8px;width:100%">
+          <button class="modal-back" onclick="closeEmailModal()"><svg width="20" height="20"><use href="#chev-l"/></svg></button>
+          <span class="modal-title">Edit Email</span>
+        </div>
+        <p style="font-size:14px;color:#58626e;margin:0;padding-left:40px;line-height:20px;font-family:'Open Sans',sans-serif">Change the email address for your account</p>
       </div>
       <div class="modal-body">
         <div class="edit-fields">
           <div class="ifld">
-            <label>Current Email</label>
-            <div class="em-cur-email" style="gap:8px">
-              <div style="position:relative;width:20px;height:20px;flex-shrink:0">
-                <img src="https://www.figma.com/api/mcp/asset/c1abe0f8-3763-46f0-9a95-d23e173c9784" style="position:absolute;inset:0;width:100%;height:100%" alt=""/>
-                <img src="https://www.figma.com/api/mcp/asset/7a46d9e7-bb3b-4ec8-b6b8-5d0573a4b38e" style="position:absolute;top:31.25%;left:25%;width:50%;height:37.5%" alt=""/>
-              </div>
+            <label>New Email</label>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+              <img src="https://www.figma.com/api/mcp/asset/51e7eff1-5b03-4212-9377-9cfe71ba55a2" style="width:20px;height:20px;flex-shrink:0" alt=""/>
               <span id="em-cur-text" style="font-size:14px;font-weight:700;color:#000;font-family:'Open Sans',sans-serif">Giant.TPE@gmail.com</span>
             </div>
-          </div>
-          <div class="ifld">
-            <label>New Email</label>
             <input id="em-email-inp" class="inp" type="email" placeholder="Enter new email address" oninput="onEmEmail(this.value)" onkeydown="if(event.key==='Enter')submitEmEmail()"/>
           </div>
         </div>
@@ -1035,10 +1083,10 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 <div id="contact-modal" class="modal-overlay hidden" onclick="closeContactModal()">
   <div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-head">
-      <button class="modal-back" onclick="closeContactModal()"><svg width="20" height="20"><use href="#chev-l"/></svg></button>
       <span class="modal-title">Contact Us</span>
+      <button class="modal-close-btn" onclick="closeContactModal()"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body pad40">
       <div class="edit-fields">
         <div class="edit-row">
           <div class="ifld">
@@ -1180,7 +1228,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
       </div>
       <div class="modal-body">
         <div class="edit-fields">
-          <div class="ifld">
+          <div class="ifld" id="pm-cur-section">
             <label>Current Phone Number</label>
             <div class="em-cur-email" style="gap:8px">
               <img src="https://www.figma.com/api/mcp/asset/86c90277-c36e-4670-b879-e467a5be0582" style="width:20px;height:20px;flex-shrink:0" alt=""/>
@@ -1188,7 +1236,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
             </div>
           </div>
           <div class="ifld">
-            <label>New Phone Number</label>
+            <label id="pm-new-label">New Phone Number</label>
             <div class="inp-wrap" style="border:1px solid var(--platinum);border-radius:4px;height:40px;overflow:hidden">
               <div style="display:flex;align-items:center;height:100%;background:#fff">
                 <div class="ccw" id="pm-ccw" style="height:100%">
@@ -1839,6 +1887,10 @@ function openEditEmailModal() {
   document.getElementById('btn-em-next2').disabled = true;
   var curEl = document.getElementById('em-cur-text');
   if (curEl) curEl.textContent = document.getElementById('profile-email-display').textContent.trim();
+  var curIcon = document.getElementById('em-cur-icon');
+  if (curIcon) curIcon.innerHTML = iconHTML('email');
+  var newIcon = document.getElementById('em-new-icon');
+  if (newIcon) newIcon.innerHTML = iconHTML('email');
   showEmStep(1);
   document.getElementById('email-modal').classList.remove('hidden');
   setTimeout(function(){ document.getElementById('em-email-inp').focus(); }, 50);
@@ -1937,8 +1989,13 @@ function openEditPhoneModal() {
   document.getElementById('btn-pm-next1').disabled = true;
   document.getElementById('btn-pm-next2').disabled = true;
   var cur = document.getElementById('profile-phone-display').textContent.trim();
+  var hasPhone = cur && cur !== 'Not set';
+  var curSec = document.getElementById('pm-cur-section');
   var curEl = document.getElementById('pm-cur-text');
-  if (curEl) curEl.textContent = cur === 'Not set' ? 'Not set' : cur;
+  var newLabel = document.getElementById('pm-new-label');
+  if (curSec) curSec.style.display = hasPhone ? '' : 'none';
+  if (curEl) curEl.textContent = hasPhone ? cur : 'Not set';
+  if (newLabel) newLabel.textContent = hasPhone ? 'New Phone Number' : 'Phone Number';
   showPmStep(1);
   document.getElementById('phone-modal').classList.remove('hidden');
   setTimeout(function(){ document.getElementById('pm-phone-inp').focus(); }, 50);
@@ -2013,6 +2070,30 @@ function submitPmVerify() {
   disp.classList.remove('ns');
   closePhoneModal();
   showToast('Your phone number had been updated');
+}
+
+// ── Delete Account ────────────────────────────────────────────────
+function openDeleteConfirm() {
+  document.getElementById('del-confirm-modal').classList.remove('hidden');
+}
+function closeDeleteConfirm() {
+  document.getElementById('del-confirm-modal').classList.add('hidden');
+}
+function openDeleteAccount() {
+  closeDeleteConfirm();
+  document.getElementById('da-check').checked = false;
+  document.getElementById('btn-del-confirm').disabled = true;
+  document.getElementById('del-account-modal').classList.remove('hidden');
+}
+function closeDeleteAccount() {
+  document.getElementById('del-account-modal').classList.add('hidden');
+}
+function toggleDeleteCheck() {
+  document.getElementById('btn-del-confirm').disabled = !document.getElementById('da-check').checked;
+}
+function confirmDeleteAccount() {
+  closeDeleteAccount();
+  doLogout();
 }
 
 // ── Toast ─────────────────────────────────────────────────────────
