@@ -67,7 +67,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .boutline.w240{width:240px}
 .bblk{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#fff;background:#000;border:none;border-radius:24px;height:40px;padding:0 24px;cursor:pointer;text-transform:uppercase;width:240px;transition:background .15s}
 .bblk:hover{background:#333}
-.btn-forgot{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:var(--charcoal);background:none;border:none;cursor:pointer;padding:0;display:block;margin-bottom:20px;transition:color .15s}
+.btn-forgot{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:var(--charcoal);background:none;border:none;cursor:pointer;padding:0;display:block;margin-bottom:20px;transition:color .15s;align-self:flex-start}
 .btn-forgot:hover{color:#0050FC}
 .or{display:flex;align-items:center;gap:16px;margin-bottom:24px}
 .or::before,.or::after{content:'';flex:1;height:1px;background:var(--platinum)}
@@ -179,6 +179,23 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .del-confirm-btns .boutline:hover{background:#f5f5f5}
 .btn-del-red{background:#c83317;color:#fff;border:none;border-radius:24px;padding:12px 16px;font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;cursor:pointer;min-width:120px;height:40px}
 .btn-del-red:disabled{opacity:.4;cursor:default}
+#s-signup .card{height:auto;min-height:0}
+.addr-tabs{display:flex;gap:8px;padding:4px 40px 12px;flex-shrink:0}
+.addr-tab{font-family:'Open Sans',sans-serif;font-weight:700;font-size:14px;height:40px;padding:0 16px;border-radius:100px;border:2px solid #58626e;background:#fff;color:#58626e;cursor:pointer;transition:all .15s;white-space:nowrap}
+.addr-tab.on{background:#000;color:#fff;border-color:#000}
+.addr-tab:hover:not(.on){background:#f5f5f5}
+.addr-pane{display:none;flex-direction:column;gap:14px}
+.addr-pane.on{display:flex}
+.ship-card{border:1px solid var(--platinum);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.ship-card-head{display:flex;align-items:center;justify-content:space-between}
+.ship-card-head span{font-family:'Open Sans',sans-serif;font-weight:700;font-size:14px;color:#222020}
+.def-radio{display:flex;align-items:center;gap:6px;cursor:pointer;font-family:'Open Sans',sans-serif;font-size:12px;color:#58626e}
+.def-radio input[type=radio]{width:14px;height:14px;cursor:pointer;accent-color:#000}
+.addr-same-row{display:flex;align-items:center;gap:8px}
+.addr-same-row label{font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;cursor:pointer}
+.addr-same-row input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:#000}
+.addr-same-text{font-family:'Open Sans',sans-serif;font-size:14px;color:#58626e;font-style:italic}
+.req{color:#c83317}
 .more-btn{width:32px;height:32px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--charcoal);border-radius:8px;flex-shrink:0}
 .more-btn:hover{background:var(--pearl)}
 .loading-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:600;display:flex;align-items:center;justify-content:center}
@@ -309,7 +326,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
               oninput="onId(this.value)" onkeydown="if(event.key==='Enter')toPassword()"/>
           </div>
         </div>
-        <div class="brow">
+        <div class="brow" style="margin-top:12px;padding-top:0;margin-bottom:24px">
           <button class="btx" onclick="goSignUp()">Sign up</button>
           <button class="bpill" id="btn-id" onclick="toPassword()" disabled>Next</button>
         </div>
@@ -649,7 +666,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
           <div class="div"></div>
           <div class="ci2" style="align-items:flex-start">
             <img class="ic20" src="https://www.figma.com/api/mcp/asset/179b7166-f14d-4c66-9bf9-16712b3d4e0a" alt="" style="margin-top:2px"/>
-            <div class="ci2c">
+            <div class="ci2c" style="flex:1">
               <div class="ci2l">Address</div>
               <div class="addr-sub">
                 <div><div class="asl">Contact</div><div class="asv">5F, No. 680, Daan Rd., Daan Dist</div></div>
@@ -666,7 +683,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
                 </div>
               </div>
             </div>
-            <button class="chev"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
+            <button class="chev" onclick="openAddressModal()" style="flex-shrink:0;align-self:flex-start;margin-top:2px"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
           </div>
         </div>
       </div>
@@ -820,6 +837,116 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
     <path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
   <span>Account had been deleted</span>
+</div>
+
+<!-- ════════════════ EDIT ADDRESS MODAL ════════════════ -->
+<div id="address-modal" class="modal-overlay hidden" onclick="closeAddressModal()">
+  <div class="modal-box" style="height:740px" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <button class="modal-back" onclick="closeAddressModal()"><svg width="20" height="20"><use href="#chev-l"/></svg></button>
+      <span class="modal-title">Edit Address</span>
+    </div>
+    <div class="addr-tabs">
+      <button class="addr-tab on" onclick="switchAddrTab('contact',this)">Contact</button>
+      <button class="addr-tab" onclick="switchAddrTab('home',this)">Home</button>
+      <button class="addr-tab" onclick="switchAddrTab('billing',this)">Billing</button>
+      <button class="addr-tab" onclick="switchAddrTab('shipping',this)">Shipping</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Contact -->
+      <div id="addr-contact" class="addr-pane on">
+        <div class="edit-row">
+          <div class="ifld">
+            <label>Country <span class="req">*</span></label>
+            <select id="ac-country">
+              <option>Taiwan</option><option>United States</option><option>Japan</option><option>South Korea</option><option>Germany</option><option>France</option><option>United Kingdom</option><option>Australia</option><option>Canada</option>
+            </select>
+          </div>
+          <div class="ifld">
+            <label>State / Province</label>
+            <input id="ac-state" class="inp" type="text" placeholder=""/>
+          </div>
+        </div>
+        <div class="edit-row">
+          <div class="ifld">
+            <label>City</label>
+            <input id="ac-city" class="inp" type="text" placeholder="" value="Taipei"/>
+          </div>
+          <div class="ifld">
+            <label>District</label>
+            <input id="ac-district" class="inp" type="text" placeholder="" value="Daan"/>
+          </div>
+        </div>
+        <div class="edit-row">
+          <div class="ifld">
+            <label>Street <span class="req">*</span></label>
+            <input id="ac-street" class="inp" type="text" placeholder="" value="5F, No. 680, Daan Rd."/>
+          </div>
+          <div class="ifld">
+            <label>ZIP</label>
+            <input id="ac-zip" class="inp" type="text" placeholder="" value="106"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Home -->
+      <div id="addr-home" class="addr-pane">
+        <div class="addr-same-row">
+          <input type="checkbox" id="home-same" checked onchange="toggleAddrSame('home')"/>
+          <label for="home-same">Same as Contact address</label>
+        </div>
+        <p id="home-same-text" class="addr-same-text">Same as contact address</p>
+        <div id="home-form" style="display:none;flex-direction:column;gap:14px">
+          <div class="edit-row">
+            <div class="ifld"><label>Country <span class="req">*</span></label><select id="ah-country"><option>Taiwan</option><option>United States</option><option>Japan</option><option>South Korea</option><option>Germany</option><option>France</option><option>United Kingdom</option><option>Australia</option><option>Canada</option></select></div>
+            <div class="ifld"><label>State / Province</label><input id="ah-state" class="inp" type="text" placeholder=""/></div>
+          </div>
+          <div class="edit-row">
+            <div class="ifld"><label>City</label><input id="ah-city" class="inp" type="text" placeholder=""/></div>
+            <div class="ifld"><label>District</label><input id="ah-district" class="inp" type="text" placeholder=""/></div>
+          </div>
+          <div class="edit-row">
+            <div class="ifld"><label>Street <span class="req">*</span></label><input id="ah-street" class="inp" type="text" placeholder=""/></div>
+            <div class="ifld"><label>ZIP</label><input id="ah-zip" class="inp" type="text" placeholder=""/></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Billing -->
+      <div id="addr-billing" class="addr-pane">
+        <div class="addr-same-row">
+          <input type="checkbox" id="billing-same" checked onchange="toggleAddrSame('billing')"/>
+          <label for="billing-same">Same as Contact address</label>
+        </div>
+        <p id="billing-same-text" class="addr-same-text">Same as contact address</p>
+        <div id="billing-form" style="display:none;flex-direction:column;gap:14px">
+          <div class="edit-row">
+            <div class="ifld"><label>Country <span class="req">*</span></label><select id="ab-country"><option>Taiwan</option><option>United States</option><option>Japan</option><option>South Korea</option><option>Germany</option><option>France</option><option>United Kingdom</option><option>Australia</option><option>Canada</option></select></div>
+            <div class="ifld"><label>State / Province</label><input id="ab-state" class="inp" type="text" placeholder=""/></div>
+          </div>
+          <div class="edit-row">
+            <div class="ifld"><label>City</label><input id="ab-city" class="inp" type="text" placeholder=""/></div>
+            <div class="ifld"><label>District</label><input id="ab-district" class="inp" type="text" placeholder=""/></div>
+          </div>
+          <div class="edit-row">
+            <div class="ifld"><label>Street <span class="req">*</span></label><input id="ab-street" class="inp" type="text" placeholder=""/></div>
+            <div class="ifld"><label>ZIP</label><input id="ab-zip" class="inp" type="text" placeholder=""/></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shipping -->
+      <div id="addr-shipping" class="addr-pane">
+        <div id="shipping-list" style="display:flex;flex-direction:column;gap:14px"></div>
+        <button class="boutline" id="btn-add-shipping" onclick="addShippingAddr()" style="align-self:flex-start;margin-top:4px">+ Add Shipping Address</button>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="bpill" onclick="saveAddressModal()">Save</button>
+    </div>
+  </div>
 </div>
 
 <!-- ════════════════ CHANGE PASSWORD MODAL ════════════════ -->
@@ -1079,11 +1206,11 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
       <div class="modal-body">
         <div class="edit-fields">
           <div class="ifld">
-            <label>New Email</label>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><circle cx="10" cy="10" r="10" fill="#DAE2F6"/><path d="M15 6.9375V13.0625C15 13.4422 14.6922 13.75 14.3125 13.75H5.6875C5.3078 13.75 5 13.4422 5 13.0625V6.9375C5 6.92301 5.00302 6.90879 5.00391 6.89453L9.80176 10.2812L10 10.4209L10.1982 10.2812L14.9951 6.89453C14.996 6.90881 15 6.92299 15 6.9375ZM14.3125 6.25C14.4207 6.25 14.5222 6.27675 14.6133 6.32129L10 9.57812L5.38574 6.32129C5.47701 6.27651 5.57898 6.25 5.6875 6.25H14.3125Z" fill="#0050FC"/></svg>
               <span id="em-cur-text" style="font-size:14px;font-weight:700;color:#000;font-family:'Open Sans',sans-serif">Giant.TPE@gmail.com</span>
             </div>
+            <label>New Email</label>
             <input id="em-email-inp" class="inp" type="email" placeholder="Enter new email address" oninput="onEmEmail(this.value)" onkeydown="if(event.key==='Enter')submitEmEmail()"/>
           </div>
         </div>
@@ -1169,7 +1296,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
       </div>
     </div>
     <div class="modal-footer">
-      <button class="bpill" onclick="submitContactUs()">Save</button>
+      <button class="bpill" onclick="submitContactUs()">Send</button>
     </div>
   </div>
 </div>
@@ -2197,6 +2324,74 @@ function closeContactModal() {
 function submitContactUs() {
   closeContactModal();
   showToast('Your message has been sent');
+}
+
+// ── Edit Address ──────────────────────────────────────────────────
+var shippingAddrs = [
+  {country:'Taiwan',state:'',city:'Taipei',district:'Daan',street:'5F, No. 680, Daan Rd.',zip:'106',isDefault:true},
+  {country:'Taiwan',state:'',city:'New Taipei City',district:'Xinyi',street:'7F, No. 23, Zhongxiao Rd.',zip:'',isDefault:false}
+];
+
+function openAddressModal() {
+  renderShipping();
+  document.getElementById('address-modal').classList.remove('hidden');
+  switchAddrTab('contact', document.querySelector('#address-modal .addr-tab'));
+}
+function closeAddressModal() {
+  document.getElementById('address-modal').classList.add('hidden');
+}
+function switchAddrTab(tab, btn) {
+  document.querySelectorAll('#address-modal .addr-tab').forEach(function(t){ t.classList.remove('on'); });
+  btn.classList.add('on');
+  document.querySelectorAll('#address-modal .addr-pane').forEach(function(p){ p.classList.remove('on'); });
+  document.getElementById('addr-' + tab).classList.add('on');
+  if (tab === 'shipping') renderShipping();
+}
+function toggleAddrSame(type) {
+  var checked = document.getElementById(type + '-same').checked;
+  document.getElementById(type + '-same-text').style.display = checked ? 'block' : 'none';
+  var form = document.getElementById(type + '-form');
+  form.style.display = checked ? 'none' : 'flex';
+}
+function renderShipping() {
+  var list = document.getElementById('shipping-list');
+  list.innerHTML = '';
+  shippingAddrs.forEach(function(addr, i) {
+    var card = document.createElement('div');
+    card.className = 'ship-card';
+    card.innerHTML =
+      '<div class="ship-card-head">' +
+        '<span>Shipping ' + (i+1) + '</span>' +
+        '<label class="def-radio"><input type="radio" name="def-ship" value="' + i + '"' + (addr.isDefault ? ' checked' : '') + ' onchange="setDefaultShipping(' + i + ')"/> Set as Default</label>' +
+      '</div>' +
+      '<div class="edit-row">' +
+        '<div class="ifld"><label>Country <span class="req">*</span></label><select onchange="shippingAddrs[' + i + '].country=this.value"><option' + (addr.country==='Taiwan'?' selected':'') + '>Taiwan</option><option' + (addr.country==='United States'?' selected':'') + '>United States</option><option>Japan</option><option>South Korea</option><option>Germany</option><option>France</option><option>United Kingdom</option><option>Australia</option><option>Canada</option></select></div>' +
+        '<div class="ifld"><label>State / Province</label><input class="inp" type="text" value="' + (addr.state||'') + '" oninput="shippingAddrs[' + i + '].state=this.value"/></div>' +
+      '</div>' +
+      '<div class="edit-row">' +
+        '<div class="ifld"><label>City</label><input class="inp" type="text" value="' + (addr.city||'') + '" oninput="shippingAddrs[' + i + '].city=this.value"/></div>' +
+        '<div class="ifld"><label>District</label><input class="inp" type="text" value="' + (addr.district||'') + '" oninput="shippingAddrs[' + i + '].district=this.value"/></div>' +
+      '</div>' +
+      '<div class="edit-row">' +
+        '<div class="ifld"><label>Street <span class="req">*</span></label><input class="inp" type="text" value="' + (addr.street||'') + '" oninput="shippingAddrs[' + i + '].street=this.value"/></div>' +
+        '<div class="ifld"><label>ZIP</label><input class="inp" type="text" value="' + (addr.zip||'') + '" oninput="shippingAddrs[' + i + '].zip=this.value"/></div>' +
+      '</div>';
+    list.appendChild(card);
+  });
+  var btn = document.getElementById('btn-add-shipping');
+  btn.style.display = shippingAddrs.length >= 3 ? 'none' : 'inline-flex';
+}
+function setDefaultShipping(idx) {
+  shippingAddrs.forEach(function(a, i){ a.isDefault = (i === idx); });
+}
+function addShippingAddr() {
+  if (shippingAddrs.length >= 3) return;
+  shippingAddrs.push({country:'Taiwan',state:'',city:'',district:'',street:'',zip:'',isDefault:false});
+  renderShipping();
+}
+function saveAddressModal() {
+  closeAddressModal();
+  showToast('Address had been updated');
 }
 
 // ── Init ──────────────────────────────────────────────────────────
