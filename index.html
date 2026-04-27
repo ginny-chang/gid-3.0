@@ -23,8 +23,8 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .l-hero{position:relative;z-index:1;flex:1;display:flex;align-items:flex-start;padding-left:200px;padding-top:calc(50vh - 157px)}
 .l-hero h1{font-family:'Overpass',sans-serif;font-weight:700;font-size:40px;line-height:52px;color:#fff;width:440px;text-shadow:0 0 6px rgba(0,0,0,.25)}
 .l-right{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;padding:32px 0 32px 0;margin-right:254px}
-.card{width:488px;background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.09);padding:44px 52px;min-height:497px}
-.step{display:none}.step.on{display:block}
+.card{width:488px;background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.09);padding:44px 52px;height:497px;display:flex;flex-direction:column;overflow:hidden}
+.step{display:none}.step.on{display:flex;flex-direction:column;flex:1;overflow-y:auto}
 .brand{display:block;height:16px;margin:0 0 32px 0}
 .ttl{font-family:'Overpass',sans-serif;font-weight:700;font-size:20px;color:#000;margin-bottom:32px}
 .sub{font-size:14px;color:var(--slate);margin-bottom:12px;line-height:20px}
@@ -56,7 +56,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .ck-row{display:flex;align-items:center;gap:8px;margin-bottom:16px;cursor:pointer;user-select:none}
 .ck-img{width:24px;height:24px;flex-shrink:0;display:block}
 .ck-lbl{font-family:'Open Sans',sans-serif;font-size:12px;color:#000;cursor:pointer;line-height:16px}
-.brow{display:flex;align-items:center;justify-content:space-between}
+.brow{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:16px;flex-shrink:0}
 .btx{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#000;background:none;border:none;cursor:pointer;transition:color .15s;padding:0}
 .btx:hover{color:#0050FC}
 .bpill{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#fff;background:#000;border:none;border-radius:24px;height:40px;padding:0 24px;cursor:pointer;transition:background .15s}
@@ -179,6 +179,13 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .del-confirm-btns .boutline:hover{background:#f5f5f5}
 .btn-del-red{background:#c83317;color:#fff;border:none;border-radius:24px;padding:12px 16px;font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;cursor:pointer;min-width:120px;height:40px}
 .btn-del-red:disabled{opacity:.4;cursor:default}
+.more-btn{width:32px;height:32px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--charcoal);border-radius:8px;flex-shrink:0}
+.more-btn:hover{background:var(--pearl)}
+.loading-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:600;display:flex;align-items:center;justify-content:center}
+.loading-overlay.hidden{display:none}
+.loading-spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#top-toast{display:none;position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:700;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:14px 20px;align-items:center;gap:10px;font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;white-space:nowrap;transition:opacity .3s}
 .modal-footer{border-top:1px solid var(--pearl);padding:12px 56px;display:flex;justify-content:flex-end;flex-shrink:0}
 .edit-av-sec{display:flex;flex-direction:column;align-items:center;padding:12px 0;position:relative}
 .edit-av-wrap{position:relative;width:125px;height:124px}
@@ -302,7 +309,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
               oninput="onId(this.value)" onkeydown="if(event.key==='Enter')toPassword()"/>
           </div>
         </div>
-        <div class="brow" style="margin-bottom:28px">
+        <div class="brow">
           <button class="btx" onclick="goSignUp()">Sign up</button>
           <button class="bpill" id="btn-id" onclick="toPassword()" disabled>Next</button>
         </div>
@@ -598,17 +605,20 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ic20"><circle cx="9.98" cy="10.04" r="8.21" stroke="#ABB0B6" stroke-width="2.14"/><path d="M1.77 10.09H18.19" stroke="#ABB0B6" stroke-width="2.14"/><path d="M11.15 1.59C12.22 3.57 13.36 6.51 13.36 9.61C13.36 12.97 12.01 16.35 10.88 18.48" stroke="#ABB0B6" stroke-width="2.14" fill="none"/><path d="M8.81 1.59C7.74 3.57 6.6 6.51 6.6 9.61C6.6 12.97 7.95 16.35 9.08 18.48" stroke="#ABB0B6" stroke-width="2.14" fill="none"/></svg>
               <div><div class="ifl">Region</div><div class="ifv" id="prof-region">Taiwan</div></div>
             </div>
-            <div class="ifield">
-              <img class="ic20" src="https://www.figma.com/api/mcp/asset/97a03afd-68cc-4808-9430-796143158ea4" alt=""/>
-              <div><div class="ifl">National ID</div><div class="ifv ns" id="prof-natid">Not set</div></div>
-            </div>
           </div>
           <div class="div"></div>
           <div class="irow">
             <div class="ifield">
+              <img class="ic20" src="https://www.figma.com/api/mcp/asset/97a03afd-68cc-4808-9430-796143158ea4" alt=""/>
+              <div><div class="ifl">National ID</div><div class="ifv ns" id="prof-natid">Not set</div></div>
+            </div>
+            <div class="ifield">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ic20"><path d="M8.25 14.5H12.25" stroke="#ABB0B6" stroke-width="1.5" stroke-linecap="round"/><rect x="3" y="4" width="14" height="15" rx="0.79" stroke="#ABB0B6" stroke-width="2.14"/><path d="M4 5L15 1.5V4" stroke="#ABB0B6" stroke-width="2.14" stroke-linejoin="round"/><path d="M9.83 7.38L9.21 7.21C9.1 7.2 9.05 7.24 9.01 7.32L9.4 9.97L7.94 9.74L7.83 9.4C7.76 9.25 7.64 9.13 7.49 9.07L6.96 8.91C6.85 8.92 6.79 8.97 6.75 9.1L6.89 10.71C6.9 10.81 6.94 10.92 7 11C7.07 11.08 7.15 11.14 7.25 11.17L12.21 12.58C12.38 12.63 12.56 12.63 12.73 12.57C12.9 12.52 13.06 12.42 13.17 12.27C13.27 12.16 13.25 12.02 13.24 11.87C13.22 11.68 13.14 11.5 13.03 11.34C12.91 11.19 12.76 11.07 12.59 11.01L11.15 10.47L10.16 7.7C10.09 7.56 9.97 7.44 9.83 7.38Z" fill="#ABB0B6"/></svg>
               <div><div class="ifl">Passport ID</div><div class="ifv ns" id="prof-passid">Not set</div></div>
             </div>
+          </div>
+          <div class="div"></div>
+          <div class="irow">
             <div class="ifield">
               <img class="ic20" src="https://www.figma.com/api/mcp/asset/0e94af49-53fd-43ca-94c3-fc01f70f7cbe" alt=""/>
               <div><div class="ifl">Dietary Preferences</div><div class="ifv ns" id="prof-dietary">Not set</div></div>
@@ -785,10 +795,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         <div class="ci2" style="align-items:center">
           <img class="ic20" src="https://www.figma.com/api/mcp/asset/63032964-1031-4171-a8ae-80903f7b91ce" alt=""/>
           <div class="ci2l">Change Password</div>
-        </div>
-        <div class="warn-box">
-          <svg width="16" height="16" style="flex-shrink:0;margin-top:2px"><use href="#warn"/></svg>
-          <span class="warn-text">Phone or email not set. Please update <u>Profile</u> to use password login for Giant ID.</span>
+          <button class="more-btn" onclick="openChPwModal()"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="4" cy="10" r="1.5" fill="currentColor"/><circle cx="10" cy="10" r="1.5" fill="currentColor"/><circle cx="16" cy="10" r="1.5" fill="currentColor"/></svg></button>
         </div>
       </div>
 
@@ -801,13 +808,59 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
   <button class="fab" onclick="toggleChatbot()"><svg width="60" height="60" viewBox="32 24 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="32" y="24" width="60" height="60" rx="30" fill="white"/><rect x="32.75" y="24.75" width="58.5" height="58.5" rx="29.25" stroke="#DEDEE0" stroke-width="1.5"/><path d="M62 39.75C69.8701 39.75 76.25 45.1226 76.25 51.75C76.25 54.5882 75.0791 57.1955 73.123 59.25H73.25L72.8857 59.4922C71.6632 60.7099 70.157 61.7163 68.4541 62.4463L59.2363 68.5928C58.0137 69.4076 56.4697 68.1606 57.0088 66.7939L58.3662 63.3545C52.2565 62.0015 47.75 57.3198 47.75 51.75C47.75 45.1226 54.1299 39.75 62 39.75Z" fill="#0050FC"/><circle cx="55.25" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="62" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="68.75" cy="51.75" r="1.875" fill="#DAE2F6"/></svg></button>
 </div>
 
+<!-- Loading overlay -->
+<div id="loading-overlay" class="loading-overlay hidden">
+  <div class="loading-spinner"></div>
+</div>
+
+<!-- Top toast (delete account) -->
+<div id="top-toast" style="display:none;position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:700;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:14px 20px;align-items:center;gap:10px;font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;white-space:nowrap;transition:opacity .3s">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0">
+    <circle cx="10" cy="10" r="10" fill="#22C55E"/>
+    <path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span>Account had been deleted</span>
+</div>
+
+<!-- ════════════════ CHANGE PASSWORD MODAL ════════════════ -->
+<div id="chpw-modal" class="modal-overlay hidden" onclick="closeChPwModal()">
+  <div class="modal-box" style="height:auto;min-height:520px" onclick="event.stopPropagation()">
+    <div class="modal-head" style="flex-direction:column;align-items:flex-start;gap:2px">
+      <div style="display:flex;align-items:center;gap:8px;width:100%">
+        <button class="modal-back" onclick="closeChPwModal()"><svg width="20" height="20"><use href="#chev-l"/></svg></button>
+        <span class="modal-title">Change Password</span>
+      </div>
+      <p style="font-size:14px;color:#58626e;margin:0;padding-left:40px;line-height:20px;font-family:'Open Sans',sans-serif">At least 8 characters, including 1 number and 1 lowercase letter.</p>
+    </div>
+    <div class="modal-body">
+      <div class="edit-fields" style="max-width:329px">
+        <div class="ifld">
+          <label>Current Password</label>
+          <input class="inp" type="password" placeholder=""/>
+        </div>
+        <div class="ifld">
+          <label>New Password</label>
+          <input class="inp" type="password" placeholder=""/>
+        </div>
+        <div class="ifld">
+          <label>Confirm New Password</label>
+          <input class="inp" type="password" placeholder=""/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="bpill" onclick="closeChPwModal()">Save</button>
+    </div>
+  </div>
+</div>
+
 <!-- ════════════════ DELETE ACCOUNT CONFIRM ════════════════ -->
 <div id="del-confirm-modal" class="modal-overlay hidden" onclick="closeDeleteConfirm()">
   <div class="del-confirm-box" onclick="event.stopPropagation()">
-    <h3>If you delete account, you cannot use the service from Giant ID. Are you sure that you want to delete account?</h3>
-    <div class="del-confirm-btns">
-      <button class="bpill" onclick="openDeleteAccount()">Yes</button>
+    <h3>Delete account? You will lose access to all Giant ID services.</h3>
+    <div class="del-confirm-btns" style="justify-content:flex-end">
       <button class="boutline" onclick="closeDeleteConfirm()">Cancel</button>
+      <button class="bpill" onclick="openDeleteAccount()">Yes</button>
     </div>
   </div>
 </div>
@@ -1028,7 +1081,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
           <div class="ifld">
             <label>New Email</label>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-              <img src="https://www.figma.com/api/mcp/asset/51e7eff1-5b03-4212-9377-9cfe71ba55a2" style="width:20px;height:20px;flex-shrink:0" alt=""/>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><circle cx="10" cy="10" r="10" fill="#DAE2F6"/><path d="M15 6.9375V13.0625C15 13.4422 14.6922 13.75 14.3125 13.75H5.6875C5.3078 13.75 5 13.4422 5 13.0625V6.9375C5 6.92301 5.00302 6.90879 5.00391 6.89453L9.80176 10.2812L10 10.4209L10.1982 10.2812L14.9951 6.89453C14.996 6.90881 15 6.92299 15 6.9375ZM14.3125 6.25C14.4207 6.25 14.5222 6.27675 14.6133 6.32129L10 9.57812L5.38574 6.32129C5.47701 6.27651 5.57898 6.25 5.6875 6.25H14.3125Z" fill="#0050FC"/></svg>
               <span id="em-cur-text" style="font-size:14px;font-weight:700;color:#000;font-family:'Open Sans',sans-serif">Giant.TPE@gmail.com</span>
             </div>
             <input id="em-email-inp" class="inp" type="email" placeholder="Enter new email address" oninput="onEmEmail(this.value)" onkeydown="if(event.key==='Enter')submitEmEmail()"/>
@@ -1082,7 +1135,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 <!-- ════════════════ CONTACT US MODAL ════════════════ -->
 <div id="contact-modal" class="modal-overlay hidden" onclick="closeContactModal()">
   <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-head">
+    <div class="modal-head" style="padding-left:56px;padding-right:56px">
       <span class="modal-title">Contact Us</span>
       <button class="modal-close-btn" onclick="closeContactModal()"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
     </div>
@@ -2094,6 +2147,24 @@ function toggleDeleteCheck() {
 function confirmDeleteAccount() {
   closeDeleteAccount();
   doLogout();
+  var ov = document.getElementById('loading-overlay');
+  ov.classList.remove('hidden');
+  setTimeout(function() {
+    ov.classList.add('hidden');
+    var tt = document.getElementById('top-toast');
+    tt.style.display = 'flex';
+    tt.style.opacity = '1';
+    setTimeout(function() {
+      tt.style.opacity = '0';
+      setTimeout(function() { tt.style.display = 'none'; }, 300);
+    }, 3000);
+  }, 2000);
+}
+function openChPwModal() {
+  document.getElementById('chpw-modal').classList.remove('hidden');
+}
+function closeChPwModal() {
+  document.getElementById('chpw-modal').classList.add('hidden');
 }
 
 // ── Toast ─────────────────────────────────────────────────────────
