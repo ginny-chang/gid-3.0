@@ -78,6 +78,11 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .sb{flex:1;height:40px;border:1px solid var(--platinum);border-radius:24px;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s}
 .sb:hover{background:var(--pearl)}
 .sb img{height:15px;width:15px;object-fit:contain}
+.ver-badge{box-sizing:border-box;display:flex;flex-direction:row;justify-content:center;align-items:center;padding:6px 12px;gap:10px;position:absolute;width:89px;height:32px;right:12px;top:12px;background:rgba(255,255,255,0.4);border:1px solid #DEDEE0;border-radius:16px;font-family:'Open Sans',sans-serif;font-weight:700;font-size:14px;color:#222020;cursor:pointer;z-index:10}
+.ver-badge:hover{background:rgba(255,255,255,0.65)}
+.v2-sb{flex:1;height:40px;min-height:40px;border:1px solid #DEDEE0;border-radius:24px;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s}
+.v2-sb:hover{background:#f5f5f5}
+.v2-sb img{height:24px;width:24px;object-fit:contain}
 .cu{display:flex;align-items:center;justify-content:center;gap:6px;font-size:14px;color:#ABB0B6;background:none;border:none;cursor:pointer;width:100%;transition:color .15s}
 .cu:hover{color:#0050FC}
 .cu:hover .ci{background:#0050FC}
@@ -338,6 +343,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 
 <!-- ════════════════ LOGIN ════════════════ -->
 <div id="s-login" class="screen" style="display:flex">
+  <button class="ver-badge" onclick="switchToV2()">Version 2</button>
   <div class="l-bg"><img src="https://www.figma.com/api/mcp/asset/14ae0b55-5cbb-4abf-9ebd-4f1474d52d9e" alt=""/></div>
   <div class="l-hero"><h1>Enjoy Giant<br>Cycling World</h1></div>
   <div class="l-right">
@@ -370,10 +376,10 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         </div>
         <div class="or"><span>OR</span></div>
         <div class="soc">
-          <button class="sb" title="Apple"><img src="https://www.figma.com/api/mcp/asset/08703bcb-3e11-4235-aa61-e780e8d1b50a" alt="Apple"/></button>
-          <button class="sb" title="Facebook"><img src="https://www.figma.com/api/mcp/asset/0b33408c-69dd-4e7d-ac46-b96dcdd82f57" alt="Facebook"/></button>
-          <button class="sb" title="Google"><img src="https://www.figma.com/api/mcp/asset/95eb3f84-80aa-4df4-aefe-9dae3efc7eaf" alt="Google"/></button>
-          <button class="sb" title="Line"><img src="https://www.figma.com/api/mcp/asset/e74ad71c-2b81-4b0d-90d6-90ff020d7da5" alt="Line"/></button>
+          <button class="sb" title="Apple" onclick="doDirectLogin()"><img src="https://www.figma.com/api/mcp/asset/08703bcb-3e11-4235-aa61-e780e8d1b50a" alt="Apple"/></button>
+          <button class="sb" title="Facebook" onclick="doDirectLogin()"><img src="https://www.figma.com/api/mcp/asset/0b33408c-69dd-4e7d-ac46-b96dcdd82f57" alt="Facebook"/></button>
+          <button class="sb" title="Google" onclick="doDirectLogin()"><img src="https://www.figma.com/api/mcp/asset/95eb3f84-80aa-4df4-aefe-9dae3efc7eaf" alt="Google"/></button>
+          <button class="sb" title="Line" onclick="doDirectLogin()"><img src="https://www.figma.com/api/mcp/asset/e74ad71c-2b81-4b0d-90d6-90ff020d7da5" alt="Line"/></button>
         </div>
         <button class="cu" onclick="openContactModal()">
           <span class="ci">
@@ -481,6 +487,58 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
     </div>
   </div>
   <button class="fab" onclick="toggleChatbot()"><svg width="60" height="60" viewBox="32 24 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="32" y="24" width="60" height="60" rx="30" fill="white"/><rect x="32.75" y="24.75" width="58.5" height="58.5" rx="29.25" stroke="#DEDEE0" stroke-width="1.5"/><path d="M62 39.75C69.8701 39.75 76.25 45.1226 76.25 51.75C76.25 54.5882 75.0791 57.1955 73.123 59.25H73.25L72.8857 59.4922C71.6632 60.7099 70.157 61.7163 68.4541 62.4463L59.2363 68.5928C58.0137 69.4076 56.4697 68.1606 57.0088 66.7939L58.3662 63.3545C52.2565 62.0015 47.75 57.3198 47.75 51.75C47.75 45.1226 54.1299 39.75 62 39.75Z" fill="#0050FC"/><circle cx="55.25" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="62" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="68.75" cy="51.75" r="1.875" fill="#DAE2F6"/></svg></button>
+</div>
+
+<!-- ════════════════ LOGIN V2 ════════════════ -->
+<div id="s-login-v2" class="screen" style="display:none;background:#fff;overflow:hidden;min-height:100vh;position:relative">
+  <!-- Version 1 badge -->
+  <button class="ver-badge" onclick="switchToV1()">Version 1</button>
+  <!-- Left: cycling image -->
+  <div style="position:absolute;left:20px;top:20px;width:738px;height:calc(100vh - 40px);border-radius:16px;overflow:hidden">
+    <img src="https://www.figma.com/api/mcp/asset/14ae0b55-5cbb-4abf-9ebd-4f1474d52d9e" alt="" style="width:100%;height:100%;object-fit:cover"/>
+  </div>
+  <!-- Right: form -->
+  <div style="position:absolute;left:778px;top:0;width:758px;height:100vh">
+    <!-- Logo + tagline -->
+    <div style="position:absolute;left:160px;top:194px;width:418px;display:flex;flex-direction:column;gap:40px">
+      <img src="https://www.figma.com/api/mcp/asset/acc2c20f-10cf-4e22-b5e6-d00500c823fe" alt="Giant" style="height:16px;width:auto;object-fit:contain;object-position:left"/>
+      <h1 style="font-family:'Overpass',sans-serif;font-weight:800;font-size:36px;color:#25345A;letter-spacing:-0.02em;margin:0;line-height:1.2">Enjoy Giant<br>Cycling World</h1>
+    </div>
+    <!-- Input field -->
+    <div style="position:absolute;left:160px;top:335px;width:418px;display:flex;flex-direction:column;gap:8px">
+      <label style="font-family:'Overpass',sans-serif;font-weight:700;font-size:16px;color:#000;line-height:1">Email or Phone number</label>
+      <input id="v2-id-inp" type="text" style="height:40px;border:1px solid #DEDEE0;border-radius:4px;padding:8px 12px;font-family:'Open Sans',sans-serif;font-size:12px;box-sizing:border-box;width:100%;outline:none;letter-spacing:0.02em" onkeydown="if(event.key==='Enter')doV2Login()"/>
+    </div>
+    <!-- Next button -->
+    <button style="position:absolute;left:160px;top:419px;width:418px;height:40px;background:#000;border:none;border-radius:24px;color:#fff;font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;cursor:pointer;text-transform:capitalize" onclick="doV2Login()">Next</button>
+    <!-- OR separator -->
+    <div style="position:absolute;left:160px;top:479px;width:418px;height:20px;display:flex;align-items:center;gap:16px">
+      <div style="flex:1;height:1px;background:#DEDEE0"></div>
+      <span style="font-family:'Open Sans',sans-serif;font-size:14px;color:#ABB0B6;line-height:20px">OR</span>
+      <div style="flex:1;height:1px;background:#DEDEE0"></div>
+    </div>
+    <!-- Social buttons -->
+    <div style="position:absolute;left:160px;top:519px;width:418px;height:40px;display:flex;gap:16px">
+      <button class="v2-sb" onclick="doDirectLogin()"><img src="https://www.figma.com/api/mcp/asset/08703bcb-3e11-4235-aa61-e780e8d1b50a" alt="Apple"/></button>
+      <button class="v2-sb" onclick="doDirectLogin()"><img src="https://www.figma.com/api/mcp/asset/0b33408c-69dd-4e7d-ac46-b96dcdd82f57" alt="Facebook"/></button>
+      <button class="v2-sb" onclick="doDirectLogin()"><img src="https://www.figma.com/api/mcp/asset/95eb3f84-80aa-4df4-aefe-9dae3efc7eaf" alt="Google"/></button>
+      <button class="v2-sb" onclick="doDirectLogin()"><img src="https://www.figma.com/api/mcp/asset/e74ad71c-2b81-4b0d-90d6-90ff020d7da5" alt="LINE"/></button>
+    </div>
+    <!-- Sign up link -->
+    <div style="position:absolute;left:160px;top:599px;width:418px;display:flex;align-items:center;justify-content:center;gap:4px">
+      <span style="font-family:'Overpass',sans-serif;font-weight:400;font-size:16px;color:#000">Don't have an account?</span>
+      <button style="font-family:'Overpass',sans-serif;font-weight:800;font-size:16px;color:#0050FC;background:none;border:none;cursor:pointer;padding:0" onclick="goSignUp()">Sign up</button>
+    </div>
+    <!-- Contact us -->
+    <div style="position:absolute;left:160px;top:804px;display:flex;align-items:center;gap:4px;cursor:pointer" onclick="openContactModal()">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="1.25" y="3.33" width="17.5" height="13.33" rx="1.46" stroke="#292929" stroke-width="1.67"/><path d="M1.25 6.67L10 11.67L18.75 6.67" stroke="#292929" stroke-width="1.67"/></svg>
+      <span style="font-family:'Overpass',sans-serif;font-weight:400;font-size:16px;color:#000">Contact us</span>
+    </div>
+    <!-- Chatbot FAB -->
+    <button style="position:absolute;left:530px;top:776px;width:48px;height:48px;border-radius:32px;background:#fff;border:1px solid #DEDEE0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0px 17px 7px rgba(0,0,0,.01),0px 9px 6px rgba(0,0,0,.02),0px 4px 4px rgba(0,0,0,.03),0px 1px 2px rgba(0,0,0,.04);padding:0" onclick="toggleChatbot()">
+      <svg width="28" height="28" viewBox="32 24 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="32" y="24" width="60" height="60" rx="30" fill="white"/><path d="M62 39.75C69.87 39.75 76.25 45.12 76.25 51.75C76.25 54.59 75.08 57.2 73.12 59.25H73.25L72.89 59.49C71.66 60.71 70.16 61.72 68.45 62.45L59.24 68.59C58.01 69.41 56.47 68.16 57.01 66.79L58.37 63.35C52.26 62 47.75 57.32 47.75 51.75C47.75 45.12 54.13 39.75 62 39.75Z" fill="#0050FC"/><circle cx="55.25" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="62" cy="51.75" r="1.875" fill="#DAE2F6"/><circle cx="68.75" cy="51.75" r="1.875" fill="#DAE2F6"/></svg>
+    </button>
+  </div>
 </div>
 
 <!-- ════════════════ SIGN UP ════════════════ -->
@@ -1656,6 +1714,22 @@ document.addEventListener('click', function(e) {
 function toggleUserMenu(e) {
   e.stopPropagation();
   document.getElementById('ph-menu').classList.toggle('hidden');
+}
+function doDirectLogin() {
+  showSkeleton(function() { toScreen('s-profile'); });
+}
+function switchToV2() {
+  document.getElementById('s-login').style.display = 'none';
+  var v2 = document.getElementById('s-login-v2');
+  v2.style.display = 'flex';
+  document.getElementById('v2-id-inp').value = '';
+}
+function switchToV1() {
+  document.getElementById('s-login-v2').style.display = 'none';
+  document.getElementById('s-login').style.display = 'flex';
+}
+function doV2Login() {
+  showSkeleton(function() { toScreen('s-profile'); });
 }
 function toggleBiAv(e) {
   e.stopPropagation();
