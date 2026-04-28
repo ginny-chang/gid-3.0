@@ -65,6 +65,8 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .boutline{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#000;background:transparent;border:2px solid #000;border-radius:24px;height:40px;padding:0 24px;cursor:pointer;text-transform:uppercase;transition:background .15s}
 .boutline:hover{background:rgba(0,0,0,.05)}
 .boutline.w240{width:240px}
+.bsec{box-sizing:border-box;display:flex;flex-direction:row;justify-content:center;align-items:center;padding:12px 20px;gap:4px;width:66px;height:40px;min-height:40px;border:1px solid #000;border-radius:24px;background:none;cursor:pointer;font-family:'Overpass',sans-serif;font-weight:600;font-size:14px;line-height:16px;color:#000;flex-shrink:0}
+.bsec:hover{background:rgba(0,0,0,.05)}
 .bblk{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:#fff;background:#000;border:none;border-radius:24px;height:40px;padding:0 24px;cursor:pointer;text-transform:uppercase;width:240px;transition:background .15s}
 .bblk:hover{background:#333}
 .btn-forgot{font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;color:var(--charcoal);background:none;border:none;cursor:pointer;padding:0;display:block;margin-bottom:20px;transition:color .15s;align-self:flex-start}
@@ -179,6 +181,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .btn-del-red{background:#c83317;color:#fff;border:none;border-radius:24px;padding:12px 16px;font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;cursor:pointer;min-width:120px;height:40px}
 .btn-del-red:disabled{opacity:.4;cursor:default}
 #s-signup .card{height:497px}
+#s-signup .card.hug{height:auto;overflow:visible}
 .addr-tabs{display:flex;gap:8px;padding:4px 40px 12px;flex-shrink:0}
 .addr-tab{font-family:'Open Sans',sans-serif;font-weight:700;font-size:14px;height:40px;padding:0 16px;border-radius:100px;border:2px solid #58626e;background:#fff;color:#58626e;cursor:pointer;transition:all .15s;white-space:nowrap}
 .addr-tab.on{background:#000;color:#fff;border-color:#000}
@@ -654,13 +657,13 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
           <div class="ci2">
             <img class="ic20" src="https://www.figma.com/api/mcp/asset/51e7eff1-5b03-4212-9377-9cfe71ba55a2" alt=""/>
             <div class="ci2c"><div class="ci2l">Email</div><div class="ci2v" id="profile-email-display">Giant.TPE@gmail.com</div></div>
-            <button class="chev" onclick="openEditEmailModal()"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
+            <button class="bsec" onclick="openEditEmailModal()">Edit</button>
           </div>
           <div class="div"></div>
           <div class="ci2">
             <img class="ic20" src="https://www.figma.com/api/mcp/asset/86c90277-c36e-4670-b879-e467a5be0582" alt=""/>
             <div class="ci2c"><div class="ci2l">Phone Number</div><div class="ci2v ns" id="profile-phone-display">Not set</div></div>
-            <button class="chev" onclick="openEditPhoneModal()"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
+            <button class="bsec" onclick="openEditPhoneModal()">Edit</button>
           </div>
           <div class="div"></div>
           <div class="ci2" style="align-items:flex-start">
@@ -682,7 +685,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
                 </div>
               </div>
             </div>
-            <button class="chev" onclick="openAddressModal()" style="flex-shrink:0;align-self:flex-start;margin-top:2px"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
+            <button class="bsec" onclick="openAddressModal()" style="align-self:flex-start;margin-top:2px">Edit</button>
           </div>
         </div>
       </div>
@@ -811,7 +814,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         <div class="ci2" style="align-items:center">
           <img class="ic20" src="https://www.figma.com/api/mcp/asset/63032964-1031-4171-a8ae-80903f7b91ce" alt=""/>
           <div class="ci2l">Change Password</div>
-          <button class="chev" onclick="openChPwModal()"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
+          <button class="bsec" onclick="openChPwModal()">Edit</button>
         </div>
       </div>
 
@@ -1537,6 +1540,9 @@ function toStep(id) {
 function toSuStep(id) {
   document.querySelectorAll('#s-signup .step').forEach(function(s){ s.classList.remove('on'); });
   document.getElementById(id).classList.add('on');
+  var card = document.querySelector('#s-signup .card');
+  var hug = (id === 'st-su-pw' || id === 'st-su-profile');
+  card.classList.toggle('hug', hug);
 }
 
 // ── Icon HTML ─────────────────────────────────────────────────────
