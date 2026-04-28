@@ -89,17 +89,16 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 
 /* ── PROFILE ── */
 #s-profile{min-height:100vh;background:var(--snow)}
-.ph{background:#fff;padding:20px 40px 0;box-shadow:0 1px 0 var(--pearl);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;min-height:160px}
-.ph img.logo{position:absolute;left:40px;top:22px;height:16px;width:auto;display:block}
-.ph-user{display:flex;align-items:center;gap:16px;margin-bottom:20px;margin-top:44px}
-.ph-avatar{width:56px;height:56px;border-radius:50%;background:var(--primary-blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ph{background:#fff;padding:0 40px;height:64px;box-shadow:0 1px 0 var(--pearl);display:flex;flex-direction:row;align-items:center;position:relative}
+.ph img.logo{height:16px;width:auto;display:block;flex-shrink:0}
+.ph-user{position:absolute;right:66px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:12px}
+.ph-avatar{width:32px;height:32px;border-radius:50%;background:#DEDEE0;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ph-avatar svg{display:block}
-.ph-info{display:flex;flex-direction:column;gap:2px}
-.ph-name{font-family:'Overpass',sans-serif;font-weight:700;font-size:20px;color:var(--charcoal);line-height:1.2}
-.ph-gid{font-family:'Open Sans',sans-serif;font-size:13px;color:var(--slate);letter-spacing:.02em}
-.ph-gid span{font-weight:600;color:var(--primary-blue)}
-.tabs{display:flex}
-.tab{position:relative;width:140px;text-align:center;padding-bottom:12px;font-size:16px;background:none;border:none;cursor:pointer;transition:color .2s;font-family:'Open Sans',sans-serif}
+.ph-info{display:flex;flex-direction:column;gap:0}
+.ph-name{font-family:'Open Sans',sans-serif;font-weight:700;font-size:14px;color:#222020;line-height:20px}
+.ph-gid{font-family:'Open Sans',sans-serif;font-weight:400;font-size:12px;color:#58626E;line-height:16px}
+.tabs{display:flex;position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;align-items:stretch}
+.tab{position:relative;min-width:140px;padding:0 12px;text-align:center;font-size:16px;background:none;border:none;cursor:pointer;transition:color .2s;font-family:'Open Sans',sans-serif;display:flex;align-items:center;justify-content:center}
 .tab.on{font-weight:700;color:#000}
 .tab:not(.on){font-weight:400;color:var(--slate)}
 .tab:hover{color:#0050FC}
@@ -179,7 +178,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .del-confirm-btns .boutline:hover{background:#f5f5f5}
 .btn-del-red{background:#c83317;color:#fff;border:none;border-radius:24px;padding:12px 16px;font-family:'Overpass',sans-serif;font-weight:800;font-size:14px;cursor:pointer;min-width:120px;height:40px}
 .btn-del-red:disabled{opacity:.4;cursor:default}
-#s-signup .card{height:auto;min-height:0}
+#s-signup .card{height:497px}
 .addr-tabs{display:flex;gap:8px;padding:4px 40px 12px;flex-shrink:0}
 .addr-tab{font-family:'Open Sans',sans-serif;font-weight:700;font-size:14px;height:40px;padding:0 16px;border-radius:100px;border:2px solid #58626e;background:#fff;color:#58626e;cursor:pointer;transition:all .15s;white-space:nowrap}
 .addr-tab.on{background:#000;color:#fff;border-color:#000}
@@ -202,7 +201,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 .loading-overlay.hidden{display:none}
 .loading-spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-#top-toast{display:none;position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:700;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:14px 20px;align-items:center;gap:10px;font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;white-space:nowrap;transition:opacity .3s}
+#top-toast{display:none;position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:700;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:14px 20px;align-items:center;gap:10px;font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;white-space:nowrap;transition:opacity .3s}
 .modal-footer{border-top:1px solid var(--pearl);padding:12px 56px;display:flex;justify-content:flex-end;flex-shrink:0}
 .edit-av-sec{display:flex;flex-direction:column;align-items:center;padding:12px 0;position:relative}
 .edit-av-wrap{position:relative;width:125px;height:124px}
@@ -573,21 +572,21 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 <div id="s-profile" class="screen">
   <div class="ph">
     <img src="https://www.figma.com/api/mcp/asset/ce236c30-9ff9-4272-8e3b-33e30a70a1f2" alt="Giant" class="logo"/>
+    <div class="tabs">
+      <button class="tab on" data-tab="profile" onclick="switchTab(this)">Profile</button>
+      <button class="tab" data-tab="ls" onclick="switchTab(this)">Login &amp; Security</button>
+    </div>
     <div class="ph-user">
       <div class="ph-avatar">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="16" cy="12" r="6" fill="#dae2f6"/>
-          <path d="M4 28c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#dae2f6" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 5a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM6 9a6 6 0 1 1 12 0A6 6 0 0 1 6 9z" fill="#222020"/>
+          <path d="M4 21c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="#222020" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </div>
       <div class="ph-info">
         <div class="ph-name">Kevin Lin</div>
-        <div class="ph-gid">Giant ID: <span>9d8e-907d-601f-1epq</span></div>
+        <div class="ph-gid">9d8e-907d-601f-1epq</div>
       </div>
-    </div>
-    <div class="tabs">
-      <button class="tab on" data-tab="profile" onclick="switchTab(this)">Profile</button>
-      <button class="tab" data-tab="ls" onclick="switchTab(this)">Login &amp; Security</button>
     </div>
   </div>
 
@@ -812,7 +811,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         <div class="ci2" style="align-items:center">
           <img class="ic20" src="https://www.figma.com/api/mcp/asset/63032964-1031-4171-a8ae-80903f7b91ce" alt=""/>
           <div class="ci2l">Change Password</div>
-          <button class="more-btn" onclick="openChPwModal()"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="4" cy="10" r="1.5" fill="currentColor"/><circle cx="10" cy="10" r="1.5" fill="currentColor"/><circle cx="16" cy="10" r="1.5" fill="currentColor"/></svg></button>
+          <button class="chev" onclick="openChPwModal()"><svg width="20" height="20"><use href="#chev-r"/></svg></button>
         </div>
       </div>
 
@@ -831,9 +830,9 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 </div>
 
 <!-- Top toast (delete account) -->
-<div id="top-toast" style="display:none;position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:700;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:14px 20px;align-items:center;gap:10px;font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;white-space:nowrap;transition:opacity .3s">
+<div id="top-toast" style="display:none;position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:700;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:14px 20px;align-items:center;gap:10px;font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;white-space:nowrap;transition:opacity .3s">
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0">
-    <circle cx="10" cy="10" r="10" fill="#22C55E"/>
+    <circle cx="10" cy="10" r="10" fill="#0050FC"/>
     <path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
   <span>Account had been deleted</span>
@@ -893,22 +892,22 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
       <!-- Home -->
       <div id="addr-home" class="addr-pane">
         <div class="addr-same-row">
-          <input type="checkbox" id="home-same" checked onchange="toggleAddrSame('home')"/>
+          <input type="checkbox" id="home-same" onchange="toggleAddrSame('home')"/>
           <label for="home-same">Same as Contact address</label>
         </div>
-        <p id="home-same-text" class="addr-same-text">Same as contact address</p>
-        <div id="home-form" style="display:none;flex-direction:column;gap:14px">
+        <p id="home-same-text" class="addr-same-text" style="display:none">Same as contact address</p>
+        <div id="home-form" style="display:flex;flex-direction:column;gap:14px">
           <div class="edit-row">
-            <div class="ifld"><label>Country <span class="req">*</span></label><select id="ah-country"><option>Taiwan</option><option>United States</option><option>Japan</option><option>South Korea</option><option>Germany</option><option>France</option><option>United Kingdom</option><option>Australia</option><option>Canada</option></select></div>
-            <div class="ifld"><label>State / Province</label><input id="ah-state" class="inp" type="text" placeholder=""/></div>
+            <div class="ifld"><label>Country <span class="req">*</span></label><select id="ah-country" disabled><option>Taiwan</option><option>United States</option><option>Japan</option><option>South Korea</option><option>Germany</option><option>France</option><option>United Kingdom</option><option>Australia</option><option>Canada</option></select></div>
+            <div class="ifld"><label>State / Province</label><input id="ah-state" class="inp" type="text" placeholder="" disabled/></div>
           </div>
           <div class="edit-row">
-            <div class="ifld"><label>City</label><input id="ah-city" class="inp" type="text" placeholder=""/></div>
-            <div class="ifld"><label>District</label><input id="ah-district" class="inp" type="text" placeholder=""/></div>
+            <div class="ifld"><label>City</label><input id="ah-city" class="inp" type="text" placeholder="" disabled/></div>
+            <div class="ifld"><label>District</label><input id="ah-district" class="inp" type="text" placeholder="" disabled/></div>
           </div>
           <div class="edit-row">
-            <div class="ifld"><label>Street <span class="req">*</span></label><input id="ah-street" class="inp" type="text" placeholder=""/></div>
-            <div class="ifld"><label>ZIP</label><input id="ah-zip" class="inp" type="text" placeholder=""/></div>
+            <div class="ifld"><label>Street <span class="req">*</span></label><input id="ah-street" class="inp" type="text" placeholder="" disabled/></div>
+            <div class="ifld"><label>ZIP</label><input id="ah-zip" class="inp" type="text" placeholder="" disabled/></div>
           </div>
         </div>
       </div>
@@ -916,22 +915,22 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
       <!-- Billing -->
       <div id="addr-billing" class="addr-pane">
         <div class="addr-same-row">
-          <input type="checkbox" id="billing-same" checked onchange="toggleAddrSame('billing')"/>
+          <input type="checkbox" id="billing-same" onchange="toggleAddrSame('billing')"/>
           <label for="billing-same">Same as Contact address</label>
         </div>
-        <p id="billing-same-text" class="addr-same-text">Same as contact address</p>
-        <div id="billing-form" style="display:none;flex-direction:column;gap:14px">
+        <p id="billing-same-text" class="addr-same-text" style="display:none">Same as contact address</p>
+        <div id="billing-form" style="display:flex;flex-direction:column;gap:14px">
           <div class="edit-row">
-            <div class="ifld"><label>Country <span class="req">*</span></label><select id="ab-country"><option>Taiwan</option><option>United States</option><option>Japan</option><option>South Korea</option><option>Germany</option><option>France</option><option>United Kingdom</option><option>Australia</option><option>Canada</option></select></div>
-            <div class="ifld"><label>State / Province</label><input id="ab-state" class="inp" type="text" placeholder=""/></div>
+            <div class="ifld"><label>Country <span class="req">*</span></label><select id="ab-country" disabled><option>Taiwan</option><option>United States</option><option>Japan</option><option>South Korea</option><option>Germany</option><option>France</option><option>United Kingdom</option><option>Australia</option><option>Canada</option></select></div>
+            <div class="ifld"><label>State / Province</label><input id="ab-state" class="inp" type="text" placeholder="" disabled/></div>
           </div>
           <div class="edit-row">
-            <div class="ifld"><label>City</label><input id="ab-city" class="inp" type="text" placeholder=""/></div>
-            <div class="ifld"><label>District</label><input id="ab-district" class="inp" type="text" placeholder=""/></div>
+            <div class="ifld"><label>City</label><input id="ab-city" class="inp" type="text" placeholder="" disabled/></div>
+            <div class="ifld"><label>District</label><input id="ab-district" class="inp" type="text" placeholder="" disabled/></div>
           </div>
           <div class="edit-row">
-            <div class="ifld"><label>Street <span class="req">*</span></label><input id="ab-street" class="inp" type="text" placeholder=""/></div>
-            <div class="ifld"><label>ZIP</label><input id="ab-zip" class="inp" type="text" placeholder=""/></div>
+            <div class="ifld"><label>Street <span class="req">*</span></label><input id="ab-street" class="inp" type="text" placeholder="" disabled/></div>
+            <div class="ifld"><label>ZIP</label><input id="ab-zip" class="inp" type="text" placeholder="" disabled/></div>
           </div>
         </div>
       </div>
@@ -939,7 +938,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
       <!-- Shipping -->
       <div id="addr-shipping" class="addr-pane">
         <div id="shipping-list" style="display:flex;flex-direction:column;gap:14px"></div>
-        <button class="boutline" id="btn-add-shipping" onclick="addShippingAddr()" style="align-self:flex-start;margin-top:4px">+ Add Shipping Address</button>
+        <button class="boutline" id="btn-add-shipping" onclick="addShippingAddr()" style="width:100%;margin-top:4px;justify-content:center">ADD</button>
       </div>
 
     </div>
@@ -1302,8 +1301,8 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 </div>
 
 <!-- ════════════════ TOAST ════════════════ -->
-<div id="success-toast" style="display:none;position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:500;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:14px 20px;align-items:center;gap:10px;font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;white-space:nowrap;transition:opacity .3s">
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0"><circle cx="10" cy="10" r="10" fill="#22C55E"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<div id="success-toast" style="display:none;position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:500;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:14px 20px;align-items:center;gap:10px;font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;white-space:nowrap;transition:opacity .3s">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0"><circle cx="10" cy="10" r="10" fill="#0050FC"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   <span id="toast-text">Your email had been updated</span>
 </div>
 
@@ -1344,11 +1343,18 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 
 <!-- ════════════════ SKELETON OVERLAY ════════════════ -->
 <div id="skeleton-overlay">
-  <div style="background:#fff;padding:16px 40px 0;box-shadow:0 1px 0 #f2f2f5;flex-shrink:0">
-    <div class="sk-box" style="width:80px;height:16px;margin-bottom:20px"></div>
-    <div style="display:flex;gap:0">
-      <div class="sk-box" style="width:140px;height:40px;border-radius:0"></div>
-      <div class="sk-box" style="width:140px;height:40px;border-radius:0;opacity:.4"></div>
+  <div style="background:#fff;height:64px;box-shadow:0 1px 0 #f2f2f5;flex-shrink:0;display:flex;align-items:center;padding:0 40px;position:relative">
+    <div class="sk-box" style="width:80px;height:16px;flex-shrink:0"></div>
+    <div style="position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:4px">
+      <div class="sk-box" style="width:100px;height:28px;border-radius:4px"></div>
+      <div class="sk-box" style="width:140px;height:28px;border-radius:4px;opacity:.4"></div>
+    </div>
+    <div style="position:absolute;right:66px;display:flex;align-items:center;gap:12px">
+      <div class="sk-box" style="width:32px;height:32px;border-radius:50%"></div>
+      <div>
+        <div class="sk-box" style="width:80px;height:12px;margin-bottom:4px;border-radius:4px"></div>
+        <div class="sk-box" style="width:110px;height:10px;border-radius:4px"></div>
+      </div>
     </div>
   </div>
   <div style="display:flex;flex-direction:column;align-items:center;padding:24px 16px;gap:16px;overflow:auto">
@@ -2135,14 +2141,14 @@ function submitEmVerify() {
 }
 
 // ── Skeleton ──────────────────────────────────────────────────────
-function showSkeleton() {
+function showSkeleton(cb) {
   var sk = document.getElementById('skeleton-overlay');
   sk.style.opacity = '1';
   sk.style.display = 'flex';
   setTimeout(function() {
     sk.style.opacity = '0';
-    setTimeout(function() { sk.style.display = 'none'; }, 400);
-  }, 3000);
+    setTimeout(function() { sk.style.display = 'none'; if (cb) cb(); }, 400);
+  }, 2000);
 }
 
 // ── Logout ────────────────────────────────────────────────────────
@@ -2154,7 +2160,7 @@ function doLogout() {
   document.getElementById('id-inp').style.paddingLeft = '12px';
   document.getElementById('btn-id').disabled = true;
   toStep('st-id');
-  toScreen('s-login');
+  showSkeleton(function() { toScreen('s-login'); });
 }
 
 // ── Edit Phone Modal ──────────────────────────────────────────────
@@ -2335,8 +2341,7 @@ function submitContactUs() {
 
 // ── Edit Address ──────────────────────────────────────────────────
 var shippingAddrs = [
-  {country:'Taiwan',state:'',city:'Taipei',district:'Daan',street:'5F, No. 680, Daan Rd.',zip:'106',isDefault:true},
-  {country:'Taiwan',state:'',city:'New Taipei City',district:'Xinyi',street:'7F, No. 23, Zhongxiao Rd.',zip:'',isDefault:false}
+  {country:'Taiwan',state:'',city:'Taipei',district:'Daan',street:'5F, No. 680, Daan Rd.',zip:'106',isDefault:true}
 ];
 
 function openAddressModal() {
@@ -2359,6 +2364,7 @@ function toggleAddrSame(type) {
   document.getElementById(type + '-same-text').style.display = checked ? 'block' : 'none';
   var form = document.getElementById(type + '-form');
   form.style.display = checked ? 'none' : 'flex';
+  form.querySelectorAll('input,select').forEach(function(el){ el.disabled = checked; });
 }
 function renderShipping() {
   var list = document.getElementById('shipping-list');
