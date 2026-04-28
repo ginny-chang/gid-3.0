@@ -93,7 +93,13 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
 #s-profile{min-height:100vh;background:var(--snow)}
 .ph{background:#fff;padding:0 40px;height:64px;box-shadow:0 1px 0 var(--pearl);display:flex;flex-direction:row;align-items:center;position:relative}
 .ph img.logo{height:16px;width:auto;display:block;flex-shrink:0}
-.ph-user{position:absolute;right:66px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:12px}
+.ph-user{position:absolute;right:66px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.ph-menu{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);overflow:hidden;min-width:164px;z-index:300;cursor:default}
+.ph-menu.hidden{display:none}
+.ph-menu-item{display:block;width:100%;text-align:left;background:none;border:none;padding:12px 16px;font-family:'Open Sans',sans-serif;font-size:14px;color:#222020;cursor:pointer;white-space:nowrap}
+.ph-menu-item:hover{background:#f5f5f5}
+.ph-menu-item.danger{color:#dc2626}
+.ph-menu-sep{height:1px;background:#f0f0f0;margin:0}
 .ph-avatar{width:32px;height:32px;border-radius:50%;background:#DEDEE0;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ph-avatar svg{display:block}
 .ph-info{display:flex;flex-direction:column;gap:0}
@@ -579,7 +585,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
       <button class="tab on" data-tab="profile" onclick="switchTab(this)">Profile</button>
       <button class="tab" data-tab="ls" onclick="switchTab(this)">Login &amp; Security</button>
     </div>
-    <div class="ph-user">
+    <div class="ph-user" onclick="toggleUserMenu(event)">
       <div class="ph-avatar">
         <svg width="21" height="21" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M12 5a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM6 9a6 6 0 1 1 12 0A6 6 0 0 1 6 9z" fill="#222020"/>
@@ -589,6 +595,11 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
       <div class="ph-info">
         <div class="ph-name">Kevin Lin</div>
         <div class="ph-gid">9d8e-907d-601f-1epq</div>
+      </div>
+      <div id="ph-menu" class="ph-menu hidden">
+        <button class="ph-menu-item" onclick="event.stopPropagation()">Export Profile</button>
+        <div class="ph-menu-sep"></div>
+        <button class="ph-menu-item danger" onclick="event.stopPropagation();doLogout()">Log out</button>
       </div>
     </div>
   </div>
@@ -722,10 +733,6 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         </div>
       </div>
 
-      <div class="arow">
-        <button class="boutline w240">Export Profile</button>
-        <button class="bblk" onclick="doLogout()">Log out</button>
-      </div>
       <div style="display:flex;justify-content:center;padding:8px 0 0">
         <button class="cu" onclick="openContactModal()">
           <span class="ci"><svg width="11" height="9" viewBox="0 0 14 11" fill="white"><path d="M12.833 0H1.167C.522 0 0 .522 0 1.167v8.75C0 10.478.522 11 1.167 11h11.666C13.478 11 14 10.478 14 9.917V1.167C14 .522 13.478 0 12.833 0zm0 2.333L7 5.833 1.167 2.333V1.167L7 4.667l5.833-3.5v1.166z"/></svg></span>
@@ -814,7 +821,7 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         <div class="ci2" style="align-items:center">
           <img class="ic20" src="https://www.figma.com/api/mcp/asset/63032964-1031-4171-a8ae-80903f7b91ce" alt=""/>
           <div class="ci2l">Change Password</div>
-          <button class="bsec" onclick="openChPwModal()">Edit</button>
+          <button class="bsec" onclick="openChPwModal()" style="margin-left:auto">Edit</button>
         </div>
       </div>
 
@@ -1598,7 +1605,15 @@ document.addEventListener('click', function(e) {
   var avMenu = document.getElementById('av-menu');
   if (avBtn && avMenu && !avBtn.contains(e.target) && !avMenu.contains(e.target))
     avMenu.style.display = 'none';
+  var phUser = document.querySelector('.ph-user');
+  var phMenu = document.getElementById('ph-menu');
+  if (phMenu && phUser && !phUser.contains(e.target))
+    phMenu.classList.add('hidden');
 });
+function toggleUserMenu(e) {
+  e.stopPropagation();
+  document.getElementById('ph-menu').classList.toggle('hidden');
+}
 
 // ── Eye toggle ────────────────────────────────────────────────────
 function toggleEye(inputId, svgId) {
