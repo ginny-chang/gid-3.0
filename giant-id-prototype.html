@@ -1271,17 +1271,17 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         <div class="edit-row">
           <div class="ifld">
             <label>Name</label>
-            <input id="cu-name" type="text" placeholder=""/>
+            <input id="cu-name" type="text" placeholder="Your name" oninput="validateContactUs()"/>
           </div>
           <div class="ifld">
             <label>Email</label>
-            <input id="cu-email" type="email" placeholder=""/>
+            <input id="cu-email" type="email" placeholder="Your email address" oninput="validateContactUs()"/>
           </div>
         </div>
         <div class="ifld">
           <label>Issue</label>
-          <select id="cu-issue">
-            <option value="">Not set</option>
+          <select id="cu-issue" onchange="validateContactUs()">
+            <option value="">Select an issue</option>
             <option>Account Issue</option>
             <option>Login Problem</option>
             <option>Payment Issue</option>
@@ -1291,12 +1291,12 @@ body{font-family:'Open Sans',sans-serif;background:#f7f6f7}
         </div>
         <div class="ifld">
           <label>Description</label>
-          <textarea id="cu-desc" placeholder="Describe your issue..."></textarea>
+          <textarea id="cu-desc" placeholder="Describe your issue..." oninput="validateContactUs()"></textarea>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="bpill" onclick="submitContactUs()">Send</button>
+      <button class="bpill" id="btn-cu-send" onclick="submitContactUs()" disabled>Send</button>
     </div>
   </div>
 </div>
@@ -2310,16 +2310,23 @@ function showToast(msg) {
 
 // ── Contact Modal ─────────────────────────────────────────────────
 function openContactModal() {
-  var nameEl = document.getElementById('prof-name');
-  var emailEl = document.getElementById('profile-email-display');
-  document.getElementById('cu-name').value = nameEl ? nameEl.textContent.trim() : '';
-  document.getElementById('cu-email').value = emailEl ? emailEl.textContent.trim() : '';
+  document.getElementById('cu-name').value = '';
+  document.getElementById('cu-email').value = '';
   document.getElementById('cu-issue').value = '';
   document.getElementById('cu-desc').value = '';
+  document.getElementById('btn-cu-send').disabled = true;
   document.getElementById('contact-modal').classList.remove('hidden');
 }
 function closeContactModal() {
   document.getElementById('contact-modal').classList.add('hidden');
+}
+function validateContactUs() {
+  var name = document.getElementById('cu-name').value.trim();
+  var email = document.getElementById('cu-email').value.trim();
+  var issue = document.getElementById('cu-issue').value;
+  var desc = document.getElementById('cu-desc').value.trim();
+  var valid = name.length > 0 && /[@.]/.test(email) && email.length > 3 && issue !== '' && desc.length > 0;
+  document.getElementById('btn-cu-send').disabled = !valid;
 }
 function submitContactUs() {
   closeContactModal();
